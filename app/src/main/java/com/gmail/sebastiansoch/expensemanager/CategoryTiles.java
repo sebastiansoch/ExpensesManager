@@ -6,18 +6,6 @@ import android.os.Parcelable;
 
 public class CategoryTiles implements Parcelable {
 
-    public static final Creator<CategoryTiles> CREATOR = new Creator<CategoryTiles>() {
-        @Override
-        public CategoryTiles createFromParcel(Parcel in) {
-            return new CategoryTiles(in);
-        }
-
-        @Override
-        public CategoryTiles[] newArray(int size) {
-            return new CategoryTiles[size];
-        }
-    };
-
     private String categoryName;
     private String tilesTag;
     private String tilesIconPath;
@@ -40,10 +28,23 @@ public class CategoryTiles implements Parcelable {
         return tilesIconPath;
     }
 
-    public CategoryTiles(Parcel in) {
-        categoryName = in.readString();
-        tilesTag = in.readString();
-        tilesIconPath = in.readString();
+
+    public static final Creator<CategoryTiles> CREATOR = new Creator<CategoryTiles>() {
+        @Override
+        public CategoryTiles createFromParcel(Parcel parcel) {
+            return new CategoryTiles(parcel);
+        }
+
+        @Override
+        public CategoryTiles[] newArray(int size) {
+            return new CategoryTiles[size];
+        }
+    };
+
+    public CategoryTiles(Parcel parcel) {
+        this.categoryName = parcel.readString();
+        this.tilesTag = parcel.readString();
+        this.tilesIconPath = parcel.readString();
     }
 
     @Override
@@ -52,7 +53,7 @@ public class CategoryTiles implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
+    public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeString(this.categoryName);
         parcel.writeString(this.tilesTag);
         parcel.writeString(this.tilesIconPath);
