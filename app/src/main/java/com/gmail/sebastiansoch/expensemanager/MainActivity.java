@@ -1,14 +1,14 @@
 package com.gmail.sebastiansoch.expensemanager;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.gmail.sebastiansoch.expensemanager.repo.ExpenseManagerFakeRepo;
 import com.gmail.sebastiansoch.expensemanager.repo.ExpenseManagerRepo;
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getRepo();
+        getRepository();
 
     }
 
@@ -48,20 +48,37 @@ public class MainActivity extends AppCompatActivity {
 
     private void generateCategoryTiles() {
         TableLayout tableLayout = findViewById(R.id.categoryTableLayout);
-        TableRow tableRow = new TableRow(this);
-        tableLayout.addView(tableRow);
 
-        for (CategoryTiles categoryTiles : categoryTilesInfo) {
+        TableRow tableRow = null;
+        int iconInRow = 0;
+        for (final CategoryTiles categoryTiles : categoryTilesInfo) {
+            if (iconInRow % 3 == 0) {
+                tableRow = new TableRow(this);
+                tableLayout.addView(tableRow);
+            }
             ImageButton button = new ImageButton(this);
-            button.setImageResource(getResources().getIdentifier(categoryTiles.getTilesIconPath(), "drawable", getPackageName()));
+            button.setTag(categoryTiles.getTilesTag());
+            button.setImageResource(getResources().getIdentifier(categoryTiles.getTilesIconName(), "drawable", getPackageName()));
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), PurchaseEntry.class);
+                    intent.putExtra("CATEGORY_NAME", categoryTiles.getPurchaseCategory());
+                    intent.putExtra("REPO", expenseManagerRepo);
+                    startActivity(intent);
+                }
+            });
             tableRow.addView(button);
+            iconInRow++;
         }
     }
 
-    private void getRepo() {
-        ExpenseManagerFakeRepo expenseManagerFakeRepo = new ExpenseManagerFakeRepo();
-        expenseManagerFakeRepo.init();
-        expenseManagerRepo = expenseManagerFakeRepo;
+    private void getRepository() {
+        if (expenseManagerRepo == null) {
+            ExpenseManagerFakeRepo expenseManagerFakeRepo = new ExpenseManagerFakeRepo();
+            expenseManagerFakeRepo.init();
+            expenseManagerRepo = expenseManagerFakeRepo;
+        }
     }
 
 }

@@ -1,15 +1,11 @@
 package com.gmail.sebastiansoch.expensemanager.repo;
 
 import android.os.Parcel;
-import android.widget.Toast;
 
 import com.gmail.sebastiansoch.expensemanager.CategoryTiles;
+import com.gmail.sebastiansoch.expensemanager.PurchaseCategory;
+import com.gmail.sebastiansoch.expensemanager.PurchaseProduct;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,16 +21,50 @@ public class ExpenseManagerFakeRepo implements ExpenseManagerRepo {
         return categoryTilesList;
     }
 
+    @Override
+    public List<PurchaseProduct> getProductsForCategory(PurchaseCategory purchaseCategory) {
+        List<PurchaseProduct> purchaseProducts = new ArrayList<>();
+        switch(purchaseCategory.getName()) {
+            case "FOOD":
+                purchaseProducts.add(new PurchaseProduct("BREAD"));
+                purchaseProducts.add(new PurchaseProduct("EGGS"));
+                purchaseProducts.add(new PurchaseProduct("APPLE"));
+                purchaseProducts.add(new PurchaseProduct("LETTUCE"));
+                purchaseProducts.add(new PurchaseProduct("BUTTER"));
+                break;
+            case "CLEANING SUPPLIES":
+                purchaseProducts.add(new PurchaseProduct("DOMESTOS"));
+                purchaseProducts.add(new PurchaseProduct("WASHING POWDER"));
+                purchaseProducts.add(new PurchaseProduct("WASHING LIQUID"));
+                break;
+            case "TRANSPORTATION":
+                purchaseProducts.add(new PurchaseProduct("BUS TICKET"));
+                purchaseProducts.add(new PurchaseProduct("TRAIN TICKET"));
+                break;
+            case "CLOTHES":
+                purchaseProducts.add(new PurchaseProduct("T-SHIRT"));
+                purchaseProducts.add(new PurchaseProduct("SHIRT"));
+                purchaseProducts.add(new PurchaseProduct("TROUSERS"));
+                break;
+            case "GIFTS":
+                purchaseProducts.add(new PurchaseProduct("FAMILY"));
+                purchaseProducts.add(new PurchaseProduct("FRIENDS"));
+                break;
+        }
+
+        return purchaseProducts;
+    }
+
     public void init() {
         prepareCategoryTilesInfo();
     }
 
     private void prepareCategoryTilesInfo() {
-        categoryTilesList.add(new CategoryTiles("Żywność", "food", "ic_settings_black_24dp"));
-        categoryTilesList.add(new CategoryTiles("Środki czystości", "cleaning_supplies", "ic_settings_black_24dp"));
-        categoryTilesList.add(new CategoryTiles("Transport", "transportation", "ic_settings_black_24dp"));
-        categoryTilesList.add(new CategoryTiles("Ubrania", "clothes", "ic_settings_black_24dp"));
-        categoryTilesList.add(new CategoryTiles("Prezenty", "gifts", "ic_settings_black_24dp"));
+        categoryTilesList.add(new CategoryTiles(new PurchaseCategory("FOOD"), "food", "ic_settings_black_24dp"));
+        categoryTilesList.add(new CategoryTiles(new PurchaseCategory("CLEANING SUPPLIES"), "cleaning_supplies", "ic_settings_black_24dp"));
+        categoryTilesList.add(new CategoryTiles(new PurchaseCategory("TRANSPORTATION"), "transportation", "ic_settings_black_24dp"));
+        categoryTilesList.add(new CategoryTiles(new PurchaseCategory("CLOTHES"), "clothes", "ic_settings_black_24dp"));
+        categoryTilesList.add(new CategoryTiles(new PurchaseCategory("GIFTS"), "gifts", "ic_settings_black_24dp"));
     }
 
     public static final Creator<ExpenseManagerFakeRepo> CREATOR = new Creator<ExpenseManagerFakeRepo>() {
