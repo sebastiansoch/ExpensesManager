@@ -5,19 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 
-import com.gmail.sebastiansoch.expensemanager.repo.ExpenseManagerFileRepo;
+import com.gmail.sebastiansoch.expensemanager.repo.ExpenseManagerFakeRepo;
 import com.gmail.sebastiansoch.expensemanager.repo.ExpenseManagerRepo;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-
     private static final int SETTINGS_REQ_CODE = 1;
+    private ArrayList<CategoryTiles> categoryTilesInfo = new ArrayList<>();
+
     private ExpenseManagerRepo expenseManagerRepo;
 
     @Override
@@ -28,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     public void openSettings(View view) {
         Intent intent = new Intent(this, Settings.class);
         intent.putExtra("REPO", expenseManagerRepo);
@@ -37,17 +38,30 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SETTINGS_REQ_CODE && resultCode == RESULT_OK) {
-            ArrayList<CategoryTiles> catagoryTilesInfo = data.getParcelableExtra("CATEGORY_TAILS");
-            int aa =0;
+            categoryTilesInfo = data.getParcelableArrayListExtra("CATEGORY_TAILS");
+            if (categoryTilesInfo != null && !categoryTilesInfo.isEmpty()) {
+                generateCategoryTiles();
+            }
+        }
+    }
+
+    private void generateCategoryTiles() {
+        TableLayout tableLayout = findViewById(R.id.categoryTableLayout);
+        TableRow tableRow = new TableRow(this);
+        tableLayout.addView(tableRow);
+
+        for (CategoryTiles categoryTiles : categoryTilesInfo) {
+            ImageButton button = new ImageButton(this);
+            button.setImageResource(getResources().getIdentifier(categoryTiles.getTilesIconPath(), "drawable", getPackageName()));
+            tableRow.addView(button);
         }
     }
 
     private void getRepo() {
-        ExpenseManagerFileRepo expenseManagerFileRepo = new ExpenseManagerFileRepo();
-        expenseManagerFileRepo.init();
-        expenseManagerRepo = expenseManagerFileRepo;
+        ExpenseManagerFakeRepo expenseManagerFakeRepo = new ExpenseManagerFakeRepo();
+        expenseManagerFakeRepo.init();
+        expenseManagerRepo = expenseManagerFakeRepo;
     }
 
 }
