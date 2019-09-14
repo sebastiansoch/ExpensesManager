@@ -8,34 +8,117 @@
 
     <EditText
         android:id="@+id/purchasePriceET"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:hint="Cena"
         android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/purchaseDateTV"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/addPurchaseBtn"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toEndOf="@+id/productsSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/productChooseDescTV"
+        app:layout_constraintWidth_min="70dp" />
 
     <ImageButton
         android:id="@+id/addPurchaseBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="viewEnd"
+        app:layout_constraintBottom_toBottomOf="@+id/purchasePriceET"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/purchasePriceET"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/purchasePriceET"
         app:srcCompat="@drawable/ic_add_box_black_24dp" />
+
+    <ImageButton
+        android:id="@+id/purchaseDateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="viewEnd"
+        app:layout_constraintBottom_toBottomOf="@+id/purchaseDateTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toEndOf="@+id/purchaseDateTV"
+        app:srcCompat="@drawable/ic_date_range_black_24dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/enteredPurchasesTV"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:id="@+id/enteredPurchasesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <Space
+        android:id="@+id/divideLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@+id/purchasePriceET" />
 
     <Spinner
         android:id="@+id/productsSpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/purchasePriceET"
+        app:layout_constraintEnd_toStartOf="@+id/purchasePriceET"
+        app:layout_constraintHorizontal_weight="4"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/productChooseDescTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Product: "
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/purchaseDateDescTV" />
+
+    <TextView
+        android:id="@+id/purchasePriceDescET"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cena: "
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/productChooseDescTV"
+        app:layout_constraintStart_toStartOf="@+id/purchasePriceET" />
+
+    <TextView
+        android:id="@+id/purchaseDateDescTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data zakupu: "
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
 
     <TextView
         android:id="@+id/purchaseDateTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/productsSpinner"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="1970-01-01"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/purchaseDateDescTV"
+        app:layout_constraintStart_toEndOf="@+id/purchaseDateDescTV" />
+
+    <TextView
+        android:id="@+id/enteredPurchasesTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dzisiejsze wydatki:"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divideLine" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
