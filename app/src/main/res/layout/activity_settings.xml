@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".Settings">
 
-    <Button
+    <ImageButton
         android:id="@+id/saveSettingsBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:text="Zapisz"
         android:onClick="saveSettings"
+        app:srcCompat="@drawable/ic_save_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"

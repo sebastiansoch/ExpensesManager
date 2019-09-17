@@ -6,25 +6,25 @@ import android.os.Parcelable;
 
 public class CategoryTiles implements Parcelable {
 
-    private String categoryName;
+    private PurchaseCategory purchaseCategory;
     private String tilesTag;
     private String tilesIconPath;
 
-    public CategoryTiles(String categoryName, String tilesTag, String tilesIconPath) {
-        this.categoryName = categoryName;
+    public CategoryTiles(PurchaseCategory purchaseCategory, String tilesTag, String tilesIconPath) {
+        this.purchaseCategory = purchaseCategory;
         this.tilesTag = tilesTag;
         this.tilesIconPath = tilesIconPath;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public PurchaseCategory getPurchaseCategory() {
+        return purchaseCategory;
     }
 
     public String getTilesTag() {
         return tilesTag;
     }
 
-    public String getTilesIconPath() {
+    public String getTilesIconName() {
         return tilesIconPath;
     }
 
@@ -42,9 +42,9 @@ public class CategoryTiles implements Parcelable {
     };
 
     public CategoryTiles(Parcel parcel) {
-        this.categoryName = parcel.readString();
-        this.tilesTag = parcel.readString();
-        this.tilesIconPath = parcel.readString();
+        purchaseCategory = parcel.readParcelable(PurchaseCategory.class.getClassLoader());
+        tilesTag = parcel.readString();
+        tilesIconPath = parcel.readString();
     }
 
     @Override
@@ -54,7 +54,7 @@ public class CategoryTiles implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeString(this.categoryName);
+        parcel.writeParcelable(this.purchaseCategory, flags);
         parcel.writeString(this.tilesTag);
         parcel.writeString(this.tilesIconPath);
     }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class Settings extends AppCompatActivity {
     private ExpenseManagerRepo repository;
-    private ArrayList<CategoryTiles> categoryTilesInfo;
+    private ArrayList<CategoryTiles> catagoryTilesInfo = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,17 +21,16 @@ public class Settings extends AppCompatActivity {
         Intent intent = getIntent();
         repository = (ExpenseManagerRepo) intent.getParcelableExtra("REPO");
         getSettings();
-
     }
 
     private void getSettings() {
-        categoryTilesInfo = (ArrayList<CategoryTiles>) repository.getCategoryTilesInfo();
+        catagoryTilesInfo = (ArrayList<CategoryTiles>) repository.getCategoryTilesInfo();
     }
 
 
     public void saveSettings(View view) {
         Intent intent = new Intent();
-        intent.putParcelableArrayListExtra("CATEGORY_TAILS", categoryTilesInfo);
+        intent.putParcelableArrayListExtra("CATEGORY_TAILS", catagoryTilesInfo);
         setResult(RESULT_OK, intent);
         finish();
     }

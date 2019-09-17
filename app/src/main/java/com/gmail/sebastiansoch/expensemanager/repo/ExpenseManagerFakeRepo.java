@@ -1,24 +1,19 @@
 package com.gmail.sebastiansoch.expensemanager.repo;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.gmail.sebastiansoch.expensemanager.CategoryTiles;
-
+import com.gmail.sebastiansoch.expensemanager.PurchaseCategory;
+import com.gmail.sebastiansoch.expensemanager.PurchaseProduct;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ExpenseManagerFakeRepo implements ExpenseManagerRepo {
 
-    private static final String ICON_RESOURCE = "com.gmail.sebastiansoch.expensemanager.R.drawable.";
     private List<CategoryTiles> categoryTilesList = new ArrayList<>();
 
     public ExpenseManagerFakeRepo() {
-    }
-
-    public void init() {
-        prepareCategoryTilesInfo();
     }
 
     @Override
@@ -26,32 +21,53 @@ public class ExpenseManagerFakeRepo implements ExpenseManagerRepo {
         return categoryTilesList;
     }
 
-    private void prepareCategoryTilesInfo() {
-        String tilesIconPath = ICON_RESOURCE + "ic_settings_black_24dp";
+    @Override
+    public List<PurchaseProduct> getProductsForCategory(PurchaseCategory purchaseCategory) {
+        List<PurchaseProduct> purchaseProducts = new ArrayList<>();
+        switch(purchaseCategory.getName()) {
+            case "FOOD":
+                purchaseProducts.add(new PurchaseProduct("BREAD"));
+                purchaseProducts.add(new PurchaseProduct("EGGS"));
+                purchaseProducts.add(new PurchaseProduct("APPLE"));
+                purchaseProducts.add(new PurchaseProduct("LETTUCE"));
+                purchaseProducts.add(new PurchaseProduct("BUTTER"));
+                break;
+            case "CLEANING SUPPLIES":
+                purchaseProducts.add(new PurchaseProduct("DOMESTOS"));
+                purchaseProducts.add(new PurchaseProduct("WASHING POWDER"));
+                purchaseProducts.add(new PurchaseProduct("WASHING LIQUID"));
+                break;
+            case "TRANSPORTATION":
+                purchaseProducts.add(new PurchaseProduct("BUS TICKET"));
+                purchaseProducts.add(new PurchaseProduct("TRAIN TICKET"));
+                break;
+            case "CLOTHES":
+                purchaseProducts.add(new PurchaseProduct("T-SHIRT"));
+                purchaseProducts.add(new PurchaseProduct("SHIRT"));
+                purchaseProducts.add(new PurchaseProduct("TROUSERS"));
+                break;
+            case "GIFTS":
+                purchaseProducts.add(new PurchaseProduct("FAMILY"));
+                purchaseProducts.add(new PurchaseProduct("FRIENDS"));
+                break;
+        }
 
-        String category_1 = "Mieszkanie";
-        String tag_1 = "house";
-        categoryTilesList.add(new CategoryTiles(category_1, tag_1, tilesIconPath));
-
-        String category_2 = "Jedzenie";
-        String tag_2 = "food";
-        categoryTilesList.add(new CategoryTiles(category_2, tag_2, tilesIconPath));
-
-        String category_3 = "Transport";
-        String tag_3 = "transportation";
-        categoryTilesList.add(new CategoryTiles(category_3, tag_3, tilesIconPath));
-
-        String category_4 = "Środki czystości";
-        String tag_4 = "cleaning_supplies";
-        categoryTilesList.add(new CategoryTiles(category_4, tag_4, tilesIconPath));
-
-        String category_5 = "Ubezpieczenie";
-        String tag_5 = "insurance";
-        categoryTilesList.add(new CategoryTiles(category_5, tag_5, tilesIconPath));
+        return purchaseProducts;
     }
 
-    public static final Parcelable.Creator<ExpenseManagerFakeRepo> CREATOR = new Parcelable.Creator<ExpenseManagerFakeRepo>() {
+    public void init() {
+        prepareCategoryTilesInfo();
+    }
 
+    private void prepareCategoryTilesInfo() {
+        categoryTilesList.add(new CategoryTiles(new PurchaseCategory("FOOD"), "food", "ic_settings_black_24dp"));
+        categoryTilesList.add(new CategoryTiles(new PurchaseCategory("CLEANING SUPPLIES"), "cleaning_supplies", "ic_settings_black_24dp"));
+        categoryTilesList.add(new CategoryTiles(new PurchaseCategory("TRANSPORTATION"), "transportation", "ic_settings_black_24dp"));
+        categoryTilesList.add(new CategoryTiles(new PurchaseCategory("CLOTHES"), "clothes", "ic_settings_black_24dp"));
+        categoryTilesList.add(new CategoryTiles(new PurchaseCategory("GIFTS"), "gifts", "ic_settings_black_24dp"));
+    }
+
+    public static final Creator<ExpenseManagerFakeRepo> CREATOR = new Creator<ExpenseManagerFakeRepo>() {
         @Override
         public ExpenseManagerFakeRepo createFromParcel(Parcel parcel) {
             return new ExpenseManagerFakeRepo(parcel);
@@ -73,7 +89,7 @@ public class ExpenseManagerFakeRepo implements ExpenseManagerRepo {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int flags) {
+    public void writeToParcel(Parcel parcel, int i) {
         parcel.writeList(this.categoryTilesList);
     }
 }

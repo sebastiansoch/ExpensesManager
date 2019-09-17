@@ -12,13 +12,18 @@
         <activity
             android:name=".Settings"
             android:label="Ustawienia"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".PurchaseEntry"
             android:label="Wydatki"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity"
-            android:label="Menadżer wydatków">
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:label="Menadżer wydatków"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
