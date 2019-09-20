@@ -2,8 +2,8 @@ package com.gmail.sebastiansoch.expensemanager;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.slidingpanelayout.widget.SlidingPaneLayout;
 
 import com.gmail.sebastiansoch.expensemanager.repo.ExpenseManagerRepo;
 
@@ -149,18 +148,27 @@ public class PurchaseEntry extends AppCompatActivity {
             enteredPurchasesLayout.addView(enteredPurchasesLine);
 
             TextView purchaseTV = new TextView(this);
+            LinearLayout.LayoutParams purchaseLayoutParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 10);
+            purchaseLayoutParams.setMargins(10, 2, 0, 2);
+            purchaseTV.setLayoutParams(purchaseLayoutParams);
+            purchaseTV.setGravity(Gravity.START);
             purchaseTV.setText(purchase);
-            purchaseTV.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 4));
             enteredPurchasesLine.addView(purchaseTV);
 
             TextView dateTV = new TextView(this);
+            LinearLayout.LayoutParams dateLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
+            dateLayoutParams.setMargins(10, 2, 10, 2);
+            dateTV.setLayoutParams(dateLayoutParams);
+            dateTV.setGravity(Gravity.END);
             dateTV.setText(date);
-            dateTV.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
             enteredPurchasesLine.addView(dateTV);
 
             TextView priceTV = new TextView(this);
+            LinearLayout.LayoutParams priceLayoutParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 4);
+            priceLayoutParams.setMargins(0, 2, 10, 2);
+            priceTV.setLayoutParams(priceLayoutParams);
+            priceTV.setGravity(Gravity.END);
             priceTV.setText(price);
-            priceTV.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 2));
             enteredPurchasesLine.addView(priceTV);
 
         } else {
