@@ -2,6 +2,8 @@ package com.gmail.sebastiansoch.expensemanager;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.gmail.sebastiansoch.expensemanager.repo.ExpenseManagerRepo;
 
+import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,6 +32,7 @@ public class PurchaseEntry extends AppCompatActivity {
 
     private ExpenseManagerRepo repository;
     private List<String> purchaseProductsList = new ArrayList<>();
+    char decimalSeparator;
 
     private TextView purchaseDateTextView;
     private ImageButton purchaseDateButton;
@@ -43,6 +47,31 @@ public class PurchaseEntry extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             addEnteredPurchaseToList();
+            cleanPriceTextView();
+        }
+    };
+
+    private TextWatcher purchasePriceTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            String sPrice = purchasePriceEditText.getText().toString();
+
+            if (sPrice != null && !sPrice.isEmpty()) {
+                purchasePriceEditText.removeTextChangedListener(this);
+                String parsedPrice = parseEditingPrice(sPrice);
+                editable.replace(0, editable.length(), parsedPrice);
+                purchasePriceEditText.addTextChangedListener(this);
+            }
         }
     };
 
@@ -50,6 +79,9 @@ public class PurchaseEntry extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchase_entry);
+
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        decimalSeparator = symbols.getDecimalSeparator();
 
         purchaseCategory = getIntent().getParcelableExtra("CATEGORY_NAME");
         repository = getIntent().getParcelableExtra("REPO");
@@ -62,6 +94,8 @@ public class PurchaseEntry extends AppCompatActivity {
         addPurchaseButton = findViewById(R.id.addPurchaseBtn);
         addPurchaseButton.setOnClickListener(addPurchaseButtonListener);
         purchasePriceEditText = findViewById(R.id.purchasePriceET);
+
+        purchasePriceEditText.addTextChangedListener(purchasePriceTextWatcher);
     }
 
     private void init() {
@@ -168,7 +202,7 @@ public class PurchaseEntry extends AppCompatActivity {
             priceLayoutParams.setMargins(0, 2, 10, 2);
             priceTV.setLayoutParams(priceLayoutParams);
             priceTV.setGravity(Gravity.END);
-            priceTV.setText(price);
+            priceTV.setText(formatPrice(price));
             enteredPurchasesLine.addView(priceTV);
 
         } else {
@@ -177,4 +211,36 @@ public class PurchaseEntry extends AppCompatActivity {
         }
     }
 
+    private String formatPrice(String sPrice) {
+        int separatorIndex = sPrice.indexOf(decimalSeparator);
+        if (separatorIndex == -1) {
+            return sPrice.concat(".00");
+        }
+
+        if (sPrice.substring(separatorIndex, sPrice.length() - 1).length() == 1) {
+            return sPrice.concat("0");
+        }
+
+        return sPrice;
+    }
+
+    private void cleanPriceTextView() {
+        purchasePriceEditText.setText("");
+    }
+
+    private String parseEditingPrice(String sPrice) {
+        int separatorIndex = sPrice.indexOf(decimalSeparator);
+
+        if (separatorIndex == 0) {
+            return (0 + sPrice);
+        } else if (separatorIndex > 0) {
+            if (sPrice.contains("" + decimalSeparator)) {
+                if (sPrice.substring(separatorIndex, sPrice.length() - 1).length() > 2) {
+                    sPrice = sPrice.substring(0, separatorIndex + 3);
+                    return sPrice;
+                }
+            }
+        }
+        return sPrice;
+    }
 }
