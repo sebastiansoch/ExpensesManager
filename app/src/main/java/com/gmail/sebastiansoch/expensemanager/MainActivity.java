@@ -10,10 +10,14 @@ import android.widget.TableRow;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.gmail.sebastiansoch.expensemanager.database.PurchaseDAO;
+import com.gmail.sebastiansoch.expensemanager.database.PurchaseDBHelper;
+import com.gmail.sebastiansoch.expensemanager.database.model.PurchaseGroupTilesInfo;
 import com.gmail.sebastiansoch.expensemanager.repo.ExpenseManagerFakeRepo;
 import com.gmail.sebastiansoch.expensemanager.repo.ExpenseManagerRepo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getRepository();
+
+        PurchaseDAO purchaseDAO = new PurchaseDAO(new PurchaseDBHelper(getApplicationContext()));
+        purchaseDAO.createPurchaseGroups();
+        List<PurchaseGroupTilesInfo> purchaseGroupTilesInfos = purchaseDAO.loadAllPurchaseGroupTileInfo();
+        int a = 0;
+
     }
 
     public void openSettings(View view) {
