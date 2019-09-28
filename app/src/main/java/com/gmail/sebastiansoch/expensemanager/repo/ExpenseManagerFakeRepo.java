@@ -2,8 +2,8 @@ package com.gmail.sebastiansoch.expensemanager.repo;
 
 import android.os.Parcel;
 
-import com.gmail.sebastiansoch.expensemanager.CategoryTiles;
-import com.gmail.sebastiansoch.expensemanager.PurchaseCategory;
+import com.gmail.sebastiansoch.expensemanager.PurchaseGroup;
+import com.gmail.sebastiansoch.expensemanager.PurchaseGroupTiles;
 import com.gmail.sebastiansoch.expensemanager.PurchaseProduct;
 
 import java.util.ArrayList;
@@ -11,20 +11,20 @@ import java.util.List;
 
 public class ExpenseManagerFakeRepo implements ExpenseManagerRepo {
 
-    private List<CategoryTiles> categoryTilesList = new ArrayList<>();
+    private List<PurchaseGroupTiles> purchaseGroupTilesList = new ArrayList<>();
 
     public ExpenseManagerFakeRepo() {
     }
 
     @Override
-    public List<CategoryTiles> getCategoryTilesInfo() {
-        return categoryTilesList;
+    public List<PurchaseGroupTiles> getPurchaseGroupTilesInfo() {
+        return purchaseGroupTilesList;
     }
 
     @Override
-    public List<PurchaseProduct> getProductsForCategory(PurchaseCategory purchaseCategory) {
+    public List<PurchaseProduct> getProductsForPurchaseGroup(PurchaseGroup purchaseGroup) {
         List<PurchaseProduct> purchaseProducts = new ArrayList<>();
-        switch(purchaseCategory.getName()) {
+        switch(purchaseGroup.getName()) {
             case "FOOD":
                 purchaseProducts.add(new PurchaseProduct("BREAD"));
                 purchaseProducts.add(new PurchaseProduct("EGGS"));
@@ -56,15 +56,15 @@ public class ExpenseManagerFakeRepo implements ExpenseManagerRepo {
     }
 
     public void init() {
-        prepareCategoryTilesInfo();
+        preparePurchaseGroupTilesInfo();
     }
 
-    private void prepareCategoryTilesInfo() {
-        categoryTilesList.add(new CategoryTiles(new PurchaseCategory("FOOD"), "food", "ic_settings_black_24dp"));
-        categoryTilesList.add(new CategoryTiles(new PurchaseCategory("CLEANING SUPPLIES"), "cleaning_supplies", "ic_settings_black_24dp"));
-        categoryTilesList.add(new CategoryTiles(new PurchaseCategory("TRANSPORTATION"), "transportation", "ic_settings_black_24dp"));
-        categoryTilesList.add(new CategoryTiles(new PurchaseCategory("CLOTHES"), "clothes", "ic_settings_black_24dp"));
-        categoryTilesList.add(new CategoryTiles(new PurchaseCategory("GIFTS"), "gifts", "ic_settings_black_24dp"));
+    private void preparePurchaseGroupTilesInfo() {
+        purchaseGroupTilesList.add(new PurchaseGroupTiles(new PurchaseGroup("FOOD"), "food", "ic_settings_black_24dp"));
+        purchaseGroupTilesList.add(new PurchaseGroupTiles(new PurchaseGroup("CLEANING SUPPLIES"), "cleaning_supplies", "ic_settings_black_24dp"));
+        purchaseGroupTilesList.add(new PurchaseGroupTiles(new PurchaseGroup("TRANSPORTATION"), "transportation", "ic_settings_black_24dp"));
+        purchaseGroupTilesList.add(new PurchaseGroupTiles(new PurchaseGroup("CLOTHES"), "clothes", "ic_settings_black_24dp"));
+        purchaseGroupTilesList.add(new PurchaseGroupTiles(new PurchaseGroup("GIFTS"), "gifts", "ic_settings_black_24dp"));
     }
 
     public static final Creator<ExpenseManagerFakeRepo> CREATOR = new Creator<ExpenseManagerFakeRepo>() {
@@ -80,7 +80,7 @@ public class ExpenseManagerFakeRepo implements ExpenseManagerRepo {
     };
 
     public ExpenseManagerFakeRepo(Parcel parcel) {
-        this.categoryTilesList = parcel.readArrayList(CategoryTiles.class.getClassLoader());
+        this.purchaseGroupTilesList = parcel.readArrayList(PurchaseGroupTiles.class.getClassLoader());
     }
 
     @Override
@@ -90,6 +90,6 @@ public class ExpenseManagerFakeRepo implements ExpenseManagerRepo {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeList(this.categoryTilesList);
+        parcel.writeList(this.purchaseGroupTilesList);
     }
 }

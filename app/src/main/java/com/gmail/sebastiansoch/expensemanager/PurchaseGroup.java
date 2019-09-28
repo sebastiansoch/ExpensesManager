@@ -3,10 +3,10 @@ package com.gmail.sebastiansoch.expensemanager;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class PurchaseCategory implements Parcelable {
+public class PurchaseGroup implements Parcelable {
     private String name;
 
-    public PurchaseCategory(String name) {
+    public PurchaseGroup(String name) {
         this.name = name;
     }
 
@@ -14,19 +14,19 @@ public class PurchaseCategory implements Parcelable {
         return name;
     }
 
-    public static final Creator<PurchaseCategory> CREATOR = new Creator<PurchaseCategory>() {
+    public static final Creator<PurchaseGroup> CREATOR = new Creator<PurchaseGroup>() {
         @Override
-        public PurchaseCategory createFromParcel(Parcel parcel) {
-            return new PurchaseCategory(parcel);
+        public PurchaseGroup createFromParcel(Parcel parcel) {
+            return new PurchaseGroup(parcel);
         }
 
         @Override
-        public PurchaseCategory[] newArray(int size) {
-            return new PurchaseCategory[size];
+        public PurchaseGroup[] newArray(int size) {
+            return new PurchaseGroup[size];
         }
     };
 
-    protected PurchaseCategory(Parcel parcel) {
+    protected PurchaseGroup(Parcel parcel) {
         this.name = parcel.readString();
     }
 

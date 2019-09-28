@@ -37,7 +37,7 @@ public class PurchaseEntry extends AppCompatActivity {
     private TextView purchaseDateTextView;
     private ImageButton purchaseDateButton;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
-    private PurchaseCategory purchaseCategory;
+    private PurchaseGroup purchaseGroup;
     private Spinner purchaseSpinner;
 
     private LinearLayout enteredPurchasesLayout;
@@ -83,7 +83,7 @@ public class PurchaseEntry extends AppCompatActivity {
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         decimalSeparator = symbols.getDecimalSeparator();
 
-        purchaseCategory = getIntent().getParcelableExtra("CATEGORY_NAME");
+        purchaseGroup = getIntent().getParcelableExtra("PURCHASE_GROUP_NAME");
         repository = getIntent().getParcelableExtra("REPO");
 
         purchaseDateTextView = findViewById(R.id.purchaseDateTV);
@@ -99,7 +99,7 @@ public class PurchaseEntry extends AppCompatActivity {
     }
 
     private void init() {
-        setPurchaseProductsList(purchaseCategory);
+        setPurchaseProductsList(purchaseGroup);
         fillPurchaseProductSpinner();
         setCurrentDate();
         initDatePicker();
@@ -162,10 +162,10 @@ public class PurchaseEntry extends AppCompatActivity {
         });
     }
 
-    private void setPurchaseProductsList(PurchaseCategory categoryName) {
-        List<PurchaseProduct> productsForCategory = repository.getProductsForCategory(categoryName);
-        if (productsForCategory != null && !productsForCategory.isEmpty()) {
-            for (PurchaseProduct product : productsForCategory) {
+    private void setPurchaseProductsList(PurchaseGroup purchaseGroup) {
+        List<PurchaseProduct> productsForPurchaseGroup = repository.getProductsForPurchaseGroup(purchaseGroup);
+        if (productsForPurchaseGroup != null && !productsForPurchaseGroup.isEmpty()) {
+            for (PurchaseProduct product : productsForPurchaseGroup) {
                 purchaseProductsList.add(product.getName());
             }
         }

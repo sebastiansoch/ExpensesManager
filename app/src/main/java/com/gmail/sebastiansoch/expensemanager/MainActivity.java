@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private static final int SETTINGS_REQ_CODE = 1;
-    private ArrayList<CategoryTiles> categoryTilesInfo = new ArrayList<>();
+    private ArrayList<PurchaseGroupTiles> purchaseGroupTilesInfo = new ArrayList<>();
 
     private ExpenseManagerRepo expenseManagerRepo;
 
@@ -38,31 +38,31 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == SETTINGS_REQ_CODE && resultCode == RESULT_OK) {
-            categoryTilesInfo = data.getParcelableArrayListExtra("CATEGORY_TAILS");
-            if (categoryTilesInfo != null && !categoryTilesInfo.isEmpty()) {
-                generateCategoryTiles();
+            purchaseGroupTilesInfo = data.getParcelableArrayListExtra("PURCHASE_GROUP_TAILS");
+            if (purchaseGroupTilesInfo != null && !purchaseGroupTilesInfo.isEmpty()) {
+                generatePurchaseGroupTiles();
             }
         }
     }
 
-    private void generateCategoryTiles() {
-        TableLayout tableLayout = findViewById(R.id.categoryTableLayout);
+    private void generatePurchaseGroupTiles() {
+        TableLayout tableLayout = findViewById(R.id.purchaseGroupTableLayout);
 
         TableRow tableRow = null;
         int iconInRow = 0;
-        for (final CategoryTiles categoryTiles : categoryTilesInfo) {
+        for (final PurchaseGroupTiles purchaseGroupTiles : purchaseGroupTilesInfo) {
             if (iconInRow % 3 == 0) {
                 tableRow = new TableRow(this);
                 tableLayout.addView(tableRow);
             }
             ImageButton button = new ImageButton(this);
-            button.setTag(categoryTiles.getTilesTag());
-            button.setImageResource(getResources().getIdentifier(categoryTiles.getTilesIconName(), "drawable", getPackageName()));
+            button.setTag(purchaseGroupTiles.getTilesTag());
+            button.setImageResource(getResources().getIdentifier(purchaseGroupTiles.getTilesIconName(), "drawable", getPackageName()));
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getApplicationContext(), PurchaseEntry.class);
-                    intent.putExtra("CATEGORY_NAME", categoryTiles.getPurchaseCategory());
+                    intent.putExtra("PURCHASE_GROUP_NAME", purchaseGroupTiles.getPurchaseGroup());
                     intent.putExtra("REPO", expenseManagerRepo);
                     startActivity(intent);
                 }
