@@ -31,18 +31,18 @@ import java.util.List;
 public class PurchaseEntry extends AppCompatActivity {
 
     private ExpenseManagerRepo repository;
-    private List<String> purchaseProductsList = new ArrayList<>();
+    private List<String> purchaseCategoryList = new ArrayList<>();
     char decimalSeparator;
 
     private TextView purchaseDateTextView;
-    private ImageButton purchaseDateButton;
+    private ImageButton purchaseDateBtn;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
     private PurchaseGroup purchaseGroup;
-    private Spinner purchaseSpinner;
+    private Spinner purchaseCategorySpinner;
 
     private LinearLayout enteredPurchasesLayout;
     private EditText purchasePriceEditText;
-    private ImageButton addPurchaseButton;
+    private ImageButton addPurchaseBtn;
     private View.OnClickListener addPurchaseButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -87,26 +87,26 @@ public class PurchaseEntry extends AppCompatActivity {
         repository = getIntent().getParcelableExtra("REPO");
 
         purchaseDateTextView = findViewById(R.id.purchaseDateTV);
-        purchaseDateButton = findViewById(R.id.purchaseDateBtn);
+        purchaseDateBtn = findViewById(R.id.purchaseDateBtn);
         enteredPurchasesLayout = findViewById(R.id.enteredPurchasesLayout);
         init();
 
-        addPurchaseButton = findViewById(R.id.addPurchaseBtn);
-        addPurchaseButton.setOnClickListener(addPurchaseButtonListener);
-        purchasePriceEditText = findViewById(R.id.purchasePriceET);
+        addPurchaseBtn = findViewById(R.id.addPurchaseBtn);
+        addPurchaseBtn.setOnClickListener(addPurchaseButtonListener);
 
+        purchasePriceEditText = findViewById(R.id.purchasePriceET);
         purchasePriceEditText.addTextChangedListener(purchasePriceTextWatcher);
     }
 
     private void init() {
-        setPurchaseProductsList(purchaseGroup);
-        fillPurchaseProductSpinner();
+        setPurchaseCategoryList(purchaseGroup);
+        fillPurchaseCategorySpinner();
         setCurrentDate();
         initDatePicker();
     }
 
     private void initDatePicker() {
-        purchaseDateButton.setOnClickListener(new View.OnClickListener() {
+        purchaseDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Calendar calendar = Calendar.getInstance();
@@ -141,14 +141,13 @@ public class PurchaseEntry extends AppCompatActivity {
         }
     }
 
-    private void fillPurchaseProductSpinner() {
-        purchaseSpinner = findViewById(R.id.prurchaseSpinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, purchaseProductsList);
+    private void fillPurchaseCategorySpinner() {
+        purchaseCategorySpinner = findViewById(R.id.prurchaseCategorySpinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, purchaseCategoryList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        purchaseSpinner.setAdapter(adapter);
-        purchaseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
+        purchaseCategorySpinner.setAdapter(adapter);
+        purchaseCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
@@ -162,32 +161,32 @@ public class PurchaseEntry extends AppCompatActivity {
         });
     }
 
-    private void setPurchaseProductsList(PurchaseGroup purchaseGroup) {
-        List<PurchaseProduct> productsForPurchaseGroup = repository.getProductsForPurchaseGroup(purchaseGroup);
-        if (productsForPurchaseGroup != null && !productsForPurchaseGroup.isEmpty()) {
-            for (PurchaseProduct product : productsForPurchaseGroup) {
-                purchaseProductsList.add(product.getName());
+    private void setPurchaseCategoryList(PurchaseGroup purchaseGroup) {
+        List<PurchaseCategory> purchaseCategoriesForGroup = repository.getPurchaseCategoriesForGroup(purchaseGroup);
+        if (purchaseCategoriesForGroup != null && !purchaseCategoriesForGroup.isEmpty()) {
+            for (PurchaseCategory purchaseCategory : purchaseCategoriesForGroup) {
+                purchaseCategoryList.add(purchaseCategory.getName());
             }
         }
     }
 
     private void addEnteredPurchaseToList() {
-        String purchase = purchaseSpinner.getSelectedItem().toString();
+        String purchaseCategory = purchaseCategorySpinner.getSelectedItem().toString();
         String date = purchaseDateTextView.getText().toString();
         String price = purchasePriceEditText.getText().toString();
 
-        if (!purchase.isEmpty() && !date.isEmpty() && !price.isEmpty()) {
-            LinearLayout enteredPurchasesLine = new LinearLayout(PurchaseEntry.this);
-            enteredPurchasesLine.setOrientation(LinearLayout.HORIZONTAL);
-            enteredPurchasesLayout.addView(enteredPurchasesLine);
+        if (!purchaseCategory.isEmpty() && !date.isEmpty() && !price.isEmpty()) {
+            LinearLayout enteredPurchasesRow = new LinearLayout(PurchaseEntry.this);
+            enteredPurchasesRow.setOrientation(LinearLayout.HORIZONTAL);
+            enteredPurchasesLayout.addView(enteredPurchasesRow);
 
-            TextView purchaseTV = new TextView(this);
+            TextView purchaseCategoryTV = new TextView(this);
             LinearLayout.LayoutParams purchaseLayoutParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 10);
             purchaseLayoutParams.setMargins(10, 2, 0, 2);
-            purchaseTV.setLayoutParams(purchaseLayoutParams);
-            purchaseTV.setGravity(Gravity.START);
-            purchaseTV.setText(purchase);
-            enteredPurchasesLine.addView(purchaseTV);
+            purchaseCategoryTV.setLayoutParams(purchaseLayoutParams);
+            purchaseCategoryTV.setGravity(Gravity.START);
+            purchaseCategoryTV.setText(purchaseCategory);
+            enteredPurchasesRow.addView(purchaseCategoryTV);
 
             TextView dateTV = new TextView(this);
             LinearLayout.LayoutParams dateLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
@@ -195,7 +194,7 @@ public class PurchaseEntry extends AppCompatActivity {
             dateTV.setLayoutParams(dateLayoutParams);
             dateTV.setGravity(Gravity.END);
             dateTV.setText(date);
-            enteredPurchasesLine.addView(dateTV);
+            enteredPurchasesRow.addView(dateTV);
 
             TextView priceTV = new TextView(this);
             LinearLayout.LayoutParams priceLayoutParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 4);
@@ -203,10 +202,10 @@ public class PurchaseEntry extends AppCompatActivity {
             priceTV.setLayoutParams(priceLayoutParams);
             priceTV.setGravity(Gravity.END);
             priceTV.setText(formatPrice(price));
-            enteredPurchasesLine.addView(priceTV);
+            enteredPurchasesRow.addView(priceTV);
 
         } else {
-            Toast.makeText(this, "Check if data are set properly", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Check if all data are set properly", Toast.LENGTH_SHORT).show();
             return;
         }
     }

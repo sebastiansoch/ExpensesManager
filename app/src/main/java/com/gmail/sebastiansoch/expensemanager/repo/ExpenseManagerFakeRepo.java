@@ -2,9 +2,9 @@ package com.gmail.sebastiansoch.expensemanager.repo;
 
 import android.os.Parcel;
 
+import com.gmail.sebastiansoch.expensemanager.PurchaseCategory;
 import com.gmail.sebastiansoch.expensemanager.PurchaseGroup;
 import com.gmail.sebastiansoch.expensemanager.PurchaseGroupTiles;
-import com.gmail.sebastiansoch.expensemanager.PurchaseProduct;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,37 +22,37 @@ public class ExpenseManagerFakeRepo implements ExpenseManagerRepo {
     }
 
     @Override
-    public List<PurchaseProduct> getProductsForPurchaseGroup(PurchaseGroup purchaseGroup) {
-        List<PurchaseProduct> purchaseProducts = new ArrayList<>();
+    public List<PurchaseCategory> getPurchaseCategoriesForGroup(PurchaseGroup purchaseGroup) {
+        List<PurchaseCategory> purchaseCategories = new ArrayList<>();
         switch(purchaseGroup.getName()) {
             case "FOOD":
-                purchaseProducts.add(new PurchaseProduct("BREAD"));
-                purchaseProducts.add(new PurchaseProduct("EGGS"));
-                purchaseProducts.add(new PurchaseProduct("APPLE"));
-                purchaseProducts.add(new PurchaseProduct("LETTUCE"));
-                purchaseProducts.add(new PurchaseProduct("BUTTER"));
+                purchaseCategories.add(new PurchaseCategory("BREAD"));
+                purchaseCategories.add(new PurchaseCategory("EGGS"));
+                purchaseCategories.add(new PurchaseCategory("APPLE"));
+                purchaseCategories.add(new PurchaseCategory("LETTUCE"));
+                purchaseCategories.add(new PurchaseCategory("BUTTER"));
                 break;
             case "CLEANING SUPPLIES":
-                purchaseProducts.add(new PurchaseProduct("DOMESTOS"));
-                purchaseProducts.add(new PurchaseProduct("WASHING POWDER"));
-                purchaseProducts.add(new PurchaseProduct("WASHING LIQUID"));
+                purchaseCategories.add(new PurchaseCategory("DOMESTOS"));
+                purchaseCategories.add(new PurchaseCategory("WASHING POWDER"));
+                purchaseCategories.add(new PurchaseCategory("WASHING LIQUID"));
                 break;
             case "TRANSPORTATION":
-                purchaseProducts.add(new PurchaseProduct("BUS TICKET"));
-                purchaseProducts.add(new PurchaseProduct("TRAIN TICKET"));
+                purchaseCategories.add(new PurchaseCategory("BUS TICKET"));
+                purchaseCategories.add(new PurchaseCategory("TRAIN TICKET"));
                 break;
             case "CLOTHES":
-                purchaseProducts.add(new PurchaseProduct("T-SHIRT"));
-                purchaseProducts.add(new PurchaseProduct("SHIRT"));
-                purchaseProducts.add(new PurchaseProduct("TROUSERS"));
+                purchaseCategories.add(new PurchaseCategory("T-SHIRT"));
+                purchaseCategories.add(new PurchaseCategory("SHIRT"));
+                purchaseCategories.add(new PurchaseCategory("TROUSERS"));
                 break;
             case "GIFTS":
-                purchaseProducts.add(new PurchaseProduct("FAMILY"));
-                purchaseProducts.add(new PurchaseProduct("FRIENDS"));
+                purchaseCategories.add(new PurchaseCategory("FAMILY"));
+                purchaseCategories.add(new PurchaseCategory("FRIENDS"));
                 break;
         }
 
-        return purchaseProducts;
+        return purchaseCategories;
     }
 
     public void init() {
