@@ -1,19 +1,18 @@
-package com.gmail.sebastiansoch.expensemanager.database;
+package com.gmail.sebastiansoch.expensemanager.database.schema;
+
+import android.content.ContentValues;
 
 import com.gmail.sebastiansoch.expensemanager.utils.StringBuilderWrapper;
 
-import static com.gmail.sebastiansoch.expensemanager.database.PurchaseDBSchema.Purchase;
-import static com.gmail.sebastiansoch.expensemanager.database.PurchaseDBSchema.PurchaseCategory;
-import static com.gmail.sebastiansoch.expensemanager.database.PurchaseDBSchema.PurchaseGroup;
-import static com.gmail.sebastiansoch.expensemanager.database.PurchaseDBSchema.Tiles;
+import static com.gmail.sebastiansoch.expensemanager.database.schema.DBSchema.*;
 
-public final class DBCommand {
+public class DBCreateCommand {
     private static final String ID_OPTIONS = "INTEGER PRIMARY KEY AUTOINCREMENT";
     private static final String TEXT_OPTION = "TEXT NOT NULL";
     private static final String PRICE_OPTION = "REAL DEFAULT 0";
     private static final String OTHER_ID_OPTION = "REAL DEFAULT 0";
 
-    private DBCommand() {
+    private DBCreateCommand() {
     }
 
     public static String createPurchaseCategory() {
@@ -74,36 +73,31 @@ public final class DBCommand {
         return builder.toString();
     }
 
-//    public static String deleteDBEntries() {
-//        deletePurchaseCategory();
-//        deletePurchaseGroup();
-//        deleteTiles();
-//        deletePurchase();
+    public static String setDefaultPurchesGroupData() {
+    }
+
+    public static String setDefaultPurchaseCategoryData() {
+    }
+
+    public static String setDefaultTilesData() {
+    }
+
+//    public void createPurchaseGroups() {
+//        ContentValues tagValues = new ContentValues();
+//        tagValues.put(Tiles.COLUMN_PATH, "ic_settings_black_24dp");
+//        database.insert(Tiles.TABLE_NAME, null, tagValues);
+//
+//        ContentValues values1 = new ContentValues();
+//        values1.put(PurchaseGroup.COLUMN_NAME, "DOM");
+//        values1.put(PurchaseGroup.COLUMN_TAG, "house");
+//        values1.put(PurchaseGroup.COLUMN_TILES_ID, "0");
+//        database.insert(PurchaseGroup.TABLE_NAME, null, values1);
+//
+//        ContentValues values2 = new ContentValues();
+//        values2.put(PurchaseGroup.COLUMN_NAME, "ROZRYWKA");
+//        values2.put(PurchaseGroup.COLUMN_TAG, "entertainment");
+//        values2.put(PurchaseGroup.COLUMN_TILES_ID, "0");
+//        database.insert(PurchaseGroup.TABLE_NAME, null, values2);
 //    }
-
-    public static String deletePurchase() {
-        StringBuilderWrapper builder = new StringBuilderWrapper("DROP TABLE IF EXISTS");
-        builder.append(Purchase.TABLE_NAME);
-        return builder.toString();
-    }
-
-    public static String deleteTiles() {
-        StringBuilderWrapper builder = new StringBuilderWrapper("DROP TABLE IF EXISTS");
-        builder.append(Tiles.TABLE_NAME);
-        return builder.toString();
-    }
-
-    public static String deletePurchaseGroup() {
-        StringBuilderWrapper builder = new StringBuilderWrapper("DROP TABLE IF EXISTS");
-        builder.append(PurchaseGroup.TABLE_NAME);
-        return builder.toString();
-    }
-
-    public static String deletePurchaseCategory() {
-        StringBuilderWrapper builder = new StringBuilderWrapper("DROP TABLE IF EXISTS");
-        builder.append(PurchaseCategory.TABLE_NAME);
-        return builder.toString();
-    }
-
-
 }
+

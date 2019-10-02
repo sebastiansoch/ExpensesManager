@@ -1,9 +1,9 @@
-package com.gmail.sebastiansoch.expensemanager.database;
+package com.gmail.sebastiansoch.expensemanager.database.schema;
 
 import android.provider.BaseColumns;
 
-public class PurchaseDBSchema {
-    private PurchaseDBSchema() {
+public class DBSchema {
+    private DBSchema() {
     }
 
     public static class PurchaseCategory implements BaseColumns {
