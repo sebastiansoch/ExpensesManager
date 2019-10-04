@@ -1,21 +1,25 @@
 package com.gmail.sebastiansoch.expensemanager.database.schema;
 
 import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.gmail.sebastiansoch.expensemanager.utils.StringBuilderWrapper;
 
 import static com.gmail.sebastiansoch.expensemanager.database.schema.DBSchema.*;
 
 public class DBCreateCommand {
-    private static final String ID_OPTIONS = "INTEGER PRIMARY KEY AUTOINCREMENT";
+    private static final String ID_OPTIONS = "INTEGER PRIMARY KEY";
     private static final String TEXT_OPTION = "TEXT NOT NULL";
     private static final String PRICE_OPTION = "REAL DEFAULT 0";
     private static final String OTHER_ID_OPTION = "REAL DEFAULT 0";
 
-    private DBCreateCommand() {
+    private SQLiteDatabase database;
+
+    DBCreateCommand(SQLiteDatabase database) {
+        this.database = database;
     }
 
-    public static String createPurchaseCategory() {
+    public void createPurchaseCategory() {
         StringBuilderWrapper builder = new StringBuilderWrapper("CREATE TABLE");
         builder.append(PurchaseCategory.TABLE_NAME);
         builder.append("(");
@@ -26,10 +30,11 @@ public class DBCreateCommand {
         builder.append(PurchaseCategory.COLUMN_PURCHASE_GROUP_ID);
         builder.append(OTHER_ID_OPTION);
         builder.append(")");
-        return builder.toString();
+
+        database.execSQL(builder.toString());
     }
 
-    public static String createPurchaseGroup() {
+    public void createPurchaseGroup() {
         StringBuilderWrapper builder = new StringBuilderWrapper("CREATE TABLE");
         builder.append(PurchaseGroup.TABLE_NAME);
         builder.append("(");
@@ -42,10 +47,11 @@ public class DBCreateCommand {
         builder.append(PurchaseGroup.COLUMN_TILES_ID);
         builder.append(OTHER_ID_OPTION);
         builder.append(")");
-        return builder.toString();
+
+        database.execSQL(builder.toString());
     }
 
-    public static String createGoupTiles() {
+    public void createGoupTiles() {
         StringBuilderWrapper builder = new StringBuilderWrapper("CREATE TABLE");
         builder.append(Tiles.TABLE_NAME);
         builder.append("(");
@@ -54,10 +60,11 @@ public class DBCreateCommand {
         builder.append(Tiles.COLUMN_PATH);
         builder.append(TEXT_OPTION);
         builder.append(")");
-        return builder.toString();
+
+        database.execSQL(builder.toString());
     }
 
-    public static String createPurchases() {
+    public void createPurchases() {
         StringBuilderWrapper builder = new StringBuilderWrapper("CREATE TABLE");
         builder.append(Purchase.TABLE_NAME);
         builder.append("(");
@@ -70,16 +77,20 @@ public class DBCreateCommand {
         builder.append(Purchase.COLUMN_PRICE);
         builder.append(PRICE_OPTION);
         builder.append(")");
-        return builder.toString();
-    }
 
-    public static String setDefaultPurchesGroupData() {
-    }
-
-    public static String setDefaultPurchaseCategoryData() {
+        database.execSQL(builder.toString());
     }
 
     public static String setDefaultTilesData() {
+        return null;
+    }
+
+    public static String setDefaultPurchaseGroupData() {
+        return null;
+    }
+
+    public static String setDefaultPurchaseCategoryData() {
+        return null;
     }
 
 //    public void createPurchaseGroups() {

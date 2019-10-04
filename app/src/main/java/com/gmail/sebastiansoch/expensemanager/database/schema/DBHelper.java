@@ -4,9 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.gmail.sebastiansoch.expensemanager.database.schema.DBCreateCommand;
-import com.gmail.sebastiansoch.expensemanager.database.schema.DBDeleteCommand;
-
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "Purchase.db";
@@ -17,30 +14,33 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL(DBCreateCommand.createPurchaseCategory());
-        db.execSQL(DBCreateCommand.createPurchaseGroup());
-        db.execSQL(DBCreateCommand.createGoupTiles());
-        db.execSQL(DBCreateCommand.createPurchases());
+    public void onCreate(SQLiteDatabase database) {
+        DBCreateCommand dbCreateCommand = new DBCreateCommand(database);
 
-        db.execSQL(DBCreateCommand.setDefaultPurchesGroupData());
-        db.execSQL(DBCreateCommand.setDefaultPurchaseCategoryData());
-        db.execSQL(DBCreateCommand.setDefaultTilesData());
+        dbCreateCommand.createPurchaseCategory();
+        dbCreateCommand.createPurchaseGroup();
+        dbCreateCommand.createGoupTiles();
+        dbCreateCommand.createPurchases();
+
+        dbCreateCommand.setDefaultTilesData();
+        dbCreateCommand.setDefaultPurchaseGroupData();
+        dbCreateCommand.setDefaultPurchaseCategoryData();
     }
 
+
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
         //TODO - jak przeniesc dane ??
-        db.execSQL(DBDeleteCommand.deletePurchaseCategory());
-        db.execSQL(DBDeleteCommand.deletePurchaseGroup());
-        db.execSQL(DBDeleteCommand.deleteTiles());
-        db.execSQL(DBDeleteCommand.deletePurchase());
-        onCreate(db);
+        database.execSQL(DBDeleteCommand.deletePurchaseCategory());
+        database.execSQL(DBDeleteCommand.deletePurchaseGroup());
+        database.execSQL(DBDeleteCommand.deleteTiles());
+        database.execSQL(DBDeleteCommand.deletePurchase());
+        onCreate(database);
     }
 
     @Override
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onDowngrade(SQLiteDatabase database, int oldVersion, int newVersion) {
         //TODO - jak to obsluzyc ??
-        onUpgrade(db, oldVersion, newVersion);
+        onUpgrade(database, oldVersion, newVersion);
     }
 }
