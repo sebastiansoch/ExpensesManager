@@ -1,10 +1,10 @@
 package com.gmail.sebastiansoch.expensemanager.database.model;
 
-public class PurchaseCategory {
+public class Category {
     private String categoryName;
     private String categoryGroup;
 
-    public PurchaseCategory(String categoryName, String categoryGroup) {
+    public Category(String categoryName, String categoryGroup) {
         this.categoryName = categoryName;
         this.categoryGroup = categoryGroup;
     }

@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.gmail.sebastiansoch.expensemanager.database.PurchaseDAO;
 import com.gmail.sebastiansoch.expensemanager.database.schema.DBHelper;
-import com.gmail.sebastiansoch.expensemanager.database.model.PurchaseGroupTilesInfo;
+import com.gmail.sebastiansoch.expensemanager.database.model.CategoryGroupTilesInfo;
 import com.gmail.sebastiansoch.expensemanager.repo.ExpenseManagerFakeRepo;
 import com.gmail.sebastiansoch.expensemanager.repo.ExpenseManagerRepo;
 
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         getRepository();
 
         PurchaseDAO purchaseDAO = new PurchaseDAO(new DBHelper(getApplicationContext()));
-        List<PurchaseGroupTilesInfo> purchaseGroupTilesInfos = purchaseDAO.loadAllPurchaseGroupTileInfo();
+        List<CategoryGroupTilesInfo> categoryGroupTilesInfos = purchaseDAO.loadAllPurchaseGroupTileInfo();
         int a = 0;
 
     }

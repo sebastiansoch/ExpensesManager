@@ -1,11 +1,11 @@
 package com.gmail.sebastiansoch.expensemanager.database.model;
 
-public class PurchaseGroupTilesInfo {
+public class CategoryGroupTilesInfo {
     private String purchaseGroup;
     private String tileTag;
     private String tilePath;
 
-    public PurchaseGroupTilesInfo(String purchaseGroup, String tileTag, String tilePath) {
+    public CategoryGroupTilesInfo(String purchaseGroup, String tileTag, String tilePath) {
         this.purchaseGroup = purchaseGroup;
         this.tileTag = tileTag;
         this.tilePath = tilePath;

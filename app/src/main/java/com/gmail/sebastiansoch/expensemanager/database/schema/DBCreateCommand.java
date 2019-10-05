@@ -18,6 +18,7 @@ public class DBCreateCommand {
     private static final String TEXT_OPTION = "TEXT NOT NULL";
     private static final String PRICE_OPTION = "REAL DEFAULT 0";
     private static final String OTHER_ID_OPTION = "INTEGER DEFAULT 0";
+    private static final String BOOLEAN_OPTION = "INTEGER DEFAULT 0";
 
     private SQLiteDatabase database;
 
@@ -27,14 +28,12 @@ public class DBCreateCommand {
 
     public void createPurchaseCategory() {
         StringBuilderWrapper builder = new StringBuilderWrapper("CREATE TABLE");
-        builder.append(PurchaseCategory.TABLE_NAME);
+        builder.append(SchemaCategory.TABLE_NAME);
         builder.append("(");
-        builder.append(PurchaseCategory.COLUMN_ID);
-        builder.append(ID_OPTIONS + ",");
-        builder.append(PurchaseCategory.COLUMN_NAME);
-        builder.append(TEXT_OPTION + ",");
-        builder.append(PurchaseCategory.COLUMN_PURCHASE_GROUP_ID);
-        builder.append(OTHER_ID_OPTION);
+        builder.append(SchemaCategory.COLUMN_ID).append(ID_OPTIONS).append(",");
+        builder.append(SchemaCategory.COLUMN_NAME).append(TEXT_OPTION).append(",");
+        builder.append(SchemaCategory.COLUMN_IS_HIDE).append(BOOLEAN_OPTION).append(",");
+        builder.append(SchemaCategory.COLUMN_CATEGORY_GROUP_ID).append(OTHER_ID_OPTION);
         builder.append(")");
 
         database.execSQL(builder.toString());
@@ -42,16 +41,13 @@ public class DBCreateCommand {
 
     public void createPurchaseGroup() {
         StringBuilderWrapper builder = new StringBuilderWrapper("CREATE TABLE");
-        builder.append(PurchaseGroup.TABLE_NAME);
+        builder.append(SchemaCategoryGroup.TABLE_NAME);
         builder.append("(");
-        builder.append(PurchaseGroup.COLUMN_ID);
-        builder.append(ID_OPTIONS + ",");
-        builder.append(PurchaseGroup.COLUMN_NAME);
-        builder.append(TEXT_OPTION + ",");
-        builder.append(PurchaseGroup.COLUMN_TAG);
-        builder.append(TEXT_OPTION + ",");
-        builder.append(PurchaseGroup.COLUMN_TILES_ID);
-        builder.append(OTHER_ID_OPTION);
+        builder.append(SchemaCategoryGroup.COLUMN_ID).append(ID_OPTIONS).append(",");
+        builder.append(SchemaCategoryGroup.COLUMN_NAME).append(TEXT_OPTION).append(",");
+        builder.append(SchemaCategoryGroup.COLUMN_TAG).append(TEXT_OPTION).append(",");
+        builder.append(SchemaCategoryGroup.COLUMN_IS_HIDE).append(BOOLEAN_OPTION).append(",");
+        builder.append(SchemaCategoryGroup.COLUMN_TILES_ID).append(OTHER_ID_OPTION);
         builder.append(")");
 
         database.execSQL(builder.toString());
@@ -59,12 +55,10 @@ public class DBCreateCommand {
 
     public void createGroupTiles() {
         StringBuilderWrapper builder = new StringBuilderWrapper("CREATE TABLE");
-        builder.append(Tiles.TABLE_NAME);
+        builder.append(SchemaTiles.TABLE_NAME);
         builder.append("(");
-        builder.append(Tiles.COLUMN_ID);
-        builder.append(ID_OPTIONS + ",");
-        builder.append(Tiles.COLUMN_PATH);
-        builder.append(TEXT_OPTION);
+        builder.append(SchemaTiles.COLUMN_ID).append(ID_OPTIONS).append(",");
+        builder.append(SchemaTiles.COLUMN_PATH).append(TEXT_OPTION);
         builder.append(")");
 
         database.execSQL(builder.toString());
@@ -72,16 +66,12 @@ public class DBCreateCommand {
 
     public void createPurchases() {
         StringBuilderWrapper builder = new StringBuilderWrapper("CREATE TABLE");
-        builder.append(Purchase.TABLE_NAME);
+        builder.append(SchemaPurchase.TABLE_NAME);
         builder.append("(");
-        builder.append(Purchase.COLUMN_ID);
-        builder.append(ID_OPTIONS + ",");
-        builder.append(Purchase.COLUMN_CATEGORY_ID);
-        builder.append(OTHER_ID_OPTION + ",");
-        builder.append(Purchase.COLUMN_DATE);
-        builder.append(TEXT_OPTION + ",");
-        builder.append(Purchase.COLUMN_PRICE);
-        builder.append(PRICE_OPTION);
+        builder.append(SchemaPurchase.COLUMN_ID).append(ID_OPTIONS).append(",");
+        builder.append(SchemaPurchase.COLUMN_CATEGORY_ID).append(OTHER_ID_OPTION).append(",");
+        builder.append(SchemaPurchase.COLUMN_DATE).append(TEXT_OPTION).append(",");
+        builder.append(SchemaPurchase.COLUMN_PRICE).append(PRICE_OPTION);
         builder.append(")");
 
         database.execSQL(builder.toString());
@@ -90,29 +80,29 @@ public class DBCreateCommand {
     public void setDefaultTilesData() {
         for (TilesData tilesData : DefaultTilesData.getTilesData()) {
             ContentValues values = new ContentValues();
-            values.put(Tiles.COLUMN_ID, tilesData.getId());
-            values.put(Tiles.COLUMN_PATH, tilesData.getIconPath());
-            database.insert(Tiles.TABLE_NAME, null, values);
+            values.put(SchemaTiles.COLUMN_ID, tilesData.getId());
+            values.put(SchemaTiles.COLUMN_PATH, tilesData.getIconPath());
+            database.insert(SchemaTiles.TABLE_NAME, null, values);
         }
     }
 
     public void setDefaultPurchaseGroupData() {
         for (CategoryGroupData categoryGroup : DefaultCategoryGroupData.getCategoryGroupData()) {
             ContentValues values = new ContentValues();
-            values.put(PurchaseGroup.COLUMN_ID, categoryGroup.getId());
-            values.put(PurchaseGroup.COLUMN_NAME, categoryGroup.getName());
-            values.put(PurchaseGroup.COLUMN_TAG, categoryGroup.getTag());
-            values.put(PurchaseGroup.COLUMN_TILES_ID, categoryGroup.getTileId());
-            database.insert(PurchaseGroup.TABLE_NAME, null, values);
+            values.put(SchemaCategoryGroup.COLUMN_ID, categoryGroup.getId());
+            values.put(SchemaCategoryGroup.COLUMN_NAME, categoryGroup.getName());
+            values.put(SchemaCategoryGroup.COLUMN_TAG, categoryGroup.getTag());
+            values.put(SchemaCategoryGroup.COLUMN_TILES_ID, categoryGroup.getTileId());
+            database.insert(SchemaCategoryGroup.TABLE_NAME, null, values);
         }
     }
 
     public void setDefaultPurchaseCategoryData() {
         for (CategoryData categoryData : DefaultCategoryData.getCategoryData()) {
             ContentValues values = new ContentValues();
-            values.put(PurchaseCategory.COLUMN_NAME, categoryData.getName());
-            values.put(PurchaseCategory.COLUMN_PURCHASE_GROUP_ID, categoryData.getGroupId());
-            database.insert(PurchaseCategory.TABLE_NAME, null, values);
+            values.put(SchemaCategory.COLUMN_NAME, categoryData.getName());
+            values.put(SchemaCategory.COLUMN_CATEGORY_GROUP_ID, categoryData.getGroupId());
+            database.insert(SchemaCategory.TABLE_NAME, null, values);
         }
     }
 }
