@@ -1,4 +1,4 @@
-package com.gmail.sebastiansoch.expensemanager;
+package com.gmail.sebastiansoch.expensemanager.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;

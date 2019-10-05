@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.gmail.sebastiansoch.expensemanager.data.PurchaseCategory;
+import com.gmail.sebastiansoch.expensemanager.data.PurchaseGroup;
 import com.gmail.sebastiansoch.expensemanager.repo.ExpenseManagerRepo;
 
 import java.text.DecimalFormatSymbols;

@@ -1,27 +1,25 @@
 package com.gmail.sebastiansoch.expensemanager.database.model;
 
 public class Category {
-    private String categoryName;
-    private String categoryGroup;
+    private String name;
+    private String tag;
+    private boolean hide;
 
-    public Category(String categoryName, String categoryGroup) {
-        this.categoryName = categoryName;
-        this.categoryGroup = categoryGroup;
+    public Category(String name, String tag, boolean hide) {
+        this.name = name;
+        this.tag = tag;
+        this.hide = hide;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getName() {
+        return name;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public String getTag() {
+        return tag;
     }
 
-    public String getCategoryGroup() {
-        return categoryGroup;
-    }
-
-    public void setCategoryGroup(String categoryGroup) {
-        this.categoryGroup = categoryGroup;
+    public boolean isHide() {
+        return hide;
     }
 }

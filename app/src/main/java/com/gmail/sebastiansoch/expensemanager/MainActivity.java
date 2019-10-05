@@ -10,14 +10,11 @@ import android.widget.TableRow;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.gmail.sebastiansoch.expensemanager.database.PurchaseDAO;
-import com.gmail.sebastiansoch.expensemanager.database.schema.DBHelper;
-import com.gmail.sebastiansoch.expensemanager.database.model.CategoryGroupTilesInfo;
-import com.gmail.sebastiansoch.expensemanager.repo.ExpenseManagerFakeRepo;
+import com.gmail.sebastiansoch.expensemanager.data.PurchaseGroupTiles;
+import com.gmail.sebastiansoch.expensemanager.repo.ExpenseManagerDBRepo;
 import com.gmail.sebastiansoch.expensemanager.repo.ExpenseManagerRepo;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,11 +28,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getRepository();
-
-        PurchaseDAO purchaseDAO = new PurchaseDAO(new DBHelper(getApplicationContext()));
-        List<CategoryGroupTilesInfo> categoryGroupTilesInfos = purchaseDAO.loadAllPurchaseGroupTileInfo();
-        int a = 0;
-
     }
 
     public void openSettings(View view) {
@@ -83,9 +75,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void getRepository() {
         if (expenseManagerRepo == null) {
-            ExpenseManagerFakeRepo expenseManagerFakeRepo = new ExpenseManagerFakeRepo();
-            expenseManagerFakeRepo.init();
-            expenseManagerRepo = expenseManagerFakeRepo;
+            ExpenseManagerDBRepo expenseManagerDBRepo = new ExpenseManagerDBRepo(getApplicationContext());
+            expenseManagerDBRepo.initDAO();
+            expenseManagerRepo = expenseManagerDBRepo;
         }
     }
 

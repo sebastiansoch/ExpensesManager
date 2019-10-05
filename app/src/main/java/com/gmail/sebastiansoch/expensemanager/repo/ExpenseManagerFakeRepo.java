@@ -2,9 +2,10 @@ package com.gmail.sebastiansoch.expensemanager.repo;
 
 import android.os.Parcel;
 
-import com.gmail.sebastiansoch.expensemanager.PurchaseCategory;
-import com.gmail.sebastiansoch.expensemanager.PurchaseGroup;
-import com.gmail.sebastiansoch.expensemanager.PurchaseGroupTiles;
+import com.gmail.sebastiansoch.expensemanager.data.PurchaseCategory;
+import com.gmail.sebastiansoch.expensemanager.data.PurchaseGroup;
+import com.gmail.sebastiansoch.expensemanager.data.PurchaseGroupTiles;
+import com.gmail.sebastiansoch.expensemanager.database.model.CategoriesInfoForSettings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,11 @@ public class ExpenseManagerFakeRepo implements ExpenseManagerRepo {
         }
 
         return purchaseCategories;
+    }
+
+    @Override
+    public List<CategoriesInfoForSettings> getAllCategoriesInfoForSettings() {
+        return null;
     }
 
     public void init() {
