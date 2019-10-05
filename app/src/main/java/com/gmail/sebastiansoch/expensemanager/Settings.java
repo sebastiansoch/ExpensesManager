@@ -17,6 +17,7 @@ public class Settings extends AppCompatActivity {
     private ExpenseManagerRepo repository;
     private ArrayList<CategoriesInfoForSettings> categoryInfo = new ArrayList<>();
     private TableLayout chooseCategoryTableLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

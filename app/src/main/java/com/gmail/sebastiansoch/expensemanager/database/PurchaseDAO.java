@@ -21,4 +21,5 @@ public class PurchaseDAO {
         database = DBHelper.getWritableDatabase();
     }
 
+
 }
