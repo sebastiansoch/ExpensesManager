@@ -17,7 +17,7 @@ public class DBCreateCommand {
     private static final String ID_OPTIONS = "INTEGER PRIMARY KEY";
     private static final String TEXT_OPTION = "TEXT NOT NULL";
     private static final String PRICE_OPTION = "REAL DEFAULT 0";
-    private static final String OTHER_ID_OPTION = "REAL DEFAULT 0";
+    private static final String OTHER_ID_OPTION = "INTEGER DEFAULT 0";
 
     private SQLiteDatabase database;
 

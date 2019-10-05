@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "Purchase.db";
-    private static final int DATABASE_VERSION = 11;
+    private static final int DATABASE_VERSION = 13;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -26,7 +26,6 @@ public class DBHelper extends SQLiteOpenHelper {
         dbCreateCommand.setDefaultPurchaseGroupData();
         dbCreateCommand.setDefaultPurchaseCategoryData();
     }
-
 
     @Override
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
