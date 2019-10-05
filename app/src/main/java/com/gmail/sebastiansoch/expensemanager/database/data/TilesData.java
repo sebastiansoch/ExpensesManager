@@ -1,6 +1,6 @@
 package com.gmail.sebastiansoch.expensemanager.database.data;
 
-class TilesData {
+public class TilesData {
     private int id;
     private String iconPath;
 

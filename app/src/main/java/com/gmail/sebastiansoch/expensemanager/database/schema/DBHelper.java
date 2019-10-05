@@ -19,7 +19,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         dbCreateCommand.createPurchaseCategory();
         dbCreateCommand.createPurchaseGroup();
-        dbCreateCommand.createGoupTiles();
+        dbCreateCommand.createGroupTiles();
         dbCreateCommand.createPurchases();
 
         dbCreateCommand.setDefaultTilesData();

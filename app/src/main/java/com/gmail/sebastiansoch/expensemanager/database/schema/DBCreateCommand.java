@@ -3,6 +3,12 @@ package com.gmail.sebastiansoch.expensemanager.database.schema;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.gmail.sebastiansoch.expensemanager.database.data.CategoryData;
+import com.gmail.sebastiansoch.expensemanager.database.data.CategoryGroupData;
+import com.gmail.sebastiansoch.expensemanager.database.data.DefaultCategoryData;
+import com.gmail.sebastiansoch.expensemanager.database.data.DefaultCategoryGroupData;
+import com.gmail.sebastiansoch.expensemanager.database.data.DefaultTilesData;
+import com.gmail.sebastiansoch.expensemanager.database.data.TilesData;
 import com.gmail.sebastiansoch.expensemanager.utils.StringBuilderWrapper;
 
 import static com.gmail.sebastiansoch.expensemanager.database.schema.DBSchema.*;
@@ -51,7 +57,7 @@ public class DBCreateCommand {
         database.execSQL(builder.toString());
     }
 
-    public void createGoupTiles() {
+    public void createGroupTiles() {
         StringBuilderWrapper builder = new StringBuilderWrapper("CREATE TABLE");
         builder.append(Tiles.TABLE_NAME);
         builder.append("(");
@@ -81,34 +87,33 @@ public class DBCreateCommand {
         database.execSQL(builder.toString());
     }
 
-    public static String setDefaultTilesData() {
-        return null;
+    public void setDefaultTilesData() {
+        for (TilesData tilesData : DefaultTilesData.getTilesData()) {
+            ContentValues values = new ContentValues();
+            values.put(Tiles.COLUMN_ID, tilesData.getId());
+            values.put(Tiles.COLUMN_PATH, tilesData.getIconPath());
+            database.insert(Tiles.TABLE_NAME, null, values);
+        }
     }
 
-    public static String setDefaultPurchaseGroupData() {
-        return null;
+    public void setDefaultPurchaseGroupData() {
+        for (CategoryGroupData categoryGroup : DefaultCategoryGroupData.getCategoryGroupData()) {
+            ContentValues values = new ContentValues();
+            values.put(PurchaseGroup.COLUMN_ID, categoryGroup.getId());
+            values.put(PurchaseGroup.COLUMN_NAME, categoryGroup.getName());
+            values.put(PurchaseGroup.COLUMN_TAG, categoryGroup.getTag());
+            values.put(PurchaseGroup.COLUMN_TILES_ID, categoryGroup.getTileId());
+            database.insert(PurchaseGroup.TABLE_NAME, null, values);
+        }
     }
 
-    public static String setDefaultPurchaseCategoryData() {
-        return null;
+    public void setDefaultPurchaseCategoryData() {
+        for (CategoryData categoryData : DefaultCategoryData.getCategoryData()) {
+            ContentValues values = new ContentValues();
+            values.put(PurchaseCategory.COLUMN_NAME, categoryData.getName());
+            values.put(PurchaseCategory.COLUMN_PURCHASE_GROUP_ID, categoryData.getGroupId());
+            database.insert(PurchaseCategory.TABLE_NAME, null, values);
+        }
     }
-
-//    public void createPurchaseGroups() {
-//        ContentValues tagValues = new ContentValues();
-//        tagValues.put(Tiles.COLUMN_PATH, "ic_settings_black_24dp");
-//        database.insert(Tiles.TABLE_NAME, null, tagValues);
-//
-//        ContentValues values1 = new ContentValues();
-//        values1.put(PurchaseGroup.COLUMN_NAME, "DOM");
-//        values1.put(PurchaseGroup.COLUMN_TAG, "house");
-//        values1.put(PurchaseGroup.COLUMN_TILES_ID, "0");
-//        database.insert(PurchaseGroup.TABLE_NAME, null, values1);
-//
-//        ContentValues values2 = new ContentValues();
-//        values2.put(PurchaseGroup.COLUMN_NAME, "ROZRYWKA");
-//        values2.put(PurchaseGroup.COLUMN_TAG, "entertainment");
-//        values2.put(PurchaseGroup.COLUMN_TILES_ID, "0");
-//        database.insert(PurchaseGroup.TABLE_NAME, null, values2);
-//    }
 }
 

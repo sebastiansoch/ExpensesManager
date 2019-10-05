@@ -1,6 +1,6 @@
 package com.gmail.sebastiansoch.expensemanager.database.data;
 
-class CategoryData {
+public class CategoryData {
 
     private String name;
     private int groupId;

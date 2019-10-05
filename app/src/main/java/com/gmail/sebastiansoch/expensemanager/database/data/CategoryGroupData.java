@@ -1,16 +1,16 @@
 package com.gmail.sebastiansoch.expensemanager.database.data;
 
-class CategoryGroupData {
+public class CategoryGroupData {
     private int id;
     private final String name;
     private final String tag;
-    private final int tile_id;
+    private final int tileId;
 
-    public CategoryGroupData(int id, String name, String tag, int tile_id) {
+    public CategoryGroupData(int id, String name, String tag, int tileId) {
         this.id = id;
         this.name = name;
         this.tag = tag;
-        this.tile_id = tile_id;
+        this.tileId = tileId;
     }
 
     public int getId() {
@@ -25,7 +25,7 @@ class CategoryGroupData {
         return tag;
     }
 
-    public int getTile_id() {
-        return tile_id;
+    public int getTileId() {
+        return tileId;
     }
 }
