@@ -76,34 +76,5 @@ public class DBCreateCommand {
 
         database.execSQL(builder.toString());
     }
-
-    public void setDefaultTilesData() {
-        for (TilesData tilesData : DefaultTilesData.getTilesData()) {
-            ContentValues values = new ContentValues();
-            values.put(SchemaTiles.COLUMN_ID, tilesData.getId());
-            values.put(SchemaTiles.COLUMN_PATH, tilesData.getIconPath());
-            database.insert(SchemaTiles.TABLE_NAME, null, values);
-        }
-    }
-
-    public void setDefaultPurchaseGroupData() {
-        for (CategoryGroupData categoryGroup : DefaultCategoryGroupData.getCategoryGroupData()) {
-            ContentValues values = new ContentValues();
-            values.put(SchemaCategoryGroup.COLUMN_ID, categoryGroup.getId());
-            values.put(SchemaCategoryGroup.COLUMN_NAME, categoryGroup.getName());
-            values.put(SchemaCategoryGroup.COLUMN_TAG, categoryGroup.getTag());
-            values.put(SchemaCategoryGroup.COLUMN_TILES_ID, categoryGroup.getTileId());
-            database.insert(SchemaCategoryGroup.TABLE_NAME, null, values);
-        }
-    }
-
-    public void setDefaultPurchaseCategoryData() {
-        for (CategoryData categoryData : DefaultCategoryData.getCategoryData()) {
-            ContentValues values = new ContentValues();
-            values.put(SchemaCategory.COLUMN_NAME, categoryData.getName());
-            values.put(SchemaCategory.COLUMN_CATEGORY_GROUP_ID, categoryData.getGroupId());
-            database.insert(SchemaCategory.TABLE_NAME, null, values);
-        }
-    }
 }
 

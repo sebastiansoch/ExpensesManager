@@ -1,14 +1,14 @@
-package com.gmail.sebastiansoch.expensemanager.database.model;
+package com.gmail.sebastiansoch.expensemanager.database.model_dao;
 
-public class Purchase {
+public class PurchaseDAO {
     private int id;
-    private int category_id;
+    private int categoryId;
     private String date;
     private Double price;
 
-    public Purchase(int id, int category_id, String date, Double price) {
+    public PurchaseDAO(int id, int categoryId, String date, Double price) {
         this.id = id;
-        this.category_id = category_id;
+        this.categoryId = categoryId;
         this.date = date;
         this.price = price;
     }
@@ -17,8 +17,8 @@ public class Purchase {
         return id;
     }
 
-    public int getCategory_id() {
-        return category_id;
+    public int getCategoryId() {
+        return categoryId;
     }
 
     public String getDate() {

@@ -1,21 +1,24 @@
 package com.gmail.sebastiansoch.expensemanager.database.model;
 
+import com.gmail.sebastiansoch.expensemanager.database.model_dao.CategoryDAO;
+import com.gmail.sebastiansoch.expensemanager.database.model_dao.CategoryGroupDAO;
+
 import java.util.List;
 
 public class CategoriesInfoForSettings {
-    private CategoryGroup categoryGroup;
-    private List<Category> categories;
+    private CategoryGroupDAO categoryGroupDAO;
+    private List<CategoryDAO> categories;
 
-    public CategoriesInfoForSettings(CategoryGroup categoryGroup, List<Category> categories) {
-        this.categoryGroup = categoryGroup;
+    public CategoriesInfoForSettings(CategoryGroupDAO categoryGroupDAO, List<CategoryDAO> categories) {
+        this.categoryGroupDAO = categoryGroupDAO;
         this.categories = categories;
     }
 
-    public CategoryGroup getCategoryGroup() {
-        return categoryGroup;
+    public CategoryGroupDAO getCategoryGroupDAO() {
+        return categoryGroupDAO;
     }
 
-    public List<Category> getCategories() {
+    public List<CategoryDAO> getCategories() {
         return categories;
     }
 }
