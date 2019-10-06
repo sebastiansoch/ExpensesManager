@@ -15,6 +15,8 @@ public class DefaultCategoryGroupData {
             add(new CategoryGroupData(6, "transportation", "transportation", 6));
             add(new CategoryGroupData(7, "installment", "installment", 7));
             add(new CategoryGroupData(8, "insurance", "insurance", 8));
+            add(new CategoryGroupData(9, "health_sport", "health_sport", 9));
+            add(new CategoryGroupData(10, "savings", "savings", 10));
         }
     };
 

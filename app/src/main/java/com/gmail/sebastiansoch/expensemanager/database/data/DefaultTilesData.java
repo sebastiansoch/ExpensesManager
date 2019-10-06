@@ -14,6 +14,8 @@ public class DefaultTilesData {
             add(new TilesData(6, "ic_settings_black_24dp"));
             add(new TilesData(7, "ic_settings_black_24dp"));
             add(new TilesData(8, "ic_settings_black_24dp"));
+            add(new TilesData(9, "ic_settings_black_24dp"));
+            add(new TilesData(10, "ic_settings_black_24dp"));
         }
     };
 
