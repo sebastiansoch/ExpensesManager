@@ -3,14 +3,12 @@ package com.gmail.sebastiansoch.expensemanager.database.model_dao;
 public class CategoryDAO {
     private int id;
     private String name;
-    private String tag;
     private boolean hide;
     private int groupId;
 
-    public CategoryDAO(int id, String name, String tag, boolean hide, int groupId) {
+    public CategoryDAO(int id, String name, boolean hide, int groupId) {
         this.id = id;
         this.name = name;
-        this.tag = tag;
         this.hide = hide;
         this.groupId = groupId;
     }
@@ -21,10 +19,6 @@ public class CategoryDAO {
 
     public String getName() {
         return name;
-    }
-
-    public String getTag() {
-        return tag;
     }
 
     public boolean isHide() {
