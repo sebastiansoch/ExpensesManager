@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 ImageButton button = new ImageButton(this);
                 button.setTag(categoryGroupTile.getTilesTag());
-                button.setImageResource(getResources().getIdentifier(categoryGroupTile.getTilesIconName(), "drawable", getPackageName()));
+                button.setImageResource(getResources().getIdentifier(categoryGroupTile.getTilesIconPath(), "drawable", getPackageName()));
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

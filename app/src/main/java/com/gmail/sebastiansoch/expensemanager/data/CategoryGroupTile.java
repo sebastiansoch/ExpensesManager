@@ -1,10 +1,17 @@
 package com.gmail.sebastiansoch.expensemanager.data;
 
-public class CategoryGroupTile {
+import java.io.Serializable;
+
+public class CategoryGroupTile implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private CategoryGroup categoryGroup;
     private String tilesTag;
     private String tilesIconPath;
+
+    public CategoryGroupTile() {
+    }
 
     public CategoryGroupTile(CategoryGroup categoryGroup, String tilesTag, String tilesIconPath) {
         this.categoryGroup = categoryGroup;
@@ -16,13 +23,23 @@ public class CategoryGroupTile {
         return categoryGroup;
     }
 
+    public void setCategoryGroup(CategoryGroup categoryGroup) {
+        this.categoryGroup = categoryGroup;
+    }
+
     public String getTilesTag() {
         return tilesTag;
     }
 
-    public String getTilesIconName() {
+    public void setTilesTag(String tilesTag) {
+        this.tilesTag = tilesTag;
+    }
+
+    public String getTilesIconPath() {
         return tilesIconPath;
     }
 
-
+    public void setTilesIconPath(String tilesIconPath) {
+        this.tilesIconPath = tilesIconPath;
+    }
 }

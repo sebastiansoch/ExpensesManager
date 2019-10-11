@@ -29,16 +29,16 @@ public class ExpenseManagerDBRepo implements ExpenseManagerRepo {
 
     @Override
     public HashMap<CategoryGroup, ArrayList<Category>> getAllCategoriesForSettings() {
-        return null;
+        return new HashMap<CategoryGroup, ArrayList<Category>>();
     }
 
     @Override
     public ArrayList<Category> getAllCategoriesForGroup(CategoryGroup categoryGroup) {
-        return null;
+        return new ArrayList<Category>();
     }
 
     @Override
     public ArrayList<CategoryGroupTile> getCategoryGroupTiles() {
-        return null;
+        return new ArrayList<CategoryGroupTile>();
     }
 }
