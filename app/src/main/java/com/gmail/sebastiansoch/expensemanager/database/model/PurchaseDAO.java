@@ -1,4 +1,4 @@
-package com.gmail.sebastiansoch.expensemanager.database.model_dao;
+package com.gmail.sebastiansoch.expensemanager.database.model;
 
 public class PurchaseDAO {
     private int id;

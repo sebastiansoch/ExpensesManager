@@ -1,4 +1,4 @@
-package com.gmail.sebastiansoch.expensemanager.database.model;
+package com.gmail.sebastiansoch.expensemanager.data;
 
 public class CategoryGroupTilesInfo {
     private String purchaseGroup;

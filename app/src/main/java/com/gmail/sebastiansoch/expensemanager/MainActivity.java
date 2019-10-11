@@ -7,20 +7,15 @@ import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.gmail.sebastiansoch.expensemanager.data.PurchaseGroupTiles;
+import com.gmail.sebastiansoch.expensemanager.data.CategoryGroupTile;
 import com.gmail.sebastiansoch.expensemanager.repo.ExpenseManagerDBRepo;
 import com.gmail.sebastiansoch.expensemanager.repo.ExpenseManagerRepo;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
-    private static final int SETTINGS_REQ_CODE = 1;
-    private ArrayList<PurchaseGroupTiles> purchaseGroupTilesInfo = new ArrayList<>();
-
     private ExpenseManagerRepo expenseManagerRepo;
 
     @Override
@@ -28,55 +23,49 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getRepository();
+        generateCategoryGroupTiles();
     }
 
     public void openSettings(View view) {
-        Intent intent = new Intent(this, Settings.class);
+        Intent intent = new Intent(this, CategorySettings.class);
         intent.putExtra("REPO", expenseManagerRepo);
-        startActivityForResult(intent, SETTINGS_REQ_CODE);
+        startActivity(intent);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == SETTINGS_REQ_CODE && resultCode == RESULT_OK) {
-            purchaseGroupTilesInfo = data.getParcelableArrayListExtra("PURCHASE_GROUP_TAILS");
-            if (purchaseGroupTilesInfo != null && !purchaseGroupTilesInfo.isEmpty()) {
-                generatePurchaseGroupTiles();
-            }
-        }
-    }
-
-    private void generatePurchaseGroupTiles() {
+    private void generateCategoryGroupTiles() {
         TableLayout tableLayout = findViewById(R.id.purchaseGroupTableLayout);
 
         TableRow tableRow = null;
         int iconInRow = 0;
-        for (final PurchaseGroupTiles purchaseGroupTiles : purchaseGroupTilesInfo) {
-            if (iconInRow % 3 == 0) {
-                tableRow = new TableRow(this);
-                tableLayout.addView(tableRow);
-            }
-            ImageButton button = new ImageButton(this);
-            button.setTag(purchaseGroupTiles.getTilesTag());
-            button.setImageResource(getResources().getIdentifier(purchaseGroupTiles.getTilesIconName(), "drawable", getPackageName()));
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getApplicationContext(), PurchaseEntry.class);
-                    intent.putExtra("PURCHASE_GROUP_NAME", purchaseGroupTiles.getPurchaseGroup());
-                    intent.putExtra("REPO", expenseManagerRepo);
-                    startActivity(intent);
+        List<CategoryGroupTile> categoryGroupTiles = expenseManagerRepo.getCategoryGroupTiles();
+        if (categoryGroupTiles != null) {
+            for (final CategoryGroupTile categoryGroupTile : categoryGroupTiles) {
+                if (iconInRow % 3 == 0) {
+                    tableRow = new TableRow(this);
+                    tableLayout.addView(tableRow);
                 }
-            });
-            tableRow.addView(button);
-            iconInRow++;
+                ImageButton button = new ImageButton(this);
+                button.setTag(categoryGroupTile.getTilesTag());
+                button.setImageResource(getResources().getIdentifier(categoryGroupTile.getTilesIconName(), "drawable", getPackageName()));
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getApplicationContext(), PurchaseEntry.class);
+                        intent.putExtra("CATEGORY_GROUP_NAME", categoryGroupTile.getCategoryGroup().getName());
+                        intent.putExtra("REPO", expenseManagerRepo);
+                        startActivity(intent);
+                    }
+                });
+                tableRow.addView(button);
+                iconInRow++;
+            }
         }
     }
 
     private void getRepository() {
         if (expenseManagerRepo == null) {
             ExpenseManagerDBRepo expenseManagerDBRepo = new ExpenseManagerDBRepo(getApplicationContext());
-            expenseManagerDBRepo.initDAO();
+            expenseManagerDBRepo.init();
             expenseManagerRepo = expenseManagerDBRepo;
         }
     }

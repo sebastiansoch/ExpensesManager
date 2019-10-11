@@ -3,8 +3,8 @@ package com.gmail.sebastiansoch.expensemanager.database;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.gmail.sebastiansoch.expensemanager.database.model_dao.CategoryDAO;
-import com.gmail.sebastiansoch.expensemanager.database.model_dao.CategoryGroupDAO;
+import com.gmail.sebastiansoch.expensemanager.database.model.CategoryDAO;
+import com.gmail.sebastiansoch.expensemanager.database.model.CategoryGroupDAO;
 import com.gmail.sebastiansoch.expensemanager.database.schema.DBHelper;
 import com.gmail.sebastiansoch.expensemanager.utils.StringBuilderWrapper;
 
@@ -64,7 +64,7 @@ public class PurchaseDAO {
             int groupId = cursor.getInt(cursor.getColumnIndex(SchemaCategory.COLUMN_CATEGORY_GROUP_ID));
             categoriesForGroup.add(new CategoryDAO(id, name, isHide, groupId));
         }
+
+        return categoriesForGroup;
     }
-
-
 }

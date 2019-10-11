@@ -1,14 +1,7 @@
 package com.gmail.sebastiansoch.expensemanager.database.schema;
 
-import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.gmail.sebastiansoch.expensemanager.database.data.CategoryData;
-import com.gmail.sebastiansoch.expensemanager.database.data.CategoryGroupData;
-import com.gmail.sebastiansoch.expensemanager.database.data.DefaultCategoryData;
-import com.gmail.sebastiansoch.expensemanager.database.data.DefaultCategoryGroupData;
-import com.gmail.sebastiansoch.expensemanager.database.data.DefaultTilesData;
-import com.gmail.sebastiansoch.expensemanager.database.data.TilesData;
 import com.gmail.sebastiansoch.expensemanager.utils.StringBuilderWrapper;
 
 import static com.gmail.sebastiansoch.expensemanager.database.schema.DBSchema.*;

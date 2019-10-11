@@ -1,17 +1,17 @@
 package com.gmail.sebastiansoch.expensemanager.repo;
 
-import android.os.Parcelable;
+import com.gmail.sebastiansoch.expensemanager.data.Category;
+import com.gmail.sebastiansoch.expensemanager.data.CategoryGroup;
+import com.gmail.sebastiansoch.expensemanager.data.CategoryGroupTile;
 
-import com.gmail.sebastiansoch.expensemanager.data.PurchaseCategory;
-import com.gmail.sebastiansoch.expensemanager.data.PurchaseGroup;
-import com.gmail.sebastiansoch.expensemanager.data.PurchaseGroupTiles;
-import com.gmail.sebastiansoch.expensemanager.database.model.CategoriesInfoForSettings;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-import java.util.List;
+public interface ExpenseManagerRepo extends Serializable {
+    HashMap<CategoryGroup, ArrayList<Category>> getAllCategoriesForSettings();
 
-public interface ExpenseManagerRepo extends Parcelable {
-    List<PurchaseGroupTiles> getPurchaseGroupTilesInfo();
-    List<PurchaseCategory> getPurchaseCategoriesForGroup(PurchaseGroup purchaseGroup);
+    ArrayList<Category> getAllCategoriesForGroup(CategoryGroup categoryGroup);
 
-    List<CategoriesInfoForSettings> getAllCategoriesInfoForSettings();
+    ArrayList<CategoryGroupTile> getCategoryGroupTiles();
 }

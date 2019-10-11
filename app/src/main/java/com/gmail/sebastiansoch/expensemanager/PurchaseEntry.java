@@ -18,8 +18,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.gmail.sebastiansoch.expensemanager.data.PurchaseCategory;
-import com.gmail.sebastiansoch.expensemanager.data.PurchaseGroup;
+import com.gmail.sebastiansoch.expensemanager.data.Category;
+import com.gmail.sebastiansoch.expensemanager.data.CategoryGroup;
 import com.gmail.sebastiansoch.expensemanager.repo.ExpenseManagerRepo;
 
 import java.text.DecimalFormatSymbols;
@@ -39,7 +39,7 @@ public class PurchaseEntry extends AppCompatActivity {
     private TextView purchaseDateTextView;
     private ImageButton purchaseDateBtn;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
-    private PurchaseGroup purchaseGroup;
+    private CategoryGroup categoryGroup;
     private Spinner purchaseCategorySpinner;
 
     private LinearLayout enteredPurchasesLayout;
@@ -85,7 +85,7 @@ public class PurchaseEntry extends AppCompatActivity {
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         decimalSeparator = symbols.getDecimalSeparator();
 
-        purchaseGroup = getIntent().getParcelableExtra("PURCHASE_GROUP_NAME");
+        categoryGroup = getIntent().getParcelableExtra("CATEGORY_GROUP_NAME");
         repository = getIntent().getParcelableExtra("REPO");
 
         purchaseDateTextView = findViewById(R.id.purchaseDateTV);
@@ -101,7 +101,7 @@ public class PurchaseEntry extends AppCompatActivity {
     }
 
     private void init() {
-        setPurchaseCategoryList(purchaseGroup);
+        setPurchaseCategoryList(categoryGroup);
         fillPurchaseCategorySpinner();
         setCurrentDate();
         initDatePicker();
@@ -163,11 +163,11 @@ public class PurchaseEntry extends AppCompatActivity {
         });
     }
 
-    private void setPurchaseCategoryList(PurchaseGroup purchaseGroup) {
-        List<PurchaseCategory> purchaseCategoriesForGroup = repository.getPurchaseCategoriesForGroup(purchaseGroup);
+    private void setPurchaseCategoryList(CategoryGroup categoryGroup) {
+        List<Category> purchaseCategoriesForGroup = repository.getAllCategoriesForGroup(categoryGroup);
         if (purchaseCategoriesForGroup != null && !purchaseCategoriesForGroup.isEmpty()) {
-            for (PurchaseCategory purchaseCategory : purchaseCategoriesForGroup) {
-                purchaseCategoryList.add(purchaseCategory.getName());
+            for (Category category : purchaseCategoriesForGroup) {
+                purchaseCategoryList.add(category.getName());
             }
         }
     }
