@@ -44,7 +44,7 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(getApplicationContext(), PurchaseEntry.class);
-                        intent.putExtra("CATEGORY_GROUP_NAME", categoryGroupTile.getCategoryGroup().getName());
+                        intent.putExtra("CATEGORY_GROUP_NAME", categoryGroupTile.getCategoryGroupName());
                         startActivity(intent);
                     }
                 });

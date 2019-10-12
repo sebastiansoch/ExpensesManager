@@ -6,10 +6,14 @@ import com.gmail.sebastiansoch.expensemanager.data.Category;
 import com.gmail.sebastiansoch.expensemanager.data.CategoryGroup;
 import com.gmail.sebastiansoch.expensemanager.data.CategoryGroupTile;
 import com.gmail.sebastiansoch.expensemanager.database.ExpenseManagerDAO;
+import com.gmail.sebastiansoch.expensemanager.database.model.CategoryGroupDTO;
+import com.gmail.sebastiansoch.expensemanager.database.model.TilesDTO;
 import com.gmail.sebastiansoch.expensemanager.database.schema.DBHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ExpenseManagerDBRepo implements ExpenseManagerRepo {
 
@@ -28,19 +32,29 @@ public class ExpenseManagerDBRepo implements ExpenseManagerRepo {
 
 
     @Override
-    public HashMap<CategoryGroup, ArrayList<Category>> getAllCategoriesForSettings() {
-        return new HashMap<CategoryGroup, ArrayList<Category>>();
+    public Map<CategoryGroup, List<Category>> getAllCategoriesForSettings() {
+        Map<CategoryGroup, List<Category>> categoriesForSettings = new HashMap<>();
+        return categoriesForSettings;
     }
 
     @Override
-    public ArrayList<Category> getAllCategoriesForGroup(CategoryGroup categoryGroup) {
+    public List<Category> getAllCategoriesForGroup(CategoryGroup categoryGroup) {
         return new ArrayList<Category>();
     }
 
     @Override
-    public ArrayList<CategoryGroupTile> getCategoryGroupTiles() {
+    public List<CategoryGroupTile> getCategoryGroupTiles() {
+        List<CategoryGroupTile> categoriesGroupTile = new ArrayList<>();
 
+        List<CategoryGroupDTO> allCategoryGroups = expenseManagerDAO.getAllCategoryGroups();
+        for (CategoryGroupDTO categoryGroupDTO : allCategoryGroups) {
+            TilesDTO tileForCategoryGroup = expenseManagerDAO.getTileForCategoryGroup(categoryGroupDTO.getName());
+            categoriesGroupTile.add(
+                    new CategoryGroupTile(categoryGroupDTO.getName(),
+                            categoryGroupDTO.getTag(), tileForCategoryGroup.getPath())
+            );
+        }
 
-        return new ArrayList<CategoryGroupTile>();
+        return categoriesGroupTile;
     }
 }

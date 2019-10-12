@@ -1,45 +1,26 @@
 package com.gmail.sebastiansoch.expensemanager.data;
 
-import java.io.Serializable;
+public class CategoryGroupTile {
 
-public class CategoryGroupTile implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    private CategoryGroup categoryGroup;
+    private String categoryGroupName;
     private String tilesTag;
     private String tilesIconPath;
 
-    public CategoryGroupTile() {
-    }
-
-    public CategoryGroupTile(CategoryGroup categoryGroup, String tilesTag, String tilesIconPath) {
-        this.categoryGroup = categoryGroup;
+    public CategoryGroupTile(String categoryGroupName, String tilesTag, String tilesIconPath) {
+        this.categoryGroupName = categoryGroupName;
         this.tilesTag = tilesTag;
         this.tilesIconPath = tilesIconPath;
     }
 
-    public CategoryGroup getCategoryGroup() {
-        return categoryGroup;
-    }
-
-    public void setCategoryGroup(CategoryGroup categoryGroup) {
-        this.categoryGroup = categoryGroup;
+    public String getCategoryGroupName() {
+        return categoryGroupName;
     }
 
     public String getTilesTag() {
         return tilesTag;
     }
 
-    public void setTilesTag(String tilesTag) {
-        this.tilesTag = tilesTag;
-    }
-
     public String getTilesIconPath() {
         return tilesIconPath;
-    }
-
-    public void setTilesIconPath(String tilesIconPath) {
-        this.tilesIconPath = tilesIconPath;
     }
 }

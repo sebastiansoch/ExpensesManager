@@ -7,13 +7,13 @@ import android.widget.TableLayout;
 import com.gmail.sebastiansoch.expensemanager.data.Category;
 import com.gmail.sebastiansoch.expensemanager.data.CategoryGroup;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CategorySettings extends BaseActivity {
 
     private TableLayout categoryVisibilityLayout;
-    private HashMap<CategoryGroup, ArrayList<Category>> allCategoriesForSettings;
+    private Map<CategoryGroup, List<Category>> allCategoriesForSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
