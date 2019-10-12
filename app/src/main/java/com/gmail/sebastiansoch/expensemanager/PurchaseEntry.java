@@ -4,7 +4,7 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -171,34 +171,17 @@ public class PurchaseEntry extends BaseActivity {
         String price = purchasePriceEditText.getText().toString();
 
         if (!purchaseCategory.isEmpty() && !date.isEmpty() && !price.isEmpty()) {
-            LinearLayout enteredPurchasesRow = new LinearLayout(PurchaseEntry.this);
-            enteredPurchasesRow.setOrientation(LinearLayout.HORIZONTAL);
-            enteredPurchasesLayout.addView(enteredPurchasesRow);
+            LayoutInflater inflater = getLayoutInflater();
+            View enteredPurchaseView = inflater.inflate(R.layout.view_entered_purchases, enteredPurchasesLayout, false);
 
-            TextView purchaseCategoryTV = new TextView(this);
-            LinearLayout.LayoutParams purchaseLayoutParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 10);
-            purchaseLayoutParams.setMargins(10, 2, 0, 2);
-            purchaseCategoryTV.setLayoutParams(purchaseLayoutParams);
-            purchaseCategoryTV.setGravity(Gravity.START);
-            purchaseCategoryTV.setText(purchaseCategory);
-            enteredPurchasesRow.addView(purchaseCategoryTV);
+            TextView purchaseTV = enteredPurchaseView.findViewById(R.id.purchase_EPV);
+            purchaseTV.setText(purchaseCategory);
+            TextView purchaseDateTV = enteredPurchaseView.findViewById(R.id.purchase_date_EPV);
+            purchaseDateTV.setText(date);
+            TextView priceTV = enteredPurchaseView.findViewById(R.id.price_EPV);
+            priceTV.setText(price);
 
-            TextView dateTV = new TextView(this);
-            LinearLayout.LayoutParams dateLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
-            dateLayoutParams.setMargins(10, 2, 10, 2);
-            dateTV.setLayoutParams(dateLayoutParams);
-            dateTV.setGravity(Gravity.END);
-            dateTV.setText(date);
-            enteredPurchasesRow.addView(dateTV);
-
-            TextView priceTV = new TextView(this);
-            LinearLayout.LayoutParams priceLayoutParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 4);
-            priceLayoutParams.setMargins(0, 2, 10, 2);
-            priceTV.setLayoutParams(priceLayoutParams);
-            priceTV.setGravity(Gravity.END);
-            priceTV.setText(formatPrice(price));
-            enteredPurchasesRow.addView(priceTV);
-
+            enteredPurchasesLayout.addView(enteredPurchaseView);
         } else {
             Toast.makeText(this, "Check if all data are set properly", Toast.LENGTH_SHORT).show();
             return;
