@@ -10,7 +10,7 @@ import java.util.Map;
 public interface ExpenseManagerRepo {
     Map<CategoryGroup, List<Category>> getAllCategoriesForSettings();
 
-    List<Category> getAllCategoriesForGroup(CategoryGroup categoryGroup);
+    List<Category> getAllCategoriesForGroup(String categoryGroupName);
 
     List<CategoryGroupTile> getCategoryGroupTiles();
 }

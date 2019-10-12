@@ -6,6 +6,7 @@ import com.gmail.sebastiansoch.expensemanager.data.Category;
 import com.gmail.sebastiansoch.expensemanager.data.CategoryGroup;
 import com.gmail.sebastiansoch.expensemanager.data.CategoryGroupTile;
 import com.gmail.sebastiansoch.expensemanager.database.ExpenseManagerDAO;
+import com.gmail.sebastiansoch.expensemanager.database.model.CategoryDTO;
 import com.gmail.sebastiansoch.expensemanager.database.model.CategoryGroupDTO;
 import com.gmail.sebastiansoch.expensemanager.database.model.TilesDTO;
 import com.gmail.sebastiansoch.expensemanager.database.schema.DBHelper;
@@ -38,8 +39,17 @@ public class ExpenseManagerDBRepo implements ExpenseManagerRepo {
     }
 
     @Override
-    public List<Category> getAllCategoriesForGroup(CategoryGroup categoryGroup) {
-        return new ArrayList<Category>();
+    public List<Category> getAllCategoriesForGroup(String categoryGroupName) {
+        final List<Category> categories = new ArrayList<>();
+
+        List<CategoryDTO> allCategoriesForGroup = expenseManagerDAO.getAllCategoriesForGroup(categoryGroupName);
+        for (CategoryDTO categoryDTO : allCategoriesForGroup) {
+            if (!categoryDTO.isHide()) {
+                categories.add(new Category(categoryDTO.getName()));
+            }
+        }
+
+        return categories;
     }
 
     @Override

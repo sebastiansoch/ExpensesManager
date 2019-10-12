@@ -17,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gmail.sebastiansoch.expensemanager.data.Category;
-import com.gmail.sebastiansoch.expensemanager.data.CategoryGroup;
 
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
@@ -34,7 +33,7 @@ public class PurchaseEntry extends BaseActivity {
     private TextView purchaseDateTextView;
     private ImageButton purchaseDateBtn;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
-    private CategoryGroup categoryGroup;
+    private String categoryGroupName;
     private Spinner purchaseCategorySpinner;
 
     private LinearLayout enteredPurchasesLayout;
@@ -80,7 +79,7 @@ public class PurchaseEntry extends BaseActivity {
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         decimalSeparator = symbols.getDecimalSeparator();
 
-        categoryGroup = getIntent().getParcelableExtra("CATEGORY_GROUP_NAME");
+        categoryGroupName = getIntent().getStringExtra("CATEGORY_GROUP_NAME");
 
         purchaseDateTextView = findViewById(R.id.purchaseDateTV);
         purchaseDateBtn = findViewById(R.id.purchaseDateBtn);
@@ -95,7 +94,7 @@ public class PurchaseEntry extends BaseActivity {
     }
 
     private void init() {
-        setPurchaseCategoryList(categoryGroup);
+        setPurchaseCategoryList(categoryGroupName);
         fillPurchaseCategorySpinner();
         setCurrentDate();
         initDatePicker();
@@ -157,7 +156,7 @@ public class PurchaseEntry extends BaseActivity {
         });
     }
 
-    private void setPurchaseCategoryList(CategoryGroup categoryGroup) {
+    private void setPurchaseCategoryList(String categoryGroup) {
         List<Category> purchaseCategoriesForGroup = expenseManagerRepo.getAllCategoriesForGroup(categoryGroup);
         if (purchaseCategoriesForGroup != null && !purchaseCategoriesForGroup.isEmpty()) {
             for (Category category : purchaseCategoriesForGroup) {
