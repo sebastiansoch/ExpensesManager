@@ -179,7 +179,7 @@ public class PurchaseEntry extends BaseActivity {
             TextView purchaseDateTV = enteredPurchaseView.findViewById(R.id.purchase_date_EPV);
             purchaseDateTV.setText(date);
             TextView priceTV = enteredPurchaseView.findViewById(R.id.price_EPV);
-            priceTV.setText(price);
+            priceTV.setText(formatPrice(price));
 
             enteredPurchasesLayout.addView(enteredPurchaseView);
         } else {
