@@ -46,7 +46,7 @@ public class ExpenseManagerDAO {
 
     public TilesDTO getTileForCategoryGroup(String categoryGroupName) {
         StringBuilderWrapper sql = new StringBuilderWrapper("SELECT");
-        sql.append("*");
+        sql.appendColumn(SchemaTiles.TABLE_NAME, "*");
         sql.append("FROM").append(SchemaTiles.TABLE_NAME);
         sql.append("JOIN").append(SchemaCategoryGroup.TABLE_NAME);
         sql.append("ON").appendColumn(SchemaTiles.TABLE_NAME, SchemaTiles.COLUMN_ID).append("=")
@@ -66,7 +66,7 @@ public class ExpenseManagerDAO {
         List<CategoryDTO> categoriesForGroup = new ArrayList<>();
 
         StringBuilderWrapper sql = new StringBuilderWrapper("SELECT");
-        sql.append("*");
+        sql.appendColumn(SchemaCategory.TABLE_NAME, "*");
         sql.append("FROM").append(SchemaCategory.TABLE_NAME);
         sql.append("JOIN").append(SchemaCategoryGroup.TABLE_NAME);
         sql.append("ON").appendColumn(SchemaCategory.TABLE_NAME, SchemaCategory.COLUMN_CATEGORY_GROUP_ID)
