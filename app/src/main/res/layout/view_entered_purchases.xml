@@ -11,7 +11,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/purchase_EPV"
+            android:id="@+id/purchaseEPV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -21,7 +21,7 @@
             android:text="fruninshing" />
 
         <TextView
-            android:id="@+id/purchase_date_EPV"
+            android:id="@+id/purchaseDateEPV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -31,7 +31,7 @@
             android:text="2019-01-12" />
 
         <TextView
-            android:id="@+id/price_EPV"
+            android:id="@+id/priceEPV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -41,7 +41,7 @@
             android:text="1231,12" />
 
         <ImageButton
-            android:id="@+id/remove_purchase_EPB_Btn"
+            android:id="@+id/removePurchaseEPVBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"

@@ -42,6 +42,7 @@ public class PurchaseEntry extends BaseActivity {
     private View.OnClickListener addPurchaseButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            //TODO - podpiac dodawanie do bazy danych
             addEnteredPurchaseToList();
             cleanPriceTextView();
         }
@@ -172,14 +173,23 @@ public class PurchaseEntry extends BaseActivity {
 
         if (!purchaseCategory.isEmpty() && !date.isEmpty() && !price.isEmpty()) {
             LayoutInflater inflater = getLayoutInflater();
-            View enteredPurchaseView = inflater.inflate(R.layout.view_entered_purchases, enteredPurchasesLayout, false);
+            final View enteredPurchaseView = inflater.inflate(R.layout.view_entered_purchases, enteredPurchasesLayout, false);
 
-            TextView purchaseTV = enteredPurchaseView.findViewById(R.id.purchase_EPV);
+            TextView purchaseTV = enteredPurchaseView.findViewById(R.id.purchaseEPV);
             purchaseTV.setText(purchaseCategory);
-            TextView purchaseDateTV = enteredPurchaseView.findViewById(R.id.purchase_date_EPV);
+            TextView purchaseDateTV = enteredPurchaseView.findViewById(R.id.purchaseDateEPV);
             purchaseDateTV.setText(date);
-            TextView priceTV = enteredPurchaseView.findViewById(R.id.price_EPV);
+            TextView priceTV = enteredPurchaseView.findViewById(R.id.priceEPV);
             priceTV.setText(formatPrice(price));
+
+            ImageButton removeBtn = enteredPurchaseView.findViewById(R.id.removePurchaseEPVBtn);
+            removeBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //TODO - podpiac usuwanie z bazy danych
+                    enteredPurchasesLayout.removeView(enteredPurchaseView);
+                }
+            });
 
             enteredPurchasesLayout.addView(enteredPurchaseView);
         } else {
