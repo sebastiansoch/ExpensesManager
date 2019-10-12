@@ -3,8 +3,8 @@ package com.gmail.sebastiansoch.expensemanager.database;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.gmail.sebastiansoch.expensemanager.database.model.CategoryDAO;
-import com.gmail.sebastiansoch.expensemanager.database.model.CategoryGroupDAO;
+import com.gmail.sebastiansoch.expensemanager.database.model.CategoryDTO;
+import com.gmail.sebastiansoch.expensemanager.database.model.CategoryGroupDTO;
 import com.gmail.sebastiansoch.expensemanager.database.schema.DBHelper;
 import com.gmail.sebastiansoch.expensemanager.utils.StringBuilderWrapper;
 
@@ -15,16 +15,16 @@ import static com.gmail.sebastiansoch.expensemanager.database.schema.DBSchema.Sc
 import static com.gmail.sebastiansoch.expensemanager.database.schema.DBSchema.SchemaCategoryGroup;
 
 
-public class PurchaseDAO {
+public class ExpenseManagerDAO {
 
     private SQLiteDatabase database;
 
-    public PurchaseDAO(DBHelper DBHelper) {
+    public ExpenseManagerDAO(DBHelper DBHelper) {
         database = DBHelper.getWritableDatabase();
     }
 
-    List<CategoryGroupDAO> getAllCategoryGroups() {
-        List<CategoryGroupDAO> categoryGroups = new ArrayList<>();
+    List<CategoryGroupDTO> getAllCategoryGroups() {
+        List<CategoryGroupDTO> categoryGroups = new ArrayList<>();
 
         String sql = "SELECT * FROM " + SchemaCategoryGroup.TABLE_NAME;
         Cursor cursor = database.rawQuery(sql, null);
@@ -36,14 +36,14 @@ public class PurchaseDAO {
             String tag = cursor.getString(cursor.getColumnIndex(SchemaCategoryGroup.COLUMN_TAG));
             boolean isHide = cursor.getInt(cursor.getColumnIndex(SchemaCategoryGroup.COLUMN_IS_HIDE)) != 0 ? true : false;
             int tileId = cursor.getInt(cursor.getColumnIndex(SchemaCategoryGroup.COLUMN_TILES_ID));
-            categoryGroups.add(new CategoryGroupDAO(id, name, tag, isHide, tileId));
+            categoryGroups.add(new CategoryGroupDTO(id, name, tag, isHide, tileId));
         }
 
         return categoryGroups;
     }
 
-    List<CategoryDAO> getAllCategoriesForGroup(String groupName) {
-        List<CategoryDAO> categoriesForGroup = new ArrayList<>();
+    List<CategoryDTO> getAllCategoriesForGroup(String groupName) {
+        List<CategoryDTO> categoriesForGroup = new ArrayList<>();
 
         StringBuilderWrapper sql = new StringBuilderWrapper("SELECT");
         sql.append("*");
@@ -62,7 +62,7 @@ public class PurchaseDAO {
             String name = cursor.getString(cursor.getColumnIndex(SchemaCategory.COLUMN_NAME));
             boolean isHide = cursor.getInt(cursor.getColumnIndex(SchemaCategory.COLUMN_IS_HIDE)) != 0 ? true : false;
             int groupId = cursor.getInt(cursor.getColumnIndex(SchemaCategory.COLUMN_CATEGORY_GROUP_ID));
-            categoriesForGroup.add(new CategoryDAO(id, name, isHide, groupId));
+            categoriesForGroup.add(new CategoryDTO(id, name, isHide, groupId));
         }
 
         return categoriesForGroup;

@@ -1,10 +1,10 @@
 package com.gmail.sebastiansoch.expensemanager.database.model;
 
-public class TilesDAO {
+public class TilesDTO {
     private int id;
     private String path;
 
-    public TilesDAO(int id, String path) {
+    public TilesDTO(int id, String path) {
         this.id = id;
         this.path = path;
     }

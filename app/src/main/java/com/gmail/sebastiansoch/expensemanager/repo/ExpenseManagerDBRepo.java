@@ -5,7 +5,7 @@ import android.content.Context;
 import com.gmail.sebastiansoch.expensemanager.data.Category;
 import com.gmail.sebastiansoch.expensemanager.data.CategoryGroup;
 import com.gmail.sebastiansoch.expensemanager.data.CategoryGroupTile;
-import com.gmail.sebastiansoch.expensemanager.database.PurchaseDAO;
+import com.gmail.sebastiansoch.expensemanager.database.ExpenseManagerDAO;
 import com.gmail.sebastiansoch.expensemanager.database.schema.DBHelper;
 
 import java.util.ArrayList;
@@ -16,14 +16,14 @@ public class ExpenseManagerDBRepo implements ExpenseManagerRepo {
     private static final long serialVersionUID = 1L;
 
     private Context applicationContext;
-    private PurchaseDAO purchaseDAO;
+    private ExpenseManagerDAO expenseManagerDAO;
 
     public ExpenseManagerDBRepo(Context applicationContext) {
         this.applicationContext = applicationContext;
     }
 
     public void init() {
-        purchaseDAO = new PurchaseDAO(new DBHelper(applicationContext));
+        expenseManagerDAO = new ExpenseManagerDAO(new DBHelper(applicationContext));
     }
 
 
@@ -39,6 +39,8 @@ public class ExpenseManagerDBRepo implements ExpenseManagerRepo {
 
     @Override
     public ArrayList<CategoryGroupTile> getCategoryGroupTiles() {
+
+
         return new ArrayList<CategoryGroupTile>();
     }
 }

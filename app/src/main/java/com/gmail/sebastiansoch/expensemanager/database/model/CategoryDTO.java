@@ -1,12 +1,12 @@
 package com.gmail.sebastiansoch.expensemanager.database.model;
 
-public class CategoryDAO {
+public class CategoryDTO {
     private int id;
     private String name;
     private boolean hide;
     private int groupId;
 
-    public CategoryDAO(int id, String name, boolean hide, int groupId) {
+    public CategoryDTO(int id, String name, boolean hide, int groupId) {
         this.id = id;
         this.name = name;
         this.hide = hide;
