@@ -2,7 +2,7 @@ package com.gmail.sebastiansoch.expensemanager.database.schema;
 
 import android.database.sqlite.SQLiteDatabase;
 
-import com.gmail.sebastiansoch.expensemanager.utils.StringBuilderWrapper;
+import com.gmail.sebastiansoch.expensemanager.database.utils.StringBuilderWrapper;
 
 import static com.gmail.sebastiansoch.expensemanager.database.schema.DBSchema.*;
 
