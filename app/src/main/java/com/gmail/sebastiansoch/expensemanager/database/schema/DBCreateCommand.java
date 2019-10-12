@@ -4,7 +4,10 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.gmail.sebastiansoch.expensemanager.database.utils.StringBuilderWrapper;
 
-import static com.gmail.sebastiansoch.expensemanager.database.schema.DBSchema.*;
+import static com.gmail.sebastiansoch.expensemanager.database.schema.DBSchema.SchemaCategory;
+import static com.gmail.sebastiansoch.expensemanager.database.schema.DBSchema.SchemaCategoryGroup;
+import static com.gmail.sebastiansoch.expensemanager.database.schema.DBSchema.SchemaPurchase;
+import static com.gmail.sebastiansoch.expensemanager.database.schema.DBSchema.SchemaTiles;
 
 public class DBCreateCommand {
     private static final String ID_OPTIONS = "INTEGER PRIMARY KEY";
@@ -63,7 +66,8 @@ public class DBCreateCommand {
         builder.append("(");
         builder.append(SchemaPurchase.COLUMN_ID).append(ID_OPTIONS).append(",");
         builder.append(SchemaPurchase.COLUMN_CATEGORY_ID).append(OTHER_ID_OPTION).append(",");
-        builder.append(SchemaPurchase.COLUMN_DATE).append(TEXT_OPTION).append(",");
+        builder.append(SchemaPurchase.COLUMN_PURCHASE_DATE).append(TEXT_OPTION).append(",");
+        builder.append(SchemaPurchase.COLUMN_ENTRY_DATE).append(TEXT_OPTION).append(",");
         builder.append(SchemaPurchase.COLUMN_PRICE).append(PRICE_OPTION);
         builder.append(")");
 
