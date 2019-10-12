@@ -7,28 +7,21 @@ import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.gmail.sebastiansoch.expensemanager.data.CategoryGroupTile;
-import com.gmail.sebastiansoch.expensemanager.repo.ExpenseManagerDBRepo;
-import com.gmail.sebastiansoch.expensemanager.repo.ExpenseManagerRepo;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
-    private ExpenseManagerRepo expenseManagerRepo;
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getRepository();
         generateCategoryGroupTiles();
     }
 
     public void openSettings(View view) {
         Intent intent = new Intent(this, CategorySettings.class);
-        intent.putExtra("REPO", expenseManagerRepo);
         startActivity(intent);
     }
 
@@ -52,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         Intent intent = new Intent(getApplicationContext(), PurchaseEntry.class);
                         intent.putExtra("CATEGORY_GROUP_NAME", categoryGroupTile.getCategoryGroup().getName());
-                        intent.putExtra("REPO", expenseManagerRepo);
                         startActivity(intent);
                     }
                 });
@@ -61,13 +53,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-    private void getRepository() {
-        if (expenseManagerRepo == null) {
-            ExpenseManagerDBRepo expenseManagerDBRepo = new ExpenseManagerDBRepo(getApplicationContext());
-            expenseManagerDBRepo.init();
-            expenseManagerRepo = expenseManagerDBRepo;
-        }
-    }
-
 }
