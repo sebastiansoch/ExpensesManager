@@ -30,17 +30,16 @@ public class ExpenseManagerDAO {
 
         String sql = "SELECT * FROM " + SchemaCategoryGroup.TABLE_NAME;
         Cursor cursor = database.rawQuery(sql, null);
-        cursor.moveToFirst();
-
-        while (cursor.moveToNext()) {
-            int id = cursor.getInt(cursor.getColumnIndex(SchemaCategoryGroup.COLUMN_ID));
-            String name = cursor.getString(cursor.getColumnIndex(SchemaCategoryGroup.COLUMN_NAME));
-            String tag = cursor.getString(cursor.getColumnIndex(SchemaCategoryGroup.COLUMN_TAG));
-            boolean isHide = cursor.getInt(cursor.getColumnIndex(SchemaCategoryGroup.COLUMN_IS_HIDE)) != 0 ? true : false;
-            int tileId = cursor.getInt(cursor.getColumnIndex(SchemaCategoryGroup.COLUMN_TILES_ID));
-            categoryGroups.add(new CategoryGroupDTO(id, name, tag, isHide, tileId));
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndex(SchemaCategoryGroup.COLUMN_ID));
+                String name = cursor.getString(cursor.getColumnIndex(SchemaCategoryGroup.COLUMN_NAME));
+                String tag = cursor.getString(cursor.getColumnIndex(SchemaCategoryGroup.COLUMN_TAG));
+                boolean isHide = cursor.getInt(cursor.getColumnIndex(SchemaCategoryGroup.COLUMN_IS_HIDE)) != 0 ? true : false;
+                int tileId = cursor.getInt(cursor.getColumnIndex(SchemaCategoryGroup.COLUMN_TILES_ID));
+                categoryGroups.add(new CategoryGroupDTO(id, name, tag, isHide, tileId));
+            } while (cursor.moveToNext());
         }
-
         return categoryGroups;
     }
 
@@ -75,14 +74,15 @@ public class ExpenseManagerDAO {
                 .append("=").appendValue(groupName);
 
         Cursor cursor = database.rawQuery(sql.toString(), null);
-        cursor.moveToFirst();
 
-        while (cursor.moveToNext()) {
-            int id = cursor.getInt(cursor.getColumnIndex(SchemaCategory.COLUMN_ID));
-            String name = cursor.getString(cursor.getColumnIndex(SchemaCategory.COLUMN_NAME));
-            boolean isHide = cursor.getInt(cursor.getColumnIndex(SchemaCategory.COLUMN_IS_HIDE)) != 0 ? true : false;
-            int groupId = cursor.getInt(cursor.getColumnIndex(SchemaCategory.COLUMN_CATEGORY_GROUP_ID));
-            categoriesForGroup.add(new CategoryDTO(id, name, isHide, groupId));
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndex(SchemaCategory.COLUMN_ID));
+                String name = cursor.getString(cursor.getColumnIndex(SchemaCategory.COLUMN_NAME));
+                boolean isHide = cursor.getInt(cursor.getColumnIndex(SchemaCategory.COLUMN_IS_HIDE)) != 0 ? true : false;
+                int groupId = cursor.getInt(cursor.getColumnIndex(SchemaCategory.COLUMN_CATEGORY_GROUP_ID));
+                categoriesForGroup.add(new CategoryDTO(id, name, isHide, groupId));
+            } while (cursor.moveToNext());
         }
 
         return categoriesForGroup;
