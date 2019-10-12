@@ -58,11 +58,13 @@ public class ExpenseManagerDBRepo implements ExpenseManagerRepo {
 
         List<CategoryGroupDTO> allCategoryGroups = expenseManagerDAO.getAllCategoryGroups();
         for (CategoryGroupDTO categoryGroupDTO : allCategoryGroups) {
-            TilesDTO tileForCategoryGroup = expenseManagerDAO.getTileForCategoryGroup(categoryGroupDTO.getName());
-            categoriesGroupTile.add(
-                    new CategoryGroupTile(categoryGroupDTO.getName(),
-                            categoryGroupDTO.getTag(), tileForCategoryGroup.getPath())
-            );
+            if (!categoryGroupDTO.isHide()) {
+                TilesDTO tileForCategoryGroup = expenseManagerDAO.getTileForCategoryGroup(categoryGroupDTO.getName());
+                categoriesGroupTile.add(
+                        new CategoryGroupTile(categoryGroupDTO.getName(),
+                                categoryGroupDTO.getTag(), tileForCategoryGroup.getPath())
+                );
+            }
         }
 
         return categoriesGroupTile;
