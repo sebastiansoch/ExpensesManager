@@ -35,6 +35,20 @@ public class ExpenseManagerDBRepo implements ExpenseManagerRepo {
     @Override
     public Map<CategoryGroup, List<Category>> getAllCategoriesForSettings() {
         Map<CategoryGroup, List<Category>> categoriesForSettings = new HashMap<>();
+
+        List<CategoryGroupDTO> allCategoryGroups = expenseManagerDAO.getAllCategoryGroups();
+        for (CategoryGroupDTO categoryGroupDTO : allCategoryGroups) {
+
+            List<CategoryDTO> allCategoriesForGroup = expenseManagerDAO.getAllCategoriesForGroup(categoryGroupDTO.getName());
+            List<Category> categories = new ArrayList<>();
+            for (CategoryDTO categoryDTO : allCategoriesForGroup) {
+                categories.add(new Category(categoryDTO.getName(), categoryDTO.isHide()));
+            }
+
+            CategoryGroup categoryGroup = new CategoryGroup(categoryGroupDTO.getName(), categoryGroupDTO.isHide());
+            categoriesForSettings.put(categoryGroup, categories);
+        }
+
         return categoriesForSettings;
     }
 
@@ -45,7 +59,7 @@ public class ExpenseManagerDBRepo implements ExpenseManagerRepo {
         List<CategoryDTO> allCategoriesForGroup = expenseManagerDAO.getAllCategoriesForGroup(categoryGroupName);
         for (CategoryDTO categoryDTO : allCategoriesForGroup) {
             if (!categoryDTO.isHide()) {
-                categories.add(new Category(categoryDTO.getName()));
+                categories.add(new Category(categoryDTO.getName(), categoryDTO.isHide()));
             }
         }
 

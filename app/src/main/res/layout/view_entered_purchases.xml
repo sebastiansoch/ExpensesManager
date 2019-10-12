@@ -17,8 +17,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="8dp"
             android:layout_weight="10"
-            android:gravity="start"
-            android:text="fruninshing" />
+            android:gravity="start" />
 
         <TextView
             android:id="@+id/purchaseDateEPV"
@@ -27,8 +26,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginHorizontal="4dp"
             android:layout_weight="1"
-            android:gravity="end"
-            android:text="2019-01-12" />
+            android:gravity="end" />
 
         <TextView
             android:id="@+id/priceEPV"
@@ -37,8 +35,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="8dp"
             android:layout_weight="4"
-            android:gravity="end"
-            android:text="1231,12" />
+            android:gravity="end" />
 
         <ImageButton
             android:id="@+id/removePurchaseEPVBtn"

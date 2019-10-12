@@ -6,42 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".CategorySettings">
 
+    <TextView
+        android:id="@+id/chooseCategoryTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintHorizontal_weight="2"
+        android:text="Wybierz interesujące grupy i kategorie wydatków"
+        app:layout_constraintEnd_toStartOf="@+id/saveSettingsBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageButton
         android:id="@+id/saveSettingsBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="24dp"
         android:onClick="saveCategoriesConfiguration"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_save_black_24dp" />
 
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chooseCategoryTV">
+        app:layout_constraintTop_toBottomOf="@+id/saveSettingsBtn">
 
-        <TableLayout
+        <LinearLayout
             android:id="@+id/categoryVisibilityLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        </TableLayout>
+        </LinearLayout>
     </ScrollView>
 
-    <TextView
-        android:id="@+id/chooseCategoryTV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Wybierz interesujące grupy i kategorie wydatków"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

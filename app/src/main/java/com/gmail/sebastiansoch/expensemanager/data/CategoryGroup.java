@@ -17,4 +17,8 @@ public class CategoryGroup {
     public boolean isHide() {
         return hide;
     }
+
+    public void setHide(boolean hide) {
+        this.hide = hide;
+    }
 }
