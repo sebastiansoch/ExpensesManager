@@ -1,13 +1,8 @@
 package com.gmail.sebastiansoch.expensemanager;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TextView;
+import android.widget.ExpandableListView;
 
 import com.gmail.sebastiansoch.expensemanager.data.Category;
 import com.gmail.sebastiansoch.expensemanager.data.CategoryGroup;
@@ -15,73 +10,65 @@ import com.gmail.sebastiansoch.expensemanager.data.CategoryGroup;
 import java.util.List;
 import java.util.Map;
 
-public class CategorySettings extends BaseActivity {
+public class CategorySettings extends BaseActivity implements CategoryExpandableListListener {
 
-    private LinearLayout categoryVisibilityLayout;
+    private ExpandableListView categoryExpandableList;
+    private CategoryExpandableListAdapter categoryExpandableListAdapter;
+
     private Map<CategoryGroup, List<Category>> allCategoriesForSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_settings);
-        categoryVisibilityLayout = findViewById(R.id.categoryVisibilityLayout);
+
         allCategoriesForSettings = expenseManagerRepo.getAllCategoriesForSettings();
-        showAllCategories();
-    }
 
-    private void showAllCategories() {
-        for (final CategoryGroup categoryGroup : allCategoriesForSettings.keySet()) {
+        categoryExpandableListAdapter = new CategoryExpandableListAdapter(CategorySettings.this, allCategoriesForSettings);
 
-            LayoutInflater inflaterGroup = getLayoutInflater();
-            View categoryGroupView = inflaterGroup.inflate(R.layout.view_settings_category_group, categoryVisibilityLayout, false);
+        categoryExpandableList = findViewById(R.id.categoryExpandableList);
+        categoryExpandableList.setAdapter(categoryExpandableListAdapter);
 
-            CheckBox categoryGroupChb = categoryGroupView.findViewById(R.id.settingsCategoryGroupChb);
-            if (categoryGroup.isHide()) {
-                categoryGroupChb.setChecked(false);
-            } else {
-                categoryGroupChb.setChecked(true);
-            }
-
-            categoryGroupChb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    categoryGroup.setHide(!isChecked);
-                }
-            });
-
-            TextView categoryGroupTV = categoryGroupView.findViewById(R.id.settingsCategoryGroupTV);
-            categoryGroupTV.setText(categoryGroup.getName());
-
-            categoryVisibilityLayout.addView(categoryGroupView);
-
-            for (final Category category : allCategoriesForSettings.get(categoryGroup)) {
-                LayoutInflater inflaterCategory = getLayoutInflater();
-                View categoryView = inflaterCategory.inflate(R.layout.view_settings_category, categoryVisibilityLayout, false);
-
-                final CheckBox categoryChb = categoryView.findViewById(R.id.settingsCategoryChb);
-
-                if (category.isHide()) {
-                    categoryChb.setChecked(false);
-                } else {
-                    categoryChb.setChecked(true);
-                }
-
-                categoryChb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        category.setHide(!isChecked);
-                    }
-                });
-
-                TextView categoryTV = categoryView.findViewById(R.id.settingsCategoryTV);
-                categoryTV.setText(category.getName());
-
-                categoryVisibilityLayout.addView(categoryView);
-            }
-        }
+//        categoryExpandableList.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+//            @Override
+//            public void onGroupExpand(int groupPosition) {
+//                Toast.makeText(getApplicationContext(),
+//                        allCategoriesForSettings.keySet().toArray(new CategoryGroup[allCategoriesForSettings.size()])[groupPosition]
+//                                + " List Expanded.", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        categoryExpandableList.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+//            @Override
+//            public void onGroupCollapse(int groupPosition) {
+//                Toast.makeText(getApplicationContext(),
+//                        allCategoriesForSettings.keySet().toArray(new CategoryGroup[allCategoriesForSettings.size()])[groupPosition]
+//                                + " List Collapsed.", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        categoryExpandableList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+//            @Override
+//            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+//                Toast.makeText(getApplicationContext(),
+//                        allCategoriesForSettings.keySet().toArray(new CategoryGroup[allCategoriesForSettings.size()])[groupPosition]
+//                                + " -> " + allCategoriesForSettings.get(groupPosition).get(childPosition).getName(), Toast.LENGTH_SHORT).show();
+//
+//                return false;
+//            }
+//        });
     }
 
     public void saveCategoriesConfiguration(View view) {
         finish();
+    }
+
+    @Override
+    public void expandCategoryGroupEvent(int groupPosition, boolean isExpanded) {
+        if (isExpanded) {
+            categoryExpandableList.collapseGroup(groupPosition);
+        } else {
+            categoryExpandableList.expandGroup(groupPosition);
+        }
     }
 }

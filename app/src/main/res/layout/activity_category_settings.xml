@@ -11,9 +11,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        app:layout_constraintHorizontal_weight="2"
         android:text="Wybierz interesujące grupy i kategorie wydatków"
         app:layout_constraintEnd_toStartOf="@+id/saveSettingsBtn"
+        app:layout_constraintHorizontal_weight="2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,22 +27,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_save_black_24dp" />
 
-
-    <ScrollView
+    <ExpandableListView
+        android:id="@+id/categoryExpandableList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/saveSettingsBtn">
+        android:layout_height="0dp"
+        android:divider="@color/colorDarkGrey"
+        android:dividerHeight="0.5dp"
+        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintTop_toBottomOf="@+id/saveSettingsBtn" />
 
-        <LinearLayout
-            android:id="@+id/categoryVisibilityLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-        </LinearLayout>
-    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
