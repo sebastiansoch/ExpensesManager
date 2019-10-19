@@ -47,7 +47,6 @@ public class PurchaseEntry extends BaseActivity {
             cleanPriceTextView();
         }
     };
-
     private TextWatcher purchasePriceTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
@@ -101,39 +100,12 @@ public class PurchaseEntry extends BaseActivity {
         initDatePicker();
     }
 
-    private void initDatePicker() {
-        purchaseDateBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(PurchaseEntry.this, android.R.style.Theme_Material_Light_Dialog_MinWidth, onDateSetListener, year, month, day);
-//                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                datePickerDialog.show();
+    private void setPurchaseCategoryList(String categoryGroup) {
+        List<Category> purchaseCategoriesForGroup = expenseManagerRepo.getAllCategoriesForGroup(categoryGroup);
+        if (purchaseCategoriesForGroup != null && !purchaseCategoriesForGroup.isEmpty()) {
+            for (Category category : purchaseCategoriesForGroup) {
+                purchaseCategoryList.add(category.getName());
             }
-        });
-
-        onDateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                try {
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    Date parsedDate = dateFormat.parse(year + "-" + (month + 1) + "-" + day);
-                    purchaseDateTextView.setText(dateFormat.format(parsedDate));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-    }
-
-    private void setCurrentDate() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String date = dateFormat.format(new Date());
-        if (date != null) {
-            purchaseDateTextView.setText(date);
         }
     }
 
@@ -157,13 +129,39 @@ public class PurchaseEntry extends BaseActivity {
         });
     }
 
-    private void setPurchaseCategoryList(String categoryGroup) {
-        List<Category> purchaseCategoriesForGroup = expenseManagerRepo.getAllCategoriesForGroup(categoryGroup);
-        if (purchaseCategoriesForGroup != null && !purchaseCategoriesForGroup.isEmpty()) {
-            for (Category category : purchaseCategoriesForGroup) {
-                purchaseCategoryList.add(category.getName());
-            }
+    private void setCurrentDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String date = dateFormat.format(new Date());
+        if (date != null) {
+            purchaseDateTextView.setText(date);
         }
+    }
+
+    private void initDatePicker() {
+        purchaseDateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(PurchaseEntry.this, android.R.style.Theme_Material_Light_Dialog_MinWidth, onDateSetListener, year, month, day);
+                datePickerDialog.show();
+            }
+        });
+
+        onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                try {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    Date parsedDate = dateFormat.parse(year + "-" + (month + 1) + "-" + day);
+                    purchaseDateTextView.setText(dateFormat.format(parsedDate));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
     }
 
     private void addEnteredPurchaseToList() {

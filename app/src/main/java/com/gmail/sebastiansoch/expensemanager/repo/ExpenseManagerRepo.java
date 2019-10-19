@@ -13,4 +13,6 @@ public interface ExpenseManagerRepo {
     List<Category> getAllCategoriesForGroup(String categoryGroupName);
 
     List<CategoryGroupTile> getCategoryGroupTiles();
+
+    void saveCategoriesSettings(Map<CategoryGroup, List<Category>> categoriesSettings);
 }

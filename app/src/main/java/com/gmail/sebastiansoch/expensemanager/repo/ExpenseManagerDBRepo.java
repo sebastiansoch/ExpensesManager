@@ -83,4 +83,40 @@ public class ExpenseManagerDBRepo implements ExpenseManagerRepo {
 
         return categoriesGroupTile;
     }
+
+    @Override
+    public void saveCategoriesSettings(Map<CategoryGroup, List<Category>> categoriesSettings) {
+        List<CategoryGroup> categoryGroups = new ArrayList<>(categoriesSettings.keySet());
+        List<CategoryGroupDTO> categoryGroupsDTO = expenseManagerDAO.getAllCategoryGroups();
+
+        for (CategoryGroup categoryGroup : categoryGroups) {
+            String currentCategoryGroupDTOName = "";
+
+            for (CategoryGroupDTO categoryGroupDTO : categoryGroupsDTO) {
+                if (categoryGroup.getName().equals(categoryGroupDTO.getName())) {
+                    categoryGroupDTO.setHide(categoryGroup.isHide());
+                    currentCategoryGroupDTOName = categoryGroupDTO.getName();
+                }
+            }
+
+            if (!currentCategoryGroupDTOName.isEmpty()) {
+                List<Category> categories = categoriesSettings.get(categoryGroup);
+                List<CategoryDTO> categoriesDTOForGroup = expenseManagerDAO.getAllCategoriesForGroup(currentCategoryGroupDTOName);
+
+                for (Category category : categories) {
+
+                    for (CategoryDTO categoryDTO : categoriesDTOForGroup) {
+                        if (category.getName().equals(categoryDTO.getName())) {
+                            categoryDTO.setHide(category.isHide());
+                        }
+                    }
+                }
+
+                expenseManagerDAO.saveCategorySettings(categoriesDTOForGroup);
+
+            }
+        }
+
+        expenseManagerDAO.saveCategoryGroupsSettings(categoryGroupsDTO);
+    }
 }

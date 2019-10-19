@@ -25,6 +25,10 @@ public class CategoryDTO {
         return hide;
     }
 
+    public void setHide(boolean hide) {
+        this.hide = hide;
+    }
+
     public int getGroupId() {
         return groupId;
     }

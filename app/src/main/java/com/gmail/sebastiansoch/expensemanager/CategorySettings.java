@@ -27,6 +27,7 @@ public class CategorySettings extends BaseActivity implements CategoryExpandable
     }
 
     public void saveCategoriesConfiguration(View view) {
+        expenseManagerRepo.saveCategoriesSettings(allCategoriesForSettings);
         finish();
     }
 

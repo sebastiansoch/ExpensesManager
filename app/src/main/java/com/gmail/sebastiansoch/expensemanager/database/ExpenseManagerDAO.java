@@ -1,5 +1,6 @@
 package com.gmail.sebastiansoch.expensemanager.database;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -86,5 +87,30 @@ public class ExpenseManagerDAO {
         }
 
         return categoriesForGroup;
+    }
+
+    public void saveCategoryGroupsSettings(List<CategoryGroupDTO> categoryGroupsDTO) {
+        for (CategoryGroupDTO categoryGroupDTO :  categoryGroupsDTO) {
+            ContentValues values = new ContentValues();
+            values.put(SchemaCategoryGroup.COLUMN_IS_HIDE, categoryGroupDTO.isHide());
+
+            StringBuilderWrapper where = new StringBuilderWrapper(SchemaCategoryGroup.COLUMN_ID);
+            where.append("=").append(String.valueOf(categoryGroupDTO.getId()));
+
+            database.update(SchemaCategoryGroup.TABLE_NAME, values, where.toString(), null);
+        }
+    }
+
+    public void saveCategorySettings(List<CategoryDTO> categoriesDTOForGroup) {
+        for (CategoryDTO categoryDTO : categoriesDTOForGroup) {
+            ContentValues values = new ContentValues();
+            values.put(SchemaCategory.COLUMN_IS_HIDE, categoryDTO.isHide());
+
+            StringBuilderWrapper where = new StringBuilderWrapper(SchemaCategory.COLUMN_ID);
+            where.append("=").append(String.valueOf(categoryDTO.getId()));
+
+            database.update(SchemaCategory.TABLE_NAME, values, where.toString(), null);
+
+        }
     }
 }

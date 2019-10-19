@@ -20,6 +20,12 @@ public class MainActivity extends BaseActivity {
         generateCategoryGroupTiles();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        generateCategoryGroupTiles();
+    }
+
     public void openSettings(View view) {
         Intent intent = new Intent(this, CategorySettings.class);
         startActivity(intent);
