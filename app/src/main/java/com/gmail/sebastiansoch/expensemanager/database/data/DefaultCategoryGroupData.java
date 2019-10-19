@@ -7,16 +7,13 @@ public class DefaultCategoryGroupData {
 
     private static List<CategoryGroupData> categoryGroupData = new ArrayList<CategoryGroupData>() {
         {
-            add(new CategoryGroupData(1, "house", "house", 1));
-            add(new CategoryGroupData(2, "food", "food", 2));
-            add(new CategoryGroupData(3, "cleaning_supplies", "cleaning_supplies", 3));
+            add(new CategoryGroupData(1, "food", "food", 1));
+            add(new CategoryGroupData(2, "people", "people", 2));
+            add(new CategoryGroupData(3, "house", "house", 3));
             add(new CategoryGroupData(4, "entertainment", "entertainment", 4));
-            add(new CategoryGroupData(5, "clothes", "clothes", 5));
-            add(new CategoryGroupData(6, "transportation", "transportation", 6));
-            add(new CategoryGroupData(7, "installment", "installment", 7));
-            add(new CategoryGroupData(8, "insurance", "insurance", 8));
-            add(new CategoryGroupData(9, "health_sport", "health_sport", 9));
-            add(new CategoryGroupData(10, "savings", "savings", 10));
+            add(new CategoryGroupData(5, "transportation", "transportation", 5));
+            add(new CategoryGroupData(6, "money", "money", 6));
+            add(new CategoryGroupData(7, "other_expenses", "other_expenses", 7));
         }
     };
 
