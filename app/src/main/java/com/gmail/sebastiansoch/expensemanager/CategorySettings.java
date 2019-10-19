@@ -12,9 +12,9 @@ import java.util.Map;
 
 public class CategorySettings extends BaseActivity implements CategoryExpandableListListener {
 
-    private ExpandableListView categoryExpandableList;
     private CategoryExpandableListAdapter categoryExpandableListAdapter;
 
+    private ExpandableListView categoryExpandableList;
     private Map<CategoryGroup, List<Category>> allCategoriesForSettings;
 
     @Override

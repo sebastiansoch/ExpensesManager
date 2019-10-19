@@ -23,11 +23,11 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
     private List<CategoryGroup> categoryGroupList;
     private CategoryExpandableListListener categoryExpandableListListener;
 
-    public CategoryExpandableListAdapter(Context context, Map<CategoryGroup, List<Category>> allCategoriesForSettings) {
-        this.context = context;
+    public CategoryExpandableListAdapter(CategorySettings categorySettings, Map<CategoryGroup, List<Category>> allCategoriesForSettings) {
+        this.context = categorySettings;
         this.allCategoriesForSettings = allCategoriesForSettings;
         this.categoryGroupList = new ArrayList<>(allCategoriesForSettings.keySet());
-        this.categoryExpandableListListener = (CategoryExpandableListListener) context;
+        this.categoryExpandableListListener = categorySettings;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public boolean hasStableIds() {
-        return false;
+        return true;
     }
 
     @Override
@@ -84,11 +84,23 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
+        holder.vhCategoryGroupChb.setChecked(!getGroup(groupPosition).isHide());
+        holder.vhCategoryGroupChb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (((CheckBox) view).isChecked()) {
+                    getGroup(groupPosition).setHide(false);
+                } else {
+                    getGroup(groupPosition).setHide(true);
+                }
+            }
+        });
+
         holder.vhCategoryGroupTV.setTypeface(null, Typeface.BOLD_ITALIC);
         holder.vhCategoryGroupTV.setText(getGroup(groupPosition).getName());
         holder.vhCategoryGroupTV.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 categoryExpandableListListener.expandCategoryGroupEvent(groupPosition, isExpanded);
             }
         });
@@ -96,7 +108,7 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
         ViewHolder holder;
 
@@ -113,6 +125,18 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
+        holder.vhCategoryChb.setChecked(!getChild(groupPosition, childPosition).isHide());
+        holder.vhCategoryChb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (((CheckBox) view).isChecked()) {
+                    getChild(groupPosition, childPosition).setHide(false);
+                } else {
+                    getChild(groupPosition, childPosition).setHide(true);
+                }
+            }
+        });
 
         holder.vhCategoryTV.setText(getChild(groupPosition, childPosition).getName());
 
