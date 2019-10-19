@@ -93,6 +93,7 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
                 } else {
                     getGroup(groupPosition).setHide(true);
                 }
+                notifyDataSetChanged();
             }
         });
 
@@ -126,15 +127,24 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.vhCategoryChb.setChecked(!getChild(groupPosition, childPosition).isHide());
+
+        if (!getGroup(groupPosition).isHide()) {
+            holder.vhCategoryChb.setChecked(!getChild(groupPosition, childPosition).isHide());
+        } else {
+            holder.vhCategoryChb.setChecked(false);
+            getChild(groupPosition, childPosition).setHide(true);
+        }
+
         holder.vhCategoryChb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (((CheckBox) view).isChecked()) {
                     getChild(groupPosition, childPosition).setHide(false);
+                    getGroup(groupPosition).setHide(false);
                 } else {
                     getChild(groupPosition, childPosition).setHide(true);
                 }
+                notifyDataSetChanged();
             }
         });
 
