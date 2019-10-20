@@ -25,13 +25,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PurchaseEntry extends BaseActivity {
 
     char decimalSeparator;
     private List<String> purchaseCategoryList = new ArrayList<>();
+    private Map<String, String> purchaseNameToCategory = new HashMap<>();
     private List<Purchase> purchaseListForDB = new ArrayList<>();
+
     private TextView purchaseDateTextView;
     private ImageButton purchaseDateBtn;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
@@ -97,6 +101,12 @@ public class PurchaseEntry extends BaseActivity {
         purchasePriceEditText.addTextChangedListener(purchasePriceTextWatcher);
     }
 
+    @Override
+    protected void onPause() {
+        expenseManagerRepo.saveEnteredPurchases(purchaseListForDB);
+        super.onPause();
+    }
+
     private void init() {
         setPurchaseCategoryList(categoryGroupName);
         fillPurchaseCategorySpinner();
@@ -108,7 +118,9 @@ public class PurchaseEntry extends BaseActivity {
         List<Category> purchaseCategoriesForGroup = expenseManagerRepo.getAllCategoriesForGroup(categoryGroup);
         if (purchaseCategoriesForGroup != null && !purchaseCategoriesForGroup.isEmpty()) {
             for (Category category : purchaseCategoriesForGroup) {
-                purchaseCategoryList.add(getResources().getString(getResources().getIdentifier(category.getName(),"string", getPackageName())));
+                String categoryName = getResources().getString(getResources().getIdentifier(category.getName(), "string", getPackageName()));
+                purchaseCategoryList.add(categoryName);
+                purchaseNameToCategory.put(categoryName, category.getName());
             }
         }
     }
@@ -169,9 +181,9 @@ public class PurchaseEntry extends BaseActivity {
     }
 
     private void addEnteredPurchaseToList() {
-        String purchaseCategory = purchaseCategorySpinner.getSelectedItem().toString();
-        String date = purchaseDateTextView.getText().toString();
-        String price = purchasePriceEditText.getText().toString();
+        final String purchaseCategory = purchaseCategorySpinner.getSelectedItem().toString();
+        final String date = purchaseDateTextView.getText().toString();
+        final String price = purchasePriceEditText.getText().toString();
 
         if (!purchaseCategory.isEmpty() && !date.isEmpty() && !price.isEmpty()) {
             LayoutInflater inflater = getLayoutInflater();
@@ -188,8 +200,8 @@ public class PurchaseEntry extends BaseActivity {
             removeBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO - podpiac usuwanie z bazy danych
-                    enteredPurchasesLayout.removeView(enteredPurchaseView);
+                enteredPurchasesLayout.removeView(enteredPurchaseView);
+                removePurchaseFromListForDB(purchaseCategory, date, price);
                 }
             });
 
@@ -201,13 +213,18 @@ public class PurchaseEntry extends BaseActivity {
     }
 
     private void addToPurchaseListForDB() {
-//        String purchaseCategory = purchaseCategorySpinner.getSelectedItem().toString();
-//        String date = purchaseDateTextView.getText().toString();
-//        String price = purchasePriceEditText.getText().toString();
-//
-//        if (!purchaseCategory.isEmpty() && !date.isEmpty() && !price.isEmpty()) {
-//
-//        }
+        String purchaseCategory = purchaseCategorySpinner.getSelectedItem().toString();
+        String date = purchaseDateTextView.getText().toString();
+        String price = purchasePriceEditText.getText().toString();
+
+        if (!purchaseCategory.isEmpty() && !date.isEmpty() && !price.isEmpty()) {
+            purchaseListForDB.add(new Purchase(purchaseNameToCategory.get(purchaseCategory), date, price));
+        }
+    }
+
+    private void removePurchaseFromListForDB(String purchaseCategory, String date, String price) {
+        Purchase purchase = new Purchase(purchaseNameToCategory.get(purchaseCategory), date, price);
+        purchaseListForDB.remove(purchase);
     }
 
     private String formatPrice(String sPrice) {

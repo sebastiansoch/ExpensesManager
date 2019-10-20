@@ -5,6 +5,7 @@ import android.content.Context;
 import com.gmail.sebastiansoch.expensemanager.data.Category;
 import com.gmail.sebastiansoch.expensemanager.data.CategoryGroup;
 import com.gmail.sebastiansoch.expensemanager.data.CategoryGroupTile;
+import com.gmail.sebastiansoch.expensemanager.data.Purchase;
 import com.gmail.sebastiansoch.expensemanager.database.ExpenseManagerDAO;
 import com.gmail.sebastiansoch.expensemanager.database.model.CategoryDTO;
 import com.gmail.sebastiansoch.expensemanager.database.model.CategoryGroupDTO;
@@ -118,5 +119,10 @@ public class ExpenseManagerDBRepo implements ExpenseManagerRepo {
         }
 
         expenseManagerDAO.saveCategoryGroupsSettings(categoryGroupsDTO);
+    }
+
+    @Override
+    public void saveEnteredPurchases(List<Purchase> purchaseListForDB) {
+
     }
 }
