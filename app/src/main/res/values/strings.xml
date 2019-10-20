@@ -4,7 +4,7 @@
     <string name="price">Price:</string>
     <string name="expense">Expense:</string>
     <string name="expense_date">Expense date:</string>
-    <string name="entered_expenses">Entered expense:</string>
+    <string name="entered_expenses">Entered expenses:</string>
     <string name="cat_food">Food</string>
     <string name="cat_beverage">Beverage</string>
     <string name="cat_alcohol">Alcohol</string>

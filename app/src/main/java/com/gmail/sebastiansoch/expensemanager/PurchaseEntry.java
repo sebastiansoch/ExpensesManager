@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gmail.sebastiansoch.expensemanager.data.Category;
+import com.gmail.sebastiansoch.expensemanager.data.Purchase;
 
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
@@ -30,6 +31,7 @@ public class PurchaseEntry extends BaseActivity {
 
     char decimalSeparator;
     private List<String> purchaseCategoryList = new ArrayList<>();
+    private List<Purchase> purchaseListForDB = new ArrayList<>();
     private TextView purchaseDateTextView;
     private ImageButton purchaseDateBtn;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
@@ -44,9 +46,11 @@ public class PurchaseEntry extends BaseActivity {
         public void onClick(View view) {
             //TODO - podpiac dodawanie do bazy danych
             addEnteredPurchaseToList();
+            addToPurchaseListForDB();
             cleanPriceTextView();
         }
     };
+
     private TextWatcher purchasePriceTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
@@ -104,7 +108,7 @@ public class PurchaseEntry extends BaseActivity {
         List<Category> purchaseCategoriesForGroup = expenseManagerRepo.getAllCategoriesForGroup(categoryGroup);
         if (purchaseCategoriesForGroup != null && !purchaseCategoriesForGroup.isEmpty()) {
             for (Category category : purchaseCategoriesForGroup) {
-                purchaseCategoryList.add(category.getName());
+                purchaseCategoryList.add(getResources().getString(getResources().getIdentifier(category.getName(),"string", getPackageName())));
             }
         }
     }
@@ -194,6 +198,16 @@ public class PurchaseEntry extends BaseActivity {
             Toast.makeText(this, "Check if all data are set properly", Toast.LENGTH_SHORT).show();
             return;
         }
+    }
+
+    private void addToPurchaseListForDB() {
+//        String purchaseCategory = purchaseCategorySpinner.getSelectedItem().toString();
+//        String date = purchaseDateTextView.getText().toString();
+//        String price = purchasePriceEditText.getText().toString();
+//
+//        if (!purchaseCategory.isEmpty() && !date.isEmpty() && !price.isEmpty()) {
+//
+//        }
     }
 
     private String formatPrice(String sPrice) {
