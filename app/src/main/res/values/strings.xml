@@ -5,6 +5,13 @@
     <string name="expense">Expense:</string>
     <string name="expense_date">Expense date:</string>
     <string name="entered_expenses">Entered expenses:</string>
+    <string name="catgr_food">Food</string>
+    <string name="catgr_people">People</string>
+    <string name="catgr_house">House</string>
+    <string name="catgr_entertainment">Entertainment</string>
+    <string name="catgr_transportation">Transportation</string>
+    <string name="catgr_money">Money</string>
+    <string name="catgr_other_expenses">Other Expenses</string>
     <string name="cat_food">Food</string>
     <string name="cat_beverage">Beverage</string>
     <string name="cat_alcohol">Alcohol</string>

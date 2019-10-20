@@ -1,6 +1,7 @@
 package com.gmail.sebastiansoch.expensemanager;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,12 +23,16 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
     private Map<CategoryGroup, List<Category>> allCategoriesForSettings;
     private List<CategoryGroup> categoryGroupList;
     private CategoryExpandableListListener categoryExpandableListListener;
+    private Resources resources;
+    private String packageName;
 
     public CategoryExpandableListAdapter(CategorySettings categorySettings, Map<CategoryGroup, List<Category>> allCategoriesForSettings) {
         this.context = categorySettings;
         this.allCategoriesForSettings = allCategoriesForSettings;
         this.categoryGroupList = new ArrayList<>(allCategoriesForSettings.keySet());
         this.categoryExpandableListListener = categorySettings;
+        this.resources = categorySettings.getResources();
+        this.packageName = categorySettings.getPackageName();
     }
 
     @Override
@@ -97,8 +102,10 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
             }
         });
 
+        String categoryDBName = getGroup(groupPosition).getName();
+        String categoryName = resources.getString(resources.getIdentifier(categoryDBName, "string", packageName));
         holder.vhCategoryGroupTV.setTypeface(null, Typeface.BOLD_ITALIC);
-        holder.vhCategoryGroupTV.setText(getGroup(groupPosition).getName());
+        holder.vhCategoryGroupTV.setText(categoryName);
         holder.vhCategoryGroupTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,7 +155,9 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
             }
         });
 
-        holder.vhCategoryTV.setText(getChild(groupPosition, childPosition).getName());
+        String categoryDBName = getChild(groupPosition, childPosition).getName();
+        String categoryName = resources.getString(resources.getIdentifier(categoryDBName, "string", packageName));
+        holder.vhCategoryTV.setText(categoryName);
 
         return convertView;
     }

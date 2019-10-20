@@ -5,6 +5,13 @@
     <string name="expense">Wydatek:</string>
     <string name="expense_date">Data zakupu:</string>
     <string name="entered_expenses">Wprowadzone wydatki:</string>
+    <string name="catgr_food">Jedzenie</string>
+    <string name="catgr_people">Ludzie</string>
+    <string name="catgr_house">Dom</string>
+    <string name="catgr_entertainment">Rozrywka</string>
+    <string name="catgr_transportation">Transport</string>
+    <string name="catgr_money">Pieniądze</string>
+    <string name="catgr_other_expenses">Inne wydatki</string>
     <string name="cat_food">Jedzenie</string>
     <string name="cat_beverage">Napoje</string>
     <string name="cat_alcohol">Alkohol</string>
