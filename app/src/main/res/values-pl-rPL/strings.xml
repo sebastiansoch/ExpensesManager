@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Menadżer wydatków</string>
+    <string name="price">Cena:</string>
+    <string name="expense">Wydatek:</string>
+    <string name="expense_date">Data zakupu:</string>
+    <string name="entered_expenses">Wprowadzone wydatki:</string>
+    <string name="cat_food">Jedzenie</string>
+    <string name="cat_beverage">Napoje</string>
+    <string name="cat_alcohol">Alkohol</string>
+    <string name="cat_clothes">Ubranie</string>
+    <string name="cat_health">Zdrowie</string>
+    <string name="cat_sport">Sport</string>
+    <string name="cat_cleaning_supplies">Środki czystości</string>
+    <string name="cat_furnishing">Wyposażenie mieszkania</string>
+    <string name="cat_fees">Opłaty</string>
+    <string name="cat_renovation">Remonty</string>
+    <string name="cat_rent">Czynsz</string>
+    <string name="cat_utilities">Media</string>
+    <string name="cat_restaurants">Restauracje</string>
+    <string name="cat_vacation">Wakacje</string>
+    <string name="cat_cinema_concert">Kino, Koncert itp</string>
+    <string name="cat_music_video_games">Muzyka, film, gry</string>
+    <string name="cat_other">Inne</string>
+    <string name="cat_public_transport">Transport publiczny</string>
+    <string name="cat_car_repairs">Naprawy samochodu</string>
+    <string name="cat_car_fuel">Paliwo</string>
+    <string name="cat_savings_house">Oszczędności dla domu</string>
+    <string name="cat_savings_car">Oszczędności na samochód</string>
+    <string name="cat_savings_vacation">Oszczędności na wakacje</string>
+    <string name="cat_savings_retirement">Oszczędności na emeryturę</string>
+    <string name="cat_savings_other">Inne oszczędności</string>
+    <string name="cat_mortgage">Kredyt hipoteczny</string>
+    <string name="cat_other_installment">Inne kredyty</string>
+    <string name="cat_insurance">Ubezpiczenia</string>
+    <string name="cat_gift">Prezenty</string>
+
+</resources>

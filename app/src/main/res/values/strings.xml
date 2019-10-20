@@ -1,3 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Expense Manager</string>
+    <string name="price">Price:</string>
+    <string name="expense">Expense:</string>
+    <string name="expense_date">Expense date:</string>
+    <string name="entered_expenses">Entered expense:</string>
+    <string name="cat_food">Food</string>
+    <string name="cat_beverage">Beverage</string>
+    <string name="cat_alcohol">Alcohol</string>
+    <string name="cat_clothes">Clothes</string>
+    <string name="cat_health">Health</string>
+    <string name="cat_sport">Sport</string>
+    <string name="cat_cleaning_supplies">Cleaning supplies</string>
+    <string name="cat_furnishing">Furnishing</string>
+    <string name="cat_fees">Fees</string>
+    <string name="cat_renovation">Renovation</string>
+    <string name="cat_rent">Rent</string>
+    <string name="cat_utilities">Utilities</string>
+    <string name="cat_restaurants">Restaurants</string>
+    <string name="cat_vacation">Vacation</string>
+    <string name="cat_cinema_concert">Cinema, concerts etc</string>
+    <string name="cat_music_video_games">Music, movies, games</string>
+    <string name="cat_other">Inne</string>
+    <string name="cat_public_transport">Public transport</string>
+    <string name="cat_car_repairs">Car repairs</string>
+    <string name="cat_car_fuel">Fuel</string>
+    <string name="cat_savings_house">Savings -House</string>
+    <string name="cat_savings_car">Savings -Car</string>
+    <string name="cat_savings_vacation">Savings -Vacation</string>
+    <string name="cat_savings_retirement">Savings -Retirement</string>
+    <string name="cat_savings_other">Savings -Other</string>
+    <string name="cat_mortgage">Mortgage</string>
+    <string name="cat_other_installment">Other installment</string>
+    <string name="cat_insurance">Insurance</string>
+    <string name="cat_gift">Gifts</string>
 </resources>
