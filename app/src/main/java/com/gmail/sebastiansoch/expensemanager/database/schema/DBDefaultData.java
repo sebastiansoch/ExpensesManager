@@ -27,7 +27,7 @@ public class DBDefaultData {
         }
     }
 
-    public void setDefaultPurchaseGroupData() {
+    public void setDefaultCategoryGroupData() {
         for (CategoryGroupData categoryGroup : DefaultCategoryGroupData.getCategoryGroupData()) {
             ContentValues values = new ContentValues();
             values.put(DBSchema.SchemaCategoryGroup.COLUMN_ID, categoryGroup.getId());
@@ -38,7 +38,7 @@ public class DBDefaultData {
         }
     }
 
-    public void setDefaultPurchaseCategoryData() {
+    public void setDefaultCategoryData() {
         for (CategoryData categoryData : DefaultCategoryData.getCategoryData()) {
             ContentValues values = new ContentValues();
             values.put(DBSchema.SchemaCategory.COLUMN_NAME, categoryData.getName());

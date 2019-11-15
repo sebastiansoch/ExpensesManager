@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "Purchase.db";
-    private static final int DATABASE_VERSION = 17;
+    private static final int DATABASE_VERSION = 18;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -24,8 +24,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
         DBDefaultData dbDefaultData = new DBDefaultData(database);
         dbDefaultData.setDefaultTilesData();
-        dbDefaultData.setDefaultPurchaseGroupData();
-        dbDefaultData.setDefaultPurchaseCategoryData();
+        dbDefaultData.setDefaultCategoryGroupData();
+        dbDefaultData.setDefaultCategoryData();
     }
 
     @Override

@@ -32,6 +32,7 @@ public class DBSchema {
     public static class SchemaPurchase implements BaseColumns {
         public static final String TABLE_NAME = "purchase";
         public static final String COLUMN_ID = "_id";
+        public static final String COLUMN_CATEGORY_GROUP_ID = "category_group_id";
         public static final String COLUMN_CATEGORY_ID = "category_id";
         public static final String COLUMN_PURCHASE_DATE = "purchase_date";
         public static final String COLUMN_ENTRY_DATE = "entry_date";

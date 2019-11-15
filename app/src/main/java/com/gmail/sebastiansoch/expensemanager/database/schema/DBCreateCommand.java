@@ -65,6 +65,7 @@ public class DBCreateCommand {
         builder.append(SchemaPurchase.TABLE_NAME);
         builder.append("(");
         builder.append(SchemaPurchase.COLUMN_ID).append(ID_OPTIONS).append(",");
+        builder.append(SchemaPurchase.COLUMN_CATEGORY_GROUP_ID).append(OTHER_ID_OPTION).append(",");
         builder.append(SchemaPurchase.COLUMN_CATEGORY_ID).append(OTHER_ID_OPTION).append(",");
         builder.append(SchemaPurchase.COLUMN_PURCHASE_DATE).append(TEXT_OPTION).append(",");
         builder.append(SchemaPurchase.COLUMN_ENTRY_DATE).append(TEXT_OPTION).append(",");

@@ -102,6 +102,12 @@ public class PurchaseEntry extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        purchaseListForDB.clear();
+    }
+
+    @Override
     protected void onPause() {
         expenseManagerRepo.saveEnteredPurchases(purchaseListForDB);
         super.onPause();
@@ -218,12 +224,12 @@ public class PurchaseEntry extends BaseActivity {
         String price = purchasePriceEditText.getText().toString();
 
         if (!purchaseCategory.isEmpty() && !date.isEmpty() && !price.isEmpty()) {
-            purchaseListForDB.add(new Purchase(purchaseNameToCategory.get(purchaseCategory), date, price));
+            purchaseListForDB.add(new Purchase(categoryGroupName, purchaseNameToCategory.get(purchaseCategory), date, price));
         }
     }
 
     private void removePurchaseFromListForDB(String purchaseCategory, String date, String price) {
-        Purchase purchase = new Purchase(purchaseNameToCategory.get(purchaseCategory), date, price);
+        Purchase purchase = new Purchase(categoryGroupName, purchaseNameToCategory.get(purchaseCategory), date, price);
         purchaseListForDB.remove(purchase);
         //TODO usuwanie z bazy
     }

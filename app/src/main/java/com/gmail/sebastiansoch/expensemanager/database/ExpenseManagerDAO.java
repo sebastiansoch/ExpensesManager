@@ -6,8 +6,10 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.gmail.sebastiansoch.expensemanager.database.model.CategoryDTO;
 import com.gmail.sebastiansoch.expensemanager.database.model.CategoryGroupDTO;
+import com.gmail.sebastiansoch.expensemanager.database.model.PurchaseDTO;
 import com.gmail.sebastiansoch.expensemanager.database.model.TilesDTO;
 import com.gmail.sebastiansoch.expensemanager.database.schema.DBHelper;
+import com.gmail.sebastiansoch.expensemanager.database.schema.DBSchema.SchemaPurchase;
 import com.gmail.sebastiansoch.expensemanager.database.utils.StringBuilderWrapper;
 
 import java.util.ArrayList;
@@ -90,7 +92,7 @@ public class ExpenseManagerDAO {
     }
 
     public void saveCategoryGroupsSettings(List<CategoryGroupDTO> categoryGroupsDTO) {
-        for (CategoryGroupDTO categoryGroupDTO :  categoryGroupsDTO) {
+        for (CategoryGroupDTO categoryGroupDTO : categoryGroupsDTO) {
             ContentValues values = new ContentValues();
             values.put(SchemaCategoryGroup.COLUMN_IS_HIDE, categoryGroupDTO.isHide());
 
@@ -110,7 +112,50 @@ public class ExpenseManagerDAO {
             where.append("=").append(String.valueOf(categoryDTO.getId()));
 
             database.update(SchemaCategory.TABLE_NAME, values, where.toString(), null);
-
         }
+    }
+
+    public void saveEnteredPurchases(List<PurchaseDTO> enteredPurchases) {
+        for (PurchaseDTO purchaseDTO : enteredPurchases) {
+            ContentValues values = new ContentValues();
+            values.put(SchemaPurchase.COLUMN_CATEGORY_GROUP_ID, purchaseDTO.getCategoryGroupId());
+            values.put(SchemaPurchase.COLUMN_CATEGORY_ID, purchaseDTO.getCategoryId());
+            values.put(SchemaPurchase.COLUMN_PURCHASE_DATE, purchaseDTO.getPurchaseDate());
+            values.put(SchemaPurchase.COLUMN_ENTRY_DATE, purchaseDTO.getEntryDate());
+            values.put(SchemaPurchase.COLUMN_PRICE, purchaseDTO.getPrice());
+
+            database.insert(SchemaPurchase.TABLE_NAME, null, values);
+        }
+    }
+
+    public int getCategoryIdForName(String categoryGroupName, String categoryName) {
+        StringBuilderWrapper sql = new StringBuilderWrapper("SELECT");
+        sql.appendColumn(SchemaCategory.TABLE_NAME, SchemaCategory.COLUMN_ID);
+        sql.append("FROM").append(SchemaCategory.TABLE_NAME);
+        sql.append("JOIN").append(SchemaCategoryGroup.TABLE_NAME);
+        sql.append("ON").appendColumn(SchemaCategory.TABLE_NAME, SchemaCategory.COLUMN_CATEGORY_GROUP_ID).append("=")
+                .appendColumn(SchemaCategoryGroup.TABLE_NAME, SchemaCategoryGroup.COLUMN_ID);
+        sql.append("WHERE").appendColumn(SchemaCategory.TABLE_NAME, SchemaCategory.COLUMN_NAME)
+                .append("=").appendValue(categoryName);
+        sql.append("AND").appendColumn(SchemaCategoryGroup.TABLE_NAME, SchemaCategoryGroup.COLUMN_NAME)
+                .append("=").appendValue(categoryGroupName);
+
+        Cursor cursor = database.rawQuery(sql.toString(), null);
+        cursor.moveToFirst();
+
+        return cursor.getInt(cursor.getColumnIndex(SchemaCategory.COLUMN_ID));
+    }
+
+    public int getCategoryGroupIdForName(String categoryGroupName) {
+        StringBuilderWrapper sql = new StringBuilderWrapper("SELECT");
+        sql.appendColumn(SchemaCategoryGroup.TABLE_NAME, SchemaCategoryGroup.COLUMN_ID);
+        sql.append("FROM").append(SchemaCategoryGroup.TABLE_NAME);
+        sql.append("WHERE").appendColumn(SchemaCategoryGroup.TABLE_NAME, SchemaCategoryGroup.COLUMN_NAME)
+                .append("=").appendValue(categoryGroupName);
+
+        Cursor cursor = database.rawQuery(sql.toString(), null);
+        cursor.moveToFirst();
+
+        return cursor.getInt(cursor.getColumnIndex(SchemaCategoryGroup.COLUMN_ID));
     }
 }

@@ -1,6 +1,7 @@
 package com.gmail.sebastiansoch.expensemanager.repo;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.gmail.sebastiansoch.expensemanager.data.Category;
 import com.gmail.sebastiansoch.expensemanager.data.CategoryGroup;
@@ -9,10 +10,13 @@ import com.gmail.sebastiansoch.expensemanager.data.Purchase;
 import com.gmail.sebastiansoch.expensemanager.database.ExpenseManagerDAO;
 import com.gmail.sebastiansoch.expensemanager.database.model.CategoryDTO;
 import com.gmail.sebastiansoch.expensemanager.database.model.CategoryGroupDTO;
+import com.gmail.sebastiansoch.expensemanager.database.model.PurchaseDTO;
 import com.gmail.sebastiansoch.expensemanager.database.model.TilesDTO;
 import com.gmail.sebastiansoch.expensemanager.database.schema.DBHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -123,6 +127,22 @@ public class ExpenseManagerDBRepo implements ExpenseManagerRepo {
 
     @Override
     public void saveEnteredPurchases(List<Purchase> purchaseListForDB) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String entryDate = dateFormat.format(new Date());
+        if (entryDate == null) {
+            throw new NullPointerException("System can't set current date, try again");
+        }
 
+        List<PurchaseDTO> enteredPurchasesDTO = new ArrayList<>();
+
+        for(Purchase purchase : purchaseListForDB) {
+            int categoryGroupId = expenseManagerDAO.getCategoryGroupIdForName(purchase.getCategoryGroupName());
+            int categoryId = expenseManagerDAO.getCategoryIdForName(purchase.getCategoryGroupName(), purchase.getCategoryName());
+            enteredPurchasesDTO.add(new PurchaseDTO(-1, categoryGroupId, categoryId,
+                    purchase.getPurchaseDate(), entryDate, Double.parseDouble(purchase.getPrice())));
+        }
+
+        expenseManagerDAO.saveEnteredPurchases(enteredPurchasesDTO);
     }
+
 }

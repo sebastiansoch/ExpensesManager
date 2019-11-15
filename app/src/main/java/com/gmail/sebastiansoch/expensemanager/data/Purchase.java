@@ -3,14 +3,20 @@ package com.gmail.sebastiansoch.expensemanager.data;
 import java.util.Objects;
 
 public class Purchase {
+    private String categoryGroupName;
     private String categoryName;
     private String purchaseDate;
     private String price;
 
-    public Purchase(String categoryName, String purchaseDate, String price) {
+    public Purchase(String categoryGroupName, String categoryName, String purchaseDate, String price) {
+        this.categoryGroupName = categoryGroupName;
         this.categoryName = categoryName;
         this.purchaseDate = purchaseDate;
         this.price = price;
+    }
+
+    public String getCategoryGroupName() {
+        return categoryGroupName;
     }
 
     public String getCategoryName() {
@@ -30,7 +36,8 @@ public class Purchase {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Purchase purchase = (Purchase) o;
-        return Objects.equals(categoryName, purchase.categoryName) &&
+        return Objects.equals(categoryGroupName, purchase.categoryGroupName) &&
+                Objects.equals(categoryName, purchase.categoryName) &&
                 Objects.equals(purchaseDate, purchase.purchaseDate) &&
                 Objects.equals(price, purchase.price);
     }
