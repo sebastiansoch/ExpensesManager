@@ -145,4 +145,18 @@ public class ExpenseManagerDBRepo implements ExpenseManagerRepo {
         expenseManagerDAO.saveEnteredPurchases(enteredPurchasesDTO);
     }
 
+    @Override
+    public List<Purchase> getLatelyEnteredPurchases() {
+        List<Purchase> latelyEnteredPurchases = new ArrayList<>();
+        List<PurchaseDTO> latelyEnteredPurchasesDTO = expenseManagerDAO.getLatelyEnteredPurchases();
+
+        for (PurchaseDTO purchaseDTO : latelyEnteredPurchasesDTO) {
+            String categoryName = expenseManagerDAO.getCategoryNameForId(purchaseDTO.getCategoryId());
+            String categoryGroupName = expenseManagerDAO.getCategoryGroupNameForId(purchaseDTO.getCategoryGroupId());
+            latelyEnteredPurchases.add(new Purchase(categoryGroupName, categoryName, purchaseDTO.getPurchaseDate(), purchaseDTO.getPrice().toString()));
+        }
+
+        return latelyEnteredPurchases;
+    }
+
 }

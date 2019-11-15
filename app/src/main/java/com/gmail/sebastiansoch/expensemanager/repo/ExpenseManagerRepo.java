@@ -18,4 +18,6 @@ public interface ExpenseManagerRepo {
     void saveCategoriesSettings(Map<CategoryGroup, List<Category>> categoriesSettings);
 
     void saveEnteredPurchases(List<Purchase> purchaseListForDB);
+
+    List<Purchase> getLatelyEnteredPurchases();
 }

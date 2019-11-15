@@ -48,7 +48,6 @@ public class PurchaseEntry extends BaseActivity {
     private View.OnClickListener addPurchaseButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            //TODO - podpiac dodawanie do bazy danych
             addEnteredPurchaseToList();
             addToPurchaseListForDB();
             cleanPriceTextView();
@@ -99,6 +98,8 @@ public class PurchaseEntry extends BaseActivity {
 
         purchasePriceEditText = findViewById(R.id.purchasePriceET);
         purchasePriceEditText.addTextChangedListener(purchasePriceTextWatcher);
+
+        fillPurchaseListWithLatelyEnteredPurchases();
     }
 
     @Override
@@ -186,6 +187,26 @@ public class PurchaseEntry extends BaseActivity {
         };
     }
 
+    private void fillPurchaseListWithLatelyEnteredPurchases() {
+        List<Purchase> latelyEnteredPurchases = expenseManagerRepo.getLatelyEnteredPurchases();
+
+        for (Purchase purchase : latelyEnteredPurchases) {
+            LayoutInflater inflater = getLayoutInflater();
+            final View enteredPurchaseView = inflater.inflate(R.layout.view_entered_purchases, enteredPurchasesLayout, false);
+
+            TextView purchaseTV = enteredPurchaseView.findViewById(R.id.purchaseEPV);
+            purchaseTV.setText(purchase.getCategoryName());
+            TextView purchaseDateTV = enteredPurchaseView.findViewById(R.id.purchaseDateEPV);
+            purchaseDateTV.setText(purchase.getPurchaseDate());
+            TextView priceTV = enteredPurchaseView.findViewById(R.id.priceEPV);
+            priceTV.setText(purchase.getPrice());
+
+            ImageButton removeBtn = enteredPurchaseView.findViewById(R.id.removePurchaseEPVBtn);
+
+            enteredPurchasesLayout.addView(enteredPurchaseView);
+        }
+    }
+
     private void addEnteredPurchaseToList() {
         final String purchaseCategory = purchaseCategorySpinner.getSelectedItem().toString();
         final String date = purchaseDateTextView.getText().toString();
@@ -231,7 +252,6 @@ public class PurchaseEntry extends BaseActivity {
     private void removePurchaseFromListForDB(String purchaseCategory, String date, String price) {
         Purchase purchase = new Purchase(categoryGroupName, purchaseNameToCategory.get(purchaseCategory), date, price);
         purchaseListForDB.remove(purchase);
-        //TODO usuwanie z bazy
     }
 
     private String formatPrice(String sPrice) {
