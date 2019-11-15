@@ -13,16 +13,23 @@ import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
+    private TableLayout tilesTableLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        tilesTableLayout = findViewById(R.id.purchaseGroupTableLayout);
+
         generateCategoryGroupTiles();
+
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
+        cleanCategoryGroupTiles();
         generateCategoryGroupTiles();
     }
 
@@ -32,8 +39,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void generateCategoryGroupTiles() {
-        TableLayout tableLayout = findViewById(R.id.purchaseGroupTableLayout);
-
         TableRow tableRow = null;
         int iconInRow = 0;
         List<CategoryGroupTile> categoryGroupTiles = expenseManagerRepo.getCategoryGroupTiles();
@@ -41,7 +46,7 @@ public class MainActivity extends BaseActivity {
             for (final CategoryGroupTile categoryGroupTile : categoryGroupTiles) {
                 if (iconInRow % 3 == 0) {
                     tableRow = new TableRow(this);
-                    tableLayout.addView(tableRow);
+                    tilesTableLayout.addView(tableRow);
                 }
                 ImageButton button = new ImageButton(this);
                 button.setTag(categoryGroupTile.getTilesTag());
@@ -58,5 +63,9 @@ public class MainActivity extends BaseActivity {
                 iconInRow++;
             }
         }
+    }
+
+    private void cleanCategoryGroupTiles() {
+        tilesTableLayout.removeAllViews();
     }
 }

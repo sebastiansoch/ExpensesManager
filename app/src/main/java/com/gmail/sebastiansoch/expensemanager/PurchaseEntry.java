@@ -225,6 +225,7 @@ public class PurchaseEntry extends BaseActivity {
     private void removePurchaseFromListForDB(String purchaseCategory, String date, String price) {
         Purchase purchase = new Purchase(purchaseNameToCategory.get(purchaseCategory), date, price);
         purchaseListForDB.remove(purchase);
+        //TODO usuwanie z bazy
     }
 
     private String formatPrice(String sPrice) {
