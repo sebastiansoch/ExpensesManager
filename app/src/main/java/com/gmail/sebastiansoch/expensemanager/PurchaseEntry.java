@@ -194,14 +194,16 @@ public class PurchaseEntry extends BaseActivity {
             LayoutInflater inflater = getLayoutInflater();
             final View enteredPurchaseView = inflater.inflate(R.layout.view_entered_purchases, enteredPurchasesLayout, false);
 
+            String categoryName = getResources().getString(getResources().getIdentifier(purchase.getCategoryName(), "string", getPackageName()));
             TextView purchaseTV = enteredPurchaseView.findViewById(R.id.purchaseEPV);
-            purchaseTV.setText(purchase.getCategoryName());
+            purchaseTV.setText(categoryName);
             TextView purchaseDateTV = enteredPurchaseView.findViewById(R.id.purchaseDateEPV);
             purchaseDateTV.setText(purchase.getPurchaseDate());
             TextView priceTV = enteredPurchaseView.findViewById(R.id.priceEPV);
             priceTV.setText(purchase.getPrice());
 
             ImageButton removeBtn = enteredPurchaseView.findViewById(R.id.removePurchaseEPVBtn);
+            removeBtn.setVisibility(View.INVISIBLE);
 
             enteredPurchasesLayout.addView(enteredPurchaseView);
         }
@@ -232,7 +234,7 @@ public class PurchaseEntry extends BaseActivity {
                 }
             });
 
-            enteredPurchasesLayout.addView(enteredPurchaseView);
+            enteredPurchasesLayout.addView(enteredPurchaseView, 0);
         } else {
             Toast.makeText(this, "Check if all data are set properly", Toast.LENGTH_SHORT).show();
             return;
