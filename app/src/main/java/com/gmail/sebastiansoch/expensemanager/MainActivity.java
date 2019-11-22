@@ -1,7 +1,7 @@
 package com.gmail.sebastiansoch.expensemanager;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -50,9 +50,10 @@ public class MainActivity extends BaseActivity {
                     tilesTableLayout.addView(tableRow);
                 }
                 ImageButton button = new ImageButton(this);
+                button.setPadding(32, 32, 32, 32);
                 button.setTag(categoryGroupTile.getTilesTag());
                 button.setImageResource(getResources().getIdentifier(categoryGroupTile.getTilesIconPath(), "drawable", getPackageName()));
-                button.setBackgroundTintMode(PorterDuff.Mode.SCREEN);
+                button.setBackgroundColor(Color.TRANSPARENT);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

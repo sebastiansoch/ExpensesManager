@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:textAlignment="viewEnd"
-        android:backgroundTintMode="screen"
+        android:backgroundTint="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.8"
@@ -51,10 +51,9 @@
         app:srcCompat="@drawable/ic_main_calendar" />
 
     <View
-        android:id="@+id/aaa"
+        android:id="@+id/purchasesMenuLine"
         android:layout_width="wrap_content"
         android:layout_height="2dp"
-        android:layout_marginTop="8dp"
         android:background="@color/colorLine"
         app:layout_constraintBottom_toTopOf="@+id/productChooseDescTV"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +70,7 @@
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toStartOf="@+id/purchasePriceET"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/aaa" />
+        app:layout_constraintTop_toBottomOf="@id/purchasesMenuLine" />
 
     <TextView
         android:id="@+id/purchasePriceDescET"
@@ -113,7 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:textAlignment="viewEnd"
-        android:backgroundTintMode="screen"
+        android:backgroundTint="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="@+id/purchasePriceET"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"
@@ -122,7 +121,7 @@
 
 
     <View
-        android:id="@+id/bbb"
+        android:id="@+id/purchaseSepSecondLine"
         android:layout_width="wrap_content"
         android:layout_height="2dp"
         android:background="@color/colorLine"
@@ -135,7 +134,7 @@
         android:id="@+id/divideLine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/bbb" />
+        app:layout_constraintTop_toBottomOf="@+id/purchaseSepSecondLine" />
 
     <TextView
         android:id="@+id/enteredPurchasesTV"

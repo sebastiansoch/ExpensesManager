@@ -45,6 +45,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="16dp"
             android:textAlignment="viewEnd"
+            android:backgroundTint="@android:color/transparent"
             app:srcCompat="@drawable/ic_main_garbage" />
 
 
