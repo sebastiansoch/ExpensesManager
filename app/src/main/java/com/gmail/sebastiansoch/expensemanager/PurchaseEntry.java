@@ -200,7 +200,7 @@ public class PurchaseEntry extends BaseActivity {
             TextView purchaseDateTV = enteredPurchaseView.findViewById(R.id.purchaseDateEPV);
             purchaseDateTV.setText(purchase.getPurchaseDate());
             TextView priceTV = enteredPurchaseView.findViewById(R.id.priceEPV);
-            priceTV.setText(purchase.getPrice());
+            priceTV.setText(formatPrice(purchase.getPrice()));
 
             ImageButton removeBtn = enteredPurchaseView.findViewById(R.id.removePurchaseEPVBtn);
             removeBtn.setVisibility(View.INVISIBLE);
