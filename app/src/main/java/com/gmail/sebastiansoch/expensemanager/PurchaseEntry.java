@@ -1,6 +1,7 @@
 package com.gmail.sebastiansoch.expensemanager;
 
 import android.app.DatePickerDialog;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -197,6 +198,7 @@ public class PurchaseEntry extends BaseActivity {
             String categoryName = getResources().getString(getResources().getIdentifier(purchase.getCategoryName(), "string", getPackageName()));
             TextView purchaseTV = enteredPurchaseView.findViewById(R.id.purchaseEPV);
             purchaseTV.setText(categoryName);
+            purchaseTV.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
             TextView purchaseDateTV = enteredPurchaseView.findViewById(R.id.purchaseDateEPV);
             purchaseDateTV.setText(purchase.getPurchaseDate());
             TextView priceTV = enteredPurchaseView.findViewById(R.id.priceEPV);
