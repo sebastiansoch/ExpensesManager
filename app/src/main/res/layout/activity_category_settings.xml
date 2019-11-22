@@ -40,6 +40,7 @@
         android:dividerHeight="0.5dp"
         android:indicatorRight="?android:attr/expandableListPreferredItemIndicatorRight"
         app:layout_constraintHorizontal_weight="2"
-        app:layout_constraintTop_toBottomOf="@+id/saveSettingsBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/saveSettingsBtn"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
