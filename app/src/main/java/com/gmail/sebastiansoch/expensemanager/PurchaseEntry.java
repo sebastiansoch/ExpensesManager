@@ -133,7 +133,7 @@ public class PurchaseEntry extends BaseActivity {
     }
 
     private void fillPurchaseCategorySpinner() {
-        purchaseCategorySpinner = findViewById(R.id.prurchaseCategorySpinner);
+        purchaseCategorySpinner = findViewById(R.id.purchaseCategorySpinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, purchaseCategoryList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 

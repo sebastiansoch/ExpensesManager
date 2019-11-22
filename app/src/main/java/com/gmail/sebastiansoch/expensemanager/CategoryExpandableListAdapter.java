@@ -84,6 +84,7 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
             holder.vhCategoryGroupTV = convertView.findViewById(R.id.settingsCategoryGroupTV);
 
             convertView.setTag(holder);
+            convertView.setBackgroundColor(resources.getColor(R.color.colorDarkRow, null));
 
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -129,6 +130,7 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
             holder.vhCategoryTV = convertView.findViewById(R.id.settingsCategoryTV);
 
             convertView.setTag(holder);
+            convertView.setBackgroundColor(resources.getColor(R.color.colorLightRow, null));
 
         } else {
             holder = (ViewHolder) convertView.getTag();

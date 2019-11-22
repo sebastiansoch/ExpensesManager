@@ -1,6 +1,7 @@
 package com.gmail.sebastiansoch.expensemanager;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -51,6 +52,7 @@ public class MainActivity extends BaseActivity {
                 ImageButton button = new ImageButton(this);
                 button.setTag(categoryGroupTile.getTilesTag());
                 button.setImageResource(getResources().getIdentifier(categoryGroupTile.getTilesIconPath(), "drawable", getPackageName()));
+                button.setBackgroundTintMode(PorterDuff.Mode.SCREEN);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

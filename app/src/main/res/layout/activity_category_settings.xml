@@ -4,38 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorScreen"
     tools:context=".CategorySettings">
-
-    <TextView
-        android:id="@+id/chooseCategoryTV"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Wybierz interesujące grupy i kategorie wydatków"
-        app:layout_constraintEnd_toStartOf="@+id/saveSettingsBtn"
-        app:layout_constraintHorizontal_weight="2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/saveSettingsBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="20dp"
         android:onClick="saveCategoriesConfiguration"
+        android:backgroundTintMode="screen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_save_black_24dp" />
+        app:srcCompat="@drawable/ic_main_save" />
+
+    <TextView
+        android:id="@+id/chooseCategoryTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Choose purchase categories"
+        android:textSize="18sp"
+        android:textStyle="bold|italic"
+        android:layout_marginStart="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/saveSettingsBtn"
+        app:layout_constraintEnd_toStartOf="@+id/saveSettingsBtn"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ExpandableListView
         android:id="@+id/categoryExpandableList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:divider="@color/colorDarkGrey"
+        android:divider="@color/colorLine"
         android:dividerHeight="0.5dp"
         android:indicatorRight="?android:attr/expandableListPreferredItemIndicatorRight"
         app:layout_constraintHorizontal_weight="2"
         app:layout_constraintTop_toBottomOf="@+id/saveSettingsBtn" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
