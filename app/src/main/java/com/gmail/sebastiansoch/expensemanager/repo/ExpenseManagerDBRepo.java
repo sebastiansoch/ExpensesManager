@@ -1,7 +1,6 @@
 package com.gmail.sebastiansoch.expensemanager.repo;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.gmail.sebastiansoch.expensemanager.data.Category;
 import com.gmail.sebastiansoch.expensemanager.data.CategoryGroup;
@@ -146,13 +145,12 @@ public class ExpenseManagerDBRepo implements ExpenseManagerRepo {
     }
 
     @Override
-    public List<Purchase> getLatelyEnteredPurchases() {
+    public List<Purchase> getLatelyEnteredPurchasesForCategoryGroup(String categoryGroupName) {
         List<Purchase> latelyEnteredPurchases = new ArrayList<>();
-        List<PurchaseDTO> latelyEnteredPurchasesDTO = expenseManagerDAO.getLatelyEnteredPurchases();
+        List<PurchaseDTO> latelyEnteredPurchasesDTO = expenseManagerDAO.getLatelyEnteredPurchasesForCategoryGroup(categoryGroupName);
 
         for (PurchaseDTO purchaseDTO : latelyEnteredPurchasesDTO) {
             String categoryName = expenseManagerDAO.getCategoryNameForId(purchaseDTO.getCategoryId());
-            String categoryGroupName = expenseManagerDAO.getCategoryGroupNameForId(purchaseDTO.getCategoryGroupId());
             latelyEnteredPurchases.add(new Purchase(categoryGroupName, categoryName, purchaseDTO.getPurchaseDate(), purchaseDTO.getPrice().toString()));
         }
 

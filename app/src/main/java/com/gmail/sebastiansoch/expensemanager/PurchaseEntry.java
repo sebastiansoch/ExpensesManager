@@ -188,7 +188,7 @@ public class PurchaseEntry extends BaseActivity {
     }
 
     private void fillPurchaseListWithLatelyEnteredPurchases() {
-        List<Purchase> latelyEnteredPurchases = expenseManagerRepo.getLatelyEnteredPurchases();
+        List<Purchase> latelyEnteredPurchases = expenseManagerRepo.getLatelyEnteredPurchasesForCategoryGroup(categoryGroupName);
 
         for (Purchase purchase : latelyEnteredPurchases) {
             LayoutInflater inflater = getLayoutInflater();

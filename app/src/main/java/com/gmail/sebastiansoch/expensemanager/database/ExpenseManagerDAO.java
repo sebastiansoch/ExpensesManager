@@ -172,20 +172,7 @@ public class ExpenseManagerDAO {
         return cursor.getString(cursor.getColumnIndex(SchemaCategory.COLUMN_NAME));
     }
 
-    public String getCategoryGroupNameForId(int categoryGroupId) {
-        StringBuilderWrapper sql = new StringBuilderWrapper("SELECT");
-        sql.appendColumn(SchemaCategoryGroup.TABLE_NAME, SchemaCategoryGroup.COLUMN_NAME);
-        sql.append("FROM").append(SchemaCategoryGroup.TABLE_NAME);
-        sql.append("WHERE").appendColumn(SchemaCategoryGroup.TABLE_NAME, SchemaCategoryGroup.COLUMN_ID)
-                .append("=").appendValue(String.valueOf(categoryGroupId));
-
-        Cursor cursor = database.rawQuery(sql.toString(), null);
-        cursor.moveToFirst();
-
-        return cursor.getString(cursor.getColumnIndex(SchemaCategoryGroup.COLUMN_NAME));
-    }
-
-    public List<PurchaseDTO> getLatelyEnteredPurchases() {
+    public List<PurchaseDTO> getLatelyEnteredPurchasesForCategoryGroup(String categoryGroupName) {
         StringBuilderWrapper sqlMaxDate = new StringBuilderWrapper("SELECT");
         sqlMaxDate.append("MAX(").appendColumn(SchemaPurchase.TABLE_NAME, SchemaPurchase.COLUMN_ENTRY_DATE).append(")");
         sqlMaxDate.append("FROM").append(SchemaPurchase.TABLE_NAME);
@@ -196,10 +183,13 @@ public class ExpenseManagerDAO {
         String maxDate = cursor.getString(0);
         cursor.close();
 
+        int categoryGroupId = getCategoryGroupIdForName(categoryGroupName);
+
         StringBuilderWrapper sql = new StringBuilderWrapper("SELECT");
         sql.appendColumn(SchemaPurchase.TABLE_NAME, "*");
         sql.append("FROM").append(SchemaPurchase.TABLE_NAME);
         sql.append("WHERE").appendColumn(SchemaPurchase.TABLE_NAME, SchemaPurchase.COLUMN_ENTRY_DATE).append("=").appendValue(maxDate);
+        sql.append("AND").appendColumn(SchemaPurchase.TABLE_NAME, SchemaPurchase.COLUMN_CATEGORY_GROUP_ID).append("=").appendValue(String.valueOf(categoryGroupId));
 
         cursor = database.rawQuery(sql.toString(), null);
 
@@ -207,7 +197,6 @@ public class ExpenseManagerDAO {
         if (cursor.moveToFirst()) {
             do {
                 int id = cursor.getInt(cursor.getColumnIndex(SchemaPurchase.COLUMN_ID));
-                int categoryGroupId = cursor.getInt(cursor.getColumnIndex(SchemaPurchase.COLUMN_CATEGORY_GROUP_ID));
                 int categoryId = cursor.getInt(cursor.getColumnIndex(SchemaPurchase.COLUMN_CATEGORY_ID));
                 String purchaseDate = cursor.getString(cursor.getColumnIndex(SchemaPurchase.COLUMN_PURCHASE_DATE));
                 String entryDate = cursor.getString(cursor.getColumnIndex(SchemaPurchase.COLUMN_ENTRY_DATE));

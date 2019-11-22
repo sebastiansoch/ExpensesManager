@@ -19,5 +19,5 @@ public interface ExpenseManagerRepo {
 
     void saveEnteredPurchases(List<Purchase> purchaseListForDB);
 
-    List<Purchase> getLatelyEnteredPurchases();
+    List<Purchase> getLatelyEnteredPurchasesForCategoryGroup(String categoryGroupName);
 }
