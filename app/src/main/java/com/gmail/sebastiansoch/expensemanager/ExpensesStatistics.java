@@ -20,12 +20,13 @@ public class ExpensesStatistics extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expenses_statistics);
 
-        Pie pie = AnyChart.pie();
-
         List<DataEntry> data = new ArrayList<>();
         data.add(new ValueDataEntry("John", 10000));
         data.add(new ValueDataEntry("Jake", 12000));
         data.add(new ValueDataEntry("Peter", 18000));
+
+        Pie pie = AnyChart.pie();
+        pie.data(data);
 
         AnyChartView anyChartView = findViewById(R.id.any_chart_view);
         anyChartView.setChart(pie);
