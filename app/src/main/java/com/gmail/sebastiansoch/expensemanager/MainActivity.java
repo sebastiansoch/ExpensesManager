@@ -1,74 +1,36 @@
 package com.gmail.sebastiansoch.expensemanager;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 
-import com.gmail.sebastiansoch.expensemanager.data.CategoryGroupTile;
-
-import java.util.List;
-
-public class MainActivity extends BaseActivity {
-
-    private TableLayout tilesTableLayout;
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tilesTableLayout = findViewById(R.id.purchaseGroupTableLayout);
-
-        generateCategoryGroupTiles();
-
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        cleanCategoryGroupTiles();
-        generateCategoryGroupTiles();
-    }
-
-    public void openSettings(View view) {
-        Intent intent = new Intent(this, CategorySettings.class);
-        startActivity(intent);
-    }
-
-    private void generateCategoryGroupTiles() {
-        TableRow tableRow = null;
-        int iconInRow = 0;
-        List<CategoryGroupTile> categoryGroupTiles = expenseManagerRepo.getCategoryGroupTiles();
-        if (categoryGroupTiles != null) {
-            for (final CategoryGroupTile categoryGroupTile : categoryGroupTiles) {
-                if (iconInRow % 3 == 0) {
-                    tableRow = new TableRow(this);
-                    tilesTableLayout.addView(tableRow);
-                }
-                ImageButton button = new ImageButton(this);
-                button.setPadding(32, 32, 32, 32);
-                button.setTag(categoryGroupTile.getTilesTag());
-                button.setImageResource(getResources().getIdentifier(categoryGroupTile.getTilesIconPath(), "drawable", getPackageName()));
-                button.setBackgroundColor(Color.TRANSPARENT);
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getApplicationContext(), PurchaseEntry.class);
-                        intent.putExtra("CATEGORY_GROUP_NAME", categoryGroupTile.getCategoryGroupName());
-                        startActivity(intent);
-                    }
-                });
-                tableRow.addView(button);
-                iconInRow++;
+        ImageButton expenseCategoriesBtn = findViewById(R.id.expenseCategoriesBtn);
+        expenseCategoriesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ExpenseCategories.class);
+                startActivity(intent);
             }
-        }
-    }
+        });
 
-    private void cleanCategoryGroupTiles() {
-        tilesTableLayout.removeAllViews();
+
+        ImageButton expensesStatisticsBtn = findViewById(R.id.expensesStatisticsBtn);
+        expensesStatisticsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ExpensesStatistics.class);
+                startActivity(intent);
+            }
+        });
     }
 }

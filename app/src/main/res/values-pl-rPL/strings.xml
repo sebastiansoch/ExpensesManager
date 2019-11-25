@@ -41,5 +41,9 @@
     <string name="cat_other_installment">Inne kredyty</string>
     <string name="cat_insurance">Ubezpiczenia</string>
     <string name="cat_gift">Prezenty</string>
+    <string name="categories_settings">Ustawienia kategorii</string>
+    <string name="purchases">Zakupy</string>
+    <string name="enter_purchases">Wprowadź wydatki</string>
+    <string name="expenses_statistics">Statystyki wydatków</string>
 
 </resources>
