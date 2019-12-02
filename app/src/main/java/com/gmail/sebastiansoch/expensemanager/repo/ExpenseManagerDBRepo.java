@@ -4,11 +4,14 @@ import android.content.Context;
 
 import com.gmail.sebastiansoch.expensemanager.data.Category;
 import com.gmail.sebastiansoch.expensemanager.data.CategoryGroup;
+import com.gmail.sebastiansoch.expensemanager.data.CategoryGroupExpenses;
 import com.gmail.sebastiansoch.expensemanager.data.CategoryGroupTile;
 import com.gmail.sebastiansoch.expensemanager.data.Purchase;
 import com.gmail.sebastiansoch.expensemanager.database.ExpenseManagerDAO;
+import com.gmail.sebastiansoch.expensemanager.database.ExpensesStatisticDAO;
 import com.gmail.sebastiansoch.expensemanager.database.model.CategoryDTO;
 import com.gmail.sebastiansoch.expensemanager.database.model.CategoryGroupDTO;
+import com.gmail.sebastiansoch.expensemanager.database.model.CategoryGroupExpensesDTO;
 import com.gmail.sebastiansoch.expensemanager.database.model.PurchaseDTO;
 import com.gmail.sebastiansoch.expensemanager.database.model.TilesDTO;
 import com.gmail.sebastiansoch.expensemanager.database.schema.DBHelper;
@@ -26,6 +29,7 @@ public class ExpenseManagerDBRepo implements ExpenseManagerRepo {
 
     private Context applicationContext;
     private ExpenseManagerDAO expenseManagerDAO;
+    private ExpensesStatisticDAO expensesStatisticDAO;
 
     public ExpenseManagerDBRepo(Context applicationContext) {
         this.applicationContext = applicationContext;
@@ -33,6 +37,7 @@ public class ExpenseManagerDBRepo implements ExpenseManagerRepo {
 
     public void init() {
         expenseManagerDAO = new ExpenseManagerDAO(new DBHelper(applicationContext));
+        expensesStatisticDAO = new ExpensesStatisticDAO(new DBHelper(applicationContext));
     }
 
 
@@ -134,7 +139,7 @@ public class ExpenseManagerDBRepo implements ExpenseManagerRepo {
 
         List<PurchaseDTO> enteredPurchasesDTO = new ArrayList<>();
 
-        for(Purchase purchase : purchaseListForDB) {
+        for (Purchase purchase : purchaseListForDB) {
             int categoryGroupId = expenseManagerDAO.getCategoryGroupIdForName(purchase.getCategoryGroupName());
             int categoryId = expenseManagerDAO.getCategoryIdForName(purchase.getCategoryGroupName(), purchase.getCategoryName());
             enteredPurchasesDTO.add(new PurchaseDTO(-1, categoryGroupId, categoryId,
@@ -155,6 +160,23 @@ public class ExpenseManagerDBRepo implements ExpenseManagerRepo {
         }
 
         return latelyEnteredPurchases;
+    }
+
+    @Override
+    public List<CategoryGroupExpenses> getCurrentMonthExpensesForAllCategoriesGroup() {
+        List<CategoryGroupExpenses> categoryGroupExpenses = new ArrayList<>();
+        List<CategoryGroupExpensesDTO> categoryGroupExpensesDTO = expensesStatisticDAO.getCurrentMonthExpensesForAllCategoriesGroup();
+
+        for (CategoryGroupExpensesDTO expensesDTO : categoryGroupExpensesDTO) {
+            if (!expensesDTO.getCategoryGroupDTO().isHide()) {
+                categoryGroupExpenses.add(
+                        new CategoryGroupExpenses(
+                                new CategoryGroup(expensesDTO.getCategoryGroupDTO().getName(), expensesDTO.getCategoryGroupDTO().isHide())
+                                , expensesDTO.getExpense()));
+            }
+        }
+
+        return categoryGroupExpenses;
     }
 
 }

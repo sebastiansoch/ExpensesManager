@@ -2,6 +2,7 @@ package com.gmail.sebastiansoch.expensemanager.repo;
 
 import com.gmail.sebastiansoch.expensemanager.data.Category;
 import com.gmail.sebastiansoch.expensemanager.data.CategoryGroup;
+import com.gmail.sebastiansoch.expensemanager.data.CategoryGroupExpenses;
 import com.gmail.sebastiansoch.expensemanager.data.CategoryGroupTile;
 import com.gmail.sebastiansoch.expensemanager.data.Purchase;
 
@@ -20,4 +21,6 @@ public interface ExpenseManagerRepo {
     void saveEnteredPurchases(List<Purchase> purchaseListForDB);
 
     List<Purchase> getLatelyEnteredPurchasesForCategoryGroup(String categoryGroupName);
+
+    List<CategoryGroupExpenses> getCurrentMonthExpensesForAllCategoriesGroup();
 }

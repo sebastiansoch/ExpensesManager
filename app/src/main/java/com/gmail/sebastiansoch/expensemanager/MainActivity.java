@@ -1,20 +1,38 @@
 package com.gmail.sebastiansoch.expensemanager;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class MainActivity extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
 
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.Pie;
+import com.gmail.sebastiansoch.expensemanager.data.CategoryGroupExpenses;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends BaseActivity {
+private ImageButton expenseCategoriesBtn;
+private ImageButton expensesStatisticsBtn;
+private AnyChartView anyChartView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageButton expenseCategoriesBtn = findViewById(R.id.expenseCategoriesBtn);
+        anyChartView = findViewById(R.id.any_chart_view);
+        prepareChart();
+        setNavigationButtons();
+    }
+
+    private void setNavigationButtons() {
+        expenseCategoriesBtn = findViewById(R.id.expenseCategoriesBtn);
         expenseCategoriesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -24,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        ImageButton expensesStatisticsBtn = findViewById(R.id.expensesStatisticsBtn);
+        expensesStatisticsBtn = findViewById(R.id.expensesStatisticsBtn);
         expensesStatisticsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,5 +50,22 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void prepareChart() {
+        List<CategoryGroupExpenses> categoryGroupExpenses = expenseManagerRepo.getCurrentMonthExpensesForAllCategoriesGroup();
+        List<DataEntry> data = new ArrayList<>();
+
+        for (CategoryGroupExpenses expenses : categoryGroupExpenses) {
+            data.add(new ValueDataEntry(expenses.getCategoryGroup().getName(), expenses.getExpenses()));
+        }
+
+        Pie pie = AnyChart.pie();
+        pie.radius(100);
+        pie.innerRadius(50);
+        pie.data(data);
+
+        anyChartView.setChart(pie);
+
     }
 }

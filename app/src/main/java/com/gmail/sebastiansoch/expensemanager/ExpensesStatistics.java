@@ -1,8 +1,8 @@
 package com.gmail.sebastiansoch.expensemanager;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
@@ -26,6 +26,8 @@ public class ExpensesStatistics extends AppCompatActivity {
         data.add(new ValueDataEntry("Peter", 18000));
 
         Pie pie = AnyChart.pie();
+        pie.radius(100);
+        pie.innerRadius(50);
         pie.data(data);
 
         AnyChartView anyChartView = findViewById(R.id.any_chart_view);

@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.gmail.sebastiansoch.expensemanager.database.model.CategoryDTO;
 import com.gmail.sebastiansoch.expensemanager.database.model.CategoryGroupDTO;
+import com.gmail.sebastiansoch.expensemanager.database.model.CategoryGroupExpensesDTO;
 import com.gmail.sebastiansoch.expensemanager.database.model.PurchaseDTO;
 import com.gmail.sebastiansoch.expensemanager.database.model.TilesDTO;
 import com.gmail.sebastiansoch.expensemanager.database.schema.DBHelper;
@@ -207,4 +208,5 @@ public class ExpenseManagerDAO {
 
         return latelyEnteredPurchasesDTO;
     }
+
 }
