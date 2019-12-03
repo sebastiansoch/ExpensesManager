@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorScreen"
     tools:context=".MainActivity">
 
     <com.anychart.AnyChartView
         android:id="@+id/any_chart_view"
         android:layout_width="match_parent"
         android:layout_height="500dp"
+        android:layout_marginBottom="64dp"
         app:layout_constraintBottom_toTopOf="@+id/expenseCategoriesBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
-        android:src="@drawable/ic_categories_salary"
+        android:src="@drawable/ic_main_purchases"
         app:layout_constraintVertical_bias="0.9"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/expensesStatisticsBtn"
@@ -32,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/enter_purchases"
-        app:layout_constraintBottom_toBottomOf="@id/expenseCategoriesBtn"
+        app:layout_constraintTop_toBottomOf="@id/expenseCategoriesBtn"
         app:layout_constraintEnd_toEndOf="@id/expenseCategoriesBtn"
         app:layout_constraintStart_toStartOf="@id/expenseCategoriesBtn" />
 
@@ -41,8 +43,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
-        android:src="@drawable/ic_categories_salary"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_main_chart"
+        app:layout_constraintEnd_toStartOf="@+id/manageExpensesBtn"
         app:layout_constraintStart_toEndOf="@id/expenseCategoriesBtn"
         app:layout_constraintTop_toTopOf="@id/expenseCategoriesBtn" />
 
@@ -51,8 +53,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/expenses_statistics"
-        app:layout_constraintBottom_toBottomOf="@id/expensesStatisticsBtn"
+        app:layout_constraintTop_toBottomOf="@id/expensesStatisticsBtn"
         app:layout_constraintEnd_toEndOf="@id/expensesStatisticsBtn"
         app:layout_constraintStart_toStartOf="@id/expensesStatisticsBtn" />
+
+    <ImageButton
+        android:id="@+id/manageExpensesBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/transparent"
+        android:src="@drawable/ic_main_manage_expenses"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/expensesStatisticsBtn"
+        app:layout_constraintTop_toTopOf="@id/expenseCategoriesBtn" />
+
+    <TextView
+        android:id="@+id/manageExpensesTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/manage_expenses"
+        app:layout_constraintTop_toBottomOf="@id/manageExpensesBtn"
+        app:layout_constraintEnd_toEndOf="@id/manageExpensesBtn"
+        app:layout_constraintStart_toStartOf="@id/manageExpensesBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

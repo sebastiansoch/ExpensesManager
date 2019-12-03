@@ -20,7 +20,9 @@ import java.util.List;
 public class MainActivity extends BaseActivity {
 private ImageButton expenseCategoriesBtn;
 private ImageButton expensesStatisticsBtn;
+private ImageButton manageExpensesBtn;
 private AnyChartView anyChartView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,15 @@ private AnyChartView anyChartView;
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ExpensesStatistics.class);
+                startActivity(intent);
+            }
+        });
+
+        manageExpensesBtn = findViewById(R.id.manageExpensesBtn);
+        manageExpensesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ManageExpenses.class);
                 startActivity(intent);
             }
         });

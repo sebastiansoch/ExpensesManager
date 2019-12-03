@@ -45,5 +45,6 @@
     <string name="purchases">Zakupy</string>
     <string name="enter_purchases">Wprowadź wydatki</string>
     <string name="expenses_statistics">Statystyki wydatków</string>
+    <string name="manage_expenses">Zarządzaj wydatkami</string>
 
 </resources>

@@ -45,4 +45,5 @@
     <string name="purchases">Purchases</string>
     <string name="enter_purchases">Enter Purchases</string>
     <string name="expenses_statistics">Expenses Statistics</string>
+    <string name="manage_expenses">Manage Expenses</string>
 </resources>

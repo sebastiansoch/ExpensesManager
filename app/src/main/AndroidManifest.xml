@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ManageExpenses"
+            android:label="Manage Expenses"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -19,7 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ExpensesStatistics"
+        <activity
+            android:name=".ExpensesStatistics"
             android:label="@string/expenses_statistics"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
