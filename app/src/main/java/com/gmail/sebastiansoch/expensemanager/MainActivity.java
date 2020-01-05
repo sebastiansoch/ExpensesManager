@@ -5,31 +5,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.anychart.AnyChart;
-import com.anychart.AnyChartView;
-import com.anychart.chart.common.dataentry.DataEntry;
-import com.anychart.chart.common.dataentry.ValueDataEntry;
-import com.anychart.charts.Pie;
-import com.gmail.sebastiansoch.expensemanager.data.CategoryGroupExpenses;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainActivity extends BaseActivity {
-private ImageButton expenseCategoriesBtn;
-private ImageButton expensesStatisticsBtn;
-private ImageButton manageExpensesBtn;
-private AnyChartView anyChartView;
+    private ImageButton expenseCategoriesBtn;
+    private ImageButton expensesStatisticsBtn;
+    private ImageButton manageExpensesBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        anyChartView = findViewById(R.id.any_chart_view);
-        prepareChart();
         setNavigationButtons();
     }
 
@@ -63,20 +47,5 @@ private AnyChartView anyChartView;
         });
     }
 
-    private void prepareChart() {
-        List<CategoryGroupExpenses> categoryGroupExpenses = expenseManagerRepo.getCurrentMonthExpensesForAllCategoriesGroup();
-        List<DataEntry> data = new ArrayList<>();
 
-        for (CategoryGroupExpenses expenses : categoryGroupExpenses) {
-            data.add(new ValueDataEntry(expenses.getCategoryGroup().getName(), expenses.getExpenses()));
-        }
-
-        Pie pie = AnyChart.pie();
-        pie.radius(100);
-        pie.innerRadius(50);
-        pie.data(data);
-
-        anyChartView.setChart(pie);
-
-    }
 }
