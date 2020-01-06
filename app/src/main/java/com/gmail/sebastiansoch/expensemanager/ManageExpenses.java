@@ -1,30 +1,54 @@
 package com.gmail.sebastiansoch.expensemanager;
 
 import android.app.DatePickerDialog;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gmail.sebastiansoch.expensemanager.data.CategoryGroup;
+import com.gmail.sebastiansoch.expensemanager.data.Purchase;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ManageExpenses extends BaseActivity {
-
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-    private DatePickerDialog.OnDateSetListener onBeginDateSetListener;
-    private DatePickerDialog.OnDateSetListener onEndDateSetListener;
 
     private TextView manageBeginDateTextView;
     private ImageButton manageBeginDateBtn;
     private TextView manageEndDateTextView;
     private ImageButton manageEndDateBtn;
-    private boolean isDateRangeCorrect = true;
+    private Spinner categoryGroupsSpinner;
+    private LinearLayout filteredExpensesLayout;
+    private ImageButton showFilteredExpenses;
+    private View.OnClickListener showFilteredExpensesListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            fillFilteredExpensesList();
+        }
+    };
+
+    private DatePickerDialog.OnDateSetListener onBeginDateSetListener;
+    private DatePickerDialog.OnDateSetListener onEndDateSetListener;
+
+    char decimalSeparator;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private List<String> categoryGroupsList = new ArrayList<>();
+    private Map<String, String> nameToCategory = new HashMap<>();
 
 
     @Override
@@ -36,13 +60,49 @@ public class ManageExpenses extends BaseActivity {
         manageBeginDateBtn = findViewById(R.id.manageBeginDateBtn);
         manageEndDateTextView = findViewById(R.id.manageEndDateTV);
         manageEndDateBtn = findViewById(R.id.manageEndDateBtn);
-        init();
+        categoryGroupsSpinner = findViewById(R.id.manageCategorySpinner);
+        filteredExpensesLayout = findViewById(R.id.managesEnteredLayout);
+        showFilteredExpenses = findViewById(R.id.manageShowFilteredExpensesBtn);
+        showFilteredExpenses.setOnClickListener(showFilteredExpensesListener);
 
+        init();
     }
 
     private void init() {
+        setCategoryGroupsList();
+        fillCategoryGroupsSpinner();
         setCurrentDateInDateTextViews();
         initDatePickers();
+    }
+
+    private void setCategoryGroupsList() {
+        List<CategoryGroup> categoryGroups = expenseManagerRepo.getAllCategoryGroups();
+        if (categoryGroups != null && !categoryGroups.isEmpty()) {
+            for (CategoryGroup categoryGroup : categoryGroups) {
+                String categoryGroupName = getResources().getString(getResources().getIdentifier(categoryGroup.getName(), "string", getPackageName()));
+                categoryGroupsList.add(categoryGroupName);
+                nameToCategory.put(categoryGroupName, categoryGroup.getName());
+            }
+        }
+    }
+
+    private void fillCategoryGroupsSpinner() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoryGroupsList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        categoryGroupsSpinner.setAdapter(adapter);
+        categoryGroupsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+                Toast.makeText(getApplicationContext(), "Produkt: " + ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(getApplicationContext(), "Produkt musi zostać wybrany", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setCurrentDateInDateTextViews() {
@@ -112,6 +172,47 @@ public class ManageExpenses extends BaseActivity {
                 }
             }
         };
+    }
 
+    private void fillFilteredExpensesList() {
+        filteredExpensesLayout.removeAllViewsInLayout();
+        String categoryGroup = categoryGroupsSpinner.getSelectedItem().toString();
+        String categoryGroupName = nameToCategory.get(categoryGroup);
+        String beginDate = manageBeginDateTextView.getText().toString();
+        String endDate = manageEndDateTextView.getText().toString();
+
+        List<Purchase> filteredExpenses = expenseManagerRepo.getFilteredExpenses(categoryGroupName, beginDate, endDate);
+
+        for (Purchase purchase : filteredExpenses) {
+            LayoutInflater inflater = getLayoutInflater();
+            final View enteredPurchaseView = inflater.inflate(R.layout.view_entered_purchases, filteredExpensesLayout, false);
+
+            String categoryName = getResources().getString(getResources().getIdentifier(purchase.getCategoryName(), "string", getPackageName()));
+            TextView purchaseTV = enteredPurchaseView.findViewById(R.id.purchaseEPV);
+            purchaseTV.setText(categoryName);
+            purchaseTV.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
+            TextView purchaseDateTV = enteredPurchaseView.findViewById(R.id.purchaseDateEPV);
+            purchaseDateTV.setText(purchase.getPurchaseDate());
+            TextView priceTV = enteredPurchaseView.findViewById(R.id.priceEPV);
+            priceTV.setText(formatPrice(purchase.getPrice()));
+
+            ImageButton removeBtn = enteredPurchaseView.findViewById(R.id.removePurchaseEPVBtn);
+            removeBtn.setVisibility(View.VISIBLE);
+
+            filteredExpensesLayout.addView(enteredPurchaseView);
+        }
+    }
+
+    private String formatPrice(String sPrice) {
+        int separatorIndex = sPrice.indexOf(decimalSeparator);
+        if (separatorIndex == -1) {
+            return sPrice.concat(".00");
+        }
+
+        if (sPrice.substring(separatorIndex, sPrice.length() - 1).length() == 1) {
+            return sPrice.concat("0");
+        }
+
+        return sPrice;
     }
 }

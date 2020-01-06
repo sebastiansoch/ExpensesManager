@@ -179,4 +179,30 @@ public class ExpenseManagerDBRepo implements ExpenseManagerRepo {
         return categoryGroupExpenses;
     }
 
+    @Override
+    public List<CategoryGroup> getAllCategoryGroups() {
+        List<CategoryGroup> categoryGroups = new ArrayList<>();
+        List<CategoryGroupDTO> categoryGroupsDTO = expenseManagerDAO.getAllCategoryGroups();
+        for (CategoryGroupDTO categoryGroupDTO : categoryGroupsDTO) {
+            if (!categoryGroupDTO.isHide()) {
+                categoryGroups.add(new CategoryGroup(categoryGroupDTO.getName(), categoryGroupDTO.isHide()));
+            }
+        }
+
+        return categoryGroups;
+    }
+
+    @Override
+    public List<Purchase> getFilteredExpenses(String categoryGroupName, String beginDate, String endDate) {
+        List<Purchase> filteredExpenses = new ArrayList<>();
+        List<PurchaseDTO> allCategoriesForGroupInRange = expenseManagerDAO.getAllCategoriesForGroupInRange(categoryGroupName, beginDate, endDate);
+
+        for(PurchaseDTO purchaseDTO : allCategoriesForGroupInRange) {
+            String categoryName = expenseManagerDAO.getCategoryNameForId(purchaseDTO.getCategoryId());
+            filteredExpenses.add(new Purchase(categoryGroupName, categoryName, purchaseDTO.getPurchaseDate(), purchaseDTO.getPrice().toString()));
+        }
+
+        return filteredExpenses;
+    }
+
 }

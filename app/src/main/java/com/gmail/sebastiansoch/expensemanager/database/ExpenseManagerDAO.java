@@ -209,4 +209,30 @@ public class ExpenseManagerDAO {
         return latelyEnteredPurchasesDTO;
     }
 
+    public List<PurchaseDTO> getAllCategoriesForGroupInRange(String categoryGroupName, String beginDate, String endDate) {
+        int categoryGroupId = getCategoryGroupIdForName(categoryGroupName);
+
+        StringBuilderWrapper sql = new StringBuilderWrapper("SELECT");
+        sql.appendColumn(SchemaPurchase.TABLE_NAME, "*");
+        sql.append("FROM").append(SchemaPurchase.TABLE_NAME);
+        sql.append("WHERE").appendColumn(SchemaPurchase.TABLE_NAME, SchemaPurchase.COLUMN_PURCHASE_DATE);
+        sql.append("BETWEEN").appendValue(beginDate).append("AND").appendValue(endDate);
+        sql.append("AND").appendColumn(SchemaPurchase.TABLE_NAME, SchemaPurchase.COLUMN_CATEGORY_GROUP_ID).append("=").appendValue(String.valueOf(categoryGroupId));
+
+        Cursor cursor = database.rawQuery(sql.toString(), null);
+
+        List<PurchaseDTO> filteredExpenses = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndex(SchemaPurchase.COLUMN_ID));
+                int categoryId = cursor.getInt(cursor.getColumnIndex(SchemaPurchase.COLUMN_CATEGORY_ID));
+                String purchaseDate = cursor.getString(cursor.getColumnIndex(SchemaPurchase.COLUMN_PURCHASE_DATE));
+                String entryDate = cursor.getString(cursor.getColumnIndex(SchemaPurchase.COLUMN_ENTRY_DATE));
+                Double price = cursor.getDouble(cursor.getColumnIndex(SchemaPurchase.COLUMN_PRICE));
+                filteredExpenses.add(new PurchaseDTO(id, categoryGroupId, categoryId, purchaseDate, entryDate, price));
+            } while (cursor.moveToNext());
+        }
+
+        return filteredExpenses;
+    }
 }

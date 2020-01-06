@@ -73,6 +73,15 @@
         app:layout_constraintTop_toBottomOf="@id/manageDateDescTV"
         app:srcCompat="@drawable/ic_main_calendar" />
 
+    <View
+        android:id="@+id/managesFirstDivideLine"
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:background="@color/colorLine"
+        android:layout_marginVertical="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/manageBeginDateBtn" />
+
     <Spinner
         android:id="@+id/manageCategorySpinner"
         android:layout_width="0dp"
@@ -80,22 +89,29 @@
         android:textSize="16sp"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/manageBeginDateBtn" />
+        app:layout_constraintTop_toTopOf="@id/manageShowFilteredExpensesBtn"
+        app:layout_constraintBottom_toBottomOf="@id/manageShowFilteredExpensesBtn" />
+
+    <ImageButton
+        android:id="@+id/manageShowFilteredExpensesBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8sp"
+        android:backgroundTint="@android:color/transparent"
+        android:textAlignment="viewEnd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/managesFirstDivideLine"
+        app:srcCompat="@drawable/ic_main_accept" />
 
     <View
-        android:id="@+id/managesDivideLine"
+        android:id="@+id/managesSecondDivideLine"
         android:layout_width="wrap_content"
         android:layout_height="2dp"
         android:background="@color/colorLine"
+        android:layout_marginVertical="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/manageCategorySpinner" />
-
-
-    <Space
-        android:id="@+id/managesSpace"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/purchaseSepSecondLine" />
+        app:layout_constraintTop_toBottomOf="@id/manageShowFilteredExpensesBtn" />
 
     <TextView
         android:id="@+id/managesEnteredTV"
@@ -108,7 +124,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/managesDivideLine" />
+        app:layout_constraintTop_toBottomOf="@id/managesSecondDivideLine" />
 
     <ScrollView
         android:layout_width="match_parent"

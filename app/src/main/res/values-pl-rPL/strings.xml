@@ -47,5 +47,6 @@
     <string name="expenses_statistics">Statystyki wydatków</string>
     <string name="manage_expenses">Zarządzaj wydatkami</string>
     <string name="expense_date_period">Expense date period</string>
+    <string name="btn_show_expenses">Show expenses</string>
 
 </resources>

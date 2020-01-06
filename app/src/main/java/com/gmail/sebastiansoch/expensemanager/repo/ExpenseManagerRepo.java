@@ -23,4 +23,8 @@ public interface ExpenseManagerRepo {
     List<Purchase> getLatelyEnteredPurchasesForCategoryGroup(String categoryGroupName);
 
     List<CategoryGroupExpenses> getCurrentMonthExpensesForAllCategoriesGroup();
+
+    List<CategoryGroup> getAllCategoryGroups();
+
+    List<Purchase> getFilteredExpenses(String categoryGroup, String beginDate, String endDate);
 }
