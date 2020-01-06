@@ -10,18 +10,30 @@ import com.gmail.sebastiansoch.expensemanager.database.schema.DBSchema.SchemaCat
 import com.gmail.sebastiansoch.expensemanager.database.schema.DBSchema.SchemaPurchase;
 import com.gmail.sebastiansoch.expensemanager.database.utils.StringBuilderWrapper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class ExpensesStatisticDAO {
 
     private final SQLiteDatabase database;
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     public ExpensesStatisticDAO(DBHelper DBHelper) {
         database = DBHelper.getWritableDatabase();
     }
 
     public List<CategoryGroupExpensesDTO> getCurrentMonthExpensesForAllCategoriesGroup() {
+
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        String firstDayOfMonth = sdf.format(calendar.getTime());
+        calendar.add(Calendar.MONTH, 1);
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        String lastDayOfMonth = sdf.format(calendar.getTime());
+
         StringBuilderWrapper currentPurchases = new StringBuilderWrapper("SELECT");
         currentPurchases.appendColumn(SchemaCategoryGroup.TABLE_NAME, "*");
         currentPurchases.append(", table_expenses.price");
@@ -32,7 +44,7 @@ public class ExpensesStatisticDAO {
         currentPurchases.append(", SUM(").appendColumn(SchemaPurchase.TABLE_NAME, SchemaPurchase.COLUMN_PRICE).append(") AS price");
         currentPurchases.append("FROM").append(SchemaPurchase.TABLE_NAME);
         currentPurchases.append("WHERE").appendColumn(SchemaPurchase.TABLE_NAME, SchemaPurchase.COLUMN_PURCHASE_DATE);
-        currentPurchases.append("BETWEEN").appendValue("2019-11-01").append("AND").appendValue("2019-11-30");
+        currentPurchases.append("BETWEEN").appendValue(firstDayOfMonth).append("AND").appendValue(lastDayOfMonth);
         currentPurchases.append("GROUP BY").appendColumn(SchemaPurchase.TABLE_NAME, SchemaPurchase.COLUMN_CATEGORY_GROUP_ID);
         currentPurchases.append(") AS table_expenses");
         currentPurchases.append("ON").appendColumn(SchemaCategoryGroup.TABLE_NAME, SchemaCategoryGroup.COLUMN_ID).append("=")
@@ -61,4 +73,5 @@ public class ExpensesStatisticDAO {
 
         return categoryGroupExpensesDTO;
     }
+
 }

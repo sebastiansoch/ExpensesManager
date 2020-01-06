@@ -1,13 +1,20 @@
 package com.gmail.sebastiansoch.expensemanager;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
+import androidx.core.content.ContextCompat;
+
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -47,20 +54,38 @@ public class MainActivity extends BaseActivity {
             }
         }
 
-        BarDataSet barDataSet = new BarDataSet(entryList, "Current expenses statistics");
+        BarDataSet barDataSet = new BarDataSet(entryList, "");
         barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-        barDataSet.setValueTextSize(8);
-        barDataSet.setValueFormatter(new ValueFormatter() {
-            int i = 0;
-            @Override
-            public String getBarLabel(BarEntry barEntry) {
-                return getResources().getString(getResources().getIdentifier(categoryLabels.get(i++), "string", getPackageName()));
-            }
-        });
+        barDataSet.setDrawValues(false);
+        barDataSet.setForm(Legend.LegendForm.EMPTY);
 
         currentMonthExpensesChart.setData(new BarData(barDataSet));
         currentMonthExpensesChart.setDrawValueAboveBar(false);
+        Description description = new Description();
+        description.setText("Current expenses statistics");
+        description.setTextAlign(Paint.Align.RIGHT);
+        description.setYOffset(-16);
+        description.setTextSize(16);
+        description.setTextColor(ContextCompat.getColor(this, R.color.colorChartLabel));
+        currentMonthExpensesChart.setDescription(description);
 
+        XAxis xAxis = currentMonthExpensesChart.getXAxis();
+        xAxis.disableAxisLineDashedLine();
+        xAxis.disableGridDashedLine();
+        xAxis.setLabelRotationAngle(90);
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getAxisLabel(float value, AxisBase axis) {
+                return getResources().getString(getResources().getIdentifier(categoryLabels.get((int) value), "string", getPackageName()));
+            }
+        });
+
+        YAxis yLeftAxis = currentMonthExpensesChart.getAxisLeft();
+        yLeftAxis.setAxisMinimum(0);
+
+
+        YAxis yRightAxis = currentMonthExpensesChart.getAxisRight();
+        yRightAxis.setAxisMinimum(0);
     }
 
     private void setNavigationButtons() {
