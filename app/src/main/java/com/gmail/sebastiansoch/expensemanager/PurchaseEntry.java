@@ -180,6 +180,10 @@ public class PurchaseEntry extends BaseActivity {
                 try {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     Date parsedDate = dateFormat.parse(year + "-" + (month + 1) + "-" + day);
+                    if (parsedDate.after(new Date())) {
+                        Toast.makeText(PurchaseEntry.this, "Date is not seated correctly", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     purchaseDateTextView.setText(dateFormat.format(parsedDate));
                 } catch (ParseException e) {
                     e.printStackTrace();

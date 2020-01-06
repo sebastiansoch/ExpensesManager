@@ -7,4 +7,123 @@
     android:background="@color/colorScreen"
     tools:context=".ManageExpenses">
 
+    <TextView
+        android:id="@+id/manageDateDescTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/expense_date_period"
+        android:textSize="18sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/manageBeginDateTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="2019-09-01"
+        android:textSize="18sp"
+        android:textStyle="bold|italic"
+        android:textAlignment="textEnd"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/manageBeginDateBtn"
+        app:layout_constraintTop_toTopOf="@id/manageBeginDateBtn"
+        app:layout_constraintBottom_toBottomOf="@id/manageBeginDateBtn" />
+
+
+    <ImageButton
+        android:id="@+id/manageBeginDateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@android:color/transparent"
+        android:textAlignment="viewEnd"
+        app:layout_constraintStart_toEndOf="@+id/manageBeginDateTV"
+        app:layout_constraintEnd_toStartOf="@id/manageEndDateTV"
+        app:layout_constraintTop_toBottomOf="@id/manageDateDescTV"
+        app:layout_constraintHorizontal_weight="1"
+        app:srcCompat="@drawable/ic_main_calendar" />
+
+    <TextView
+        android:id="@+id/manageEndDateTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="2019-09-01"
+        android:textSize="18sp"
+        android:textStyle="bold|italic"
+        android:textAlignment="textEnd"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toEndOf="@id/manageBeginDateBtn"
+        app:layout_constraintEnd_toStartOf="@id/manageEndDateBtn"
+        app:layout_constraintTop_toTopOf="@id/manageEndDateBtn"
+        app:layout_constraintBottom_toBottomOf="@id/manageEndDateBtn" />
+
+
+    <ImageButton
+        android:id="@+id/manageEndDateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/transparent"
+        android:textAlignment="viewEnd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/manageEndDateTV"
+        app:layout_constraintTop_toBottomOf="@id/manageDateDescTV"
+        app:srcCompat="@drawable/ic_main_calendar" />
+
+    <Spinner
+        android:id="@+id/manageCategorySpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/manageBeginDateBtn" />
+
+    <View
+        android:id="@+id/managesDivideLine"
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:background="@color/colorLine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/manageCategorySpinner" />
+
+
+    <Space
+        android:id="@+id/managesSpace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/purchaseSepSecondLine" />
+
+    <TextView
+        android:id="@+id/managesEnteredTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/entered_expenses"
+        android:textSize="18sp"
+        android:textStyle="bold|italic"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/managesDivideLine" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/managesEnteredTV">
+
+        <LinearLayout
+            android:id="@+id/managesEnteredLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

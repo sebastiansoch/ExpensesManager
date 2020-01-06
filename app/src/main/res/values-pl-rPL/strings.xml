@@ -46,5 +46,6 @@
     <string name="enter_purchases">Wprowadź wydatki</string>
     <string name="expenses_statistics">Statystyki wydatków</string>
     <string name="manage_expenses">Zarządzaj wydatkami</string>
+    <string name="expense_date_period">Expense date period</string>
 
 </resources>
