@@ -3,6 +3,7 @@ package com.gmail.sebastiansoch.expensemanager.data;
 import java.util.Objects;
 
 public class Purchase {
+    private int purchaseId = -1;
     private String categoryGroupName;
     private String categoryName;
     private String purchaseDate;
@@ -31,12 +32,21 @@ public class Purchase {
         return price;
     }
 
+    public int getPurchaseId() {
+        return purchaseId;
+    }
+
+    public void setPurchaseId(int purchaseId) {
+        this.purchaseId = purchaseId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Purchase purchase = (Purchase) o;
-        return Objects.equals(categoryGroupName, purchase.categoryGroupName) &&
+        return purchaseId == purchase.purchaseId &&
+                Objects.equals(categoryGroupName, purchase.categoryGroupName) &&
                 Objects.equals(categoryName, purchase.categoryName) &&
                 Objects.equals(purchaseDate, purchase.purchaseDate) &&
                 Objects.equals(price, purchase.price);
@@ -44,6 +54,6 @@ public class Purchase {
 
     @Override
     public int hashCode() {
-        return Objects.hash(categoryName, purchaseDate, price);
+        return Objects.hash(purchaseId, categoryGroupName, categoryName, purchaseDate, price);
     }
 }

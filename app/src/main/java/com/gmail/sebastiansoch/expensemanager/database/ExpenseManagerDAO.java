@@ -235,4 +235,20 @@ public class ExpenseManagerDAO {
 
         return filteredExpenses;
     }
+
+    public boolean removeChosenExpensesFromDB(List<Integer> purchasesDTO) {
+
+        StringBuilderWrapper sql = new StringBuilderWrapper("DELETE");
+        sql.append("FROM").append(SchemaPurchase.TABLE_NAME);
+        sql.append("WHERE").appendColumn(SchemaPurchase.TABLE_NAME, SchemaPurchase.COLUMN_ID);
+        sql.append("IN").append(purchasesDTO.toString().replace('[', '(').replace(']', ')'));
+
+        String[] purchaseIds = new String[purchasesDTO.size()];
+        for (int i = 0; i < purchasesDTO.size(); i++) {
+            purchaseIds[i] = purchasesDTO.get(i).toString();
+        }
+
+        database.execSQL(sql.toString());
+            return true;
+    }
 }

@@ -199,10 +199,17 @@ public class ExpenseManagerDBRepo implements ExpenseManagerRepo {
 
         for(PurchaseDTO purchaseDTO : allCategoriesForGroupInRange) {
             String categoryName = expenseManagerDAO.getCategoryNameForId(purchaseDTO.getCategoryId());
-            filteredExpenses.add(new Purchase(categoryGroupName, categoryName, purchaseDTO.getPurchaseDate(), purchaseDTO.getPrice().toString()));
+            Purchase purchase = new Purchase(categoryGroupName, categoryName, purchaseDTO.getPurchaseDate(), purchaseDTO.getPrice().toString());
+            purchase.setPurchaseId(purchaseDTO.getId());
+            filteredExpenses.add(purchase);
         }
 
         return filteredExpenses;
+    }
+
+    @Override
+    public boolean removeChosenExpensesFromDB(List<Integer> purchaseToRemoveFromDB) {
+        return expenseManagerDAO.removeChosenExpensesFromDB(purchaseToRemoveFromDB);
     }
 
 }

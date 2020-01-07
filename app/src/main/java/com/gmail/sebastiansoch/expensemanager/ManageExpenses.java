@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.gmail.sebastiansoch.expensemanager.data.CategoryGroup;
 import com.gmail.sebastiansoch.expensemanager.data.Purchase;
 
+import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,6 +42,13 @@ public class ManageExpenses extends BaseActivity {
             fillFilteredExpensesList();
         }
     };
+    private ImageButton removeExpensesFromDbBtn;
+    private View.OnClickListener removeExpensesFromDbListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            removeExpensesFromDB();
+        }
+    };
 
     private DatePickerDialog.OnDateSetListener onBeginDateSetListener;
     private DatePickerDialog.OnDateSetListener onEndDateSetListener;
@@ -49,6 +57,7 @@ public class ManageExpenses extends BaseActivity {
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private List<String> categoryGroupsList = new ArrayList<>();
     private Map<String, String> nameToCategory = new HashMap<>();
+    private List<Integer> purchaseToRemoveFromDB = new ArrayList<>();
 
 
     @Override
@@ -64,11 +73,23 @@ public class ManageExpenses extends BaseActivity {
         filteredExpensesLayout = findViewById(R.id.managesEnteredLayout);
         showFilteredExpenses = findViewById(R.id.manageShowFilteredExpensesBtn);
         showFilteredExpenses.setOnClickListener(showFilteredExpensesListener);
+        removeExpensesFromDbBtn = findViewById(R.id.manageRemoveExpensesBtn);
+        removeExpensesFromDbBtn.setOnClickListener(removeExpensesFromDbListener);
 
         init();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        purchaseToRemoveFromDB.clear();
+    }
+
     private void init() {
+
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        decimalSeparator = symbols.getDecimalSeparator();
+
         setCategoryGroupsList();
         fillCategoryGroupsSpinner();
         setCurrentDateInDateTextViews();
@@ -177,13 +198,13 @@ public class ManageExpenses extends BaseActivity {
     private void fillFilteredExpensesList() {
         filteredExpensesLayout.removeAllViewsInLayout();
         String categoryGroup = categoryGroupsSpinner.getSelectedItem().toString();
-        String categoryGroupName = nameToCategory.get(categoryGroup);
-        String beginDate = manageBeginDateTextView.getText().toString();
-        String endDate = manageEndDateTextView.getText().toString();
+        final String categoryGroupName = nameToCategory.get(categoryGroup);
+        final String beginDate = manageBeginDateTextView.getText().toString();
+        final String endDate = manageEndDateTextView.getText().toString();
 
         List<Purchase> filteredExpenses = expenseManagerRepo.getFilteredExpenses(categoryGroupName, beginDate, endDate);
 
-        for (Purchase purchase : filteredExpenses) {
+        for (final Purchase purchase : filteredExpenses) {
             LayoutInflater inflater = getLayoutInflater();
             final View enteredPurchaseView = inflater.inflate(R.layout.view_entered_purchases, filteredExpensesLayout, false);
 
@@ -198,6 +219,13 @@ public class ManageExpenses extends BaseActivity {
 
             ImageButton removeBtn = enteredPurchaseView.findViewById(R.id.removePurchaseEPVBtn);
             removeBtn.setVisibility(View.VISIBLE);
+            removeBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    filteredExpensesLayout.removeView(enteredPurchaseView);
+                    purchaseToRemoveFromDB.add(purchase.getPurchaseId());
+                }
+            });
 
             filteredExpensesLayout.addView(enteredPurchaseView);
         }
@@ -215,4 +243,17 @@ public class ManageExpenses extends BaseActivity {
 
         return sPrice;
     }
+
+    private void removeExpensesFromDB() {
+        if (purchaseToRemoveFromDB != null && !purchaseToRemoveFromDB.isEmpty()) {
+            if (expenseManagerRepo.removeChosenExpensesFromDB(purchaseToRemoveFromDB)) {
+                Toast.makeText(this, "Chosen expenses removed from DB", Toast.LENGTH_SHORT);
+            } else {
+                Toast.makeText(this, "Something went wrong. Chosen expenses were not removed from DB", Toast.LENGTH_SHORT);
+            }
+        }
+
+    }
+
+
 }

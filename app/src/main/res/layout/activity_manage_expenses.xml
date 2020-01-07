@@ -22,7 +22,6 @@
         android:id="@+id/manageBeginDateTV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="2019-09-01"
         android:textSize="18sp"
         android:textStyle="bold|italic"
         android:textAlignment="textEnd"
@@ -50,7 +49,6 @@
         android:id="@+id/manageEndDateTV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="2019-09-01"
         android:textSize="18sp"
         android:textStyle="bold|italic"
         android:textAlignment="textEnd"
@@ -78,7 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="2dp"
         android:background="@color/colorLine"
-        android:layout_marginVertical="8dp"
+        android:layout_marginVertical="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/manageBeginDateBtn" />
 
@@ -96,7 +94,6 @@
         android:id="@+id/manageShowFilteredExpensesBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8sp"
         android:backgroundTint="@android:color/transparent"
         android:textAlignment="viewEnd"
@@ -109,29 +106,41 @@
         android:layout_width="wrap_content"
         android:layout_height="2dp"
         android:background="@color/colorLine"
-        android:layout_marginVertical="8dp"
+        android:layout_marginVertical="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/manageShowFilteredExpensesBtn" />
 
     <TextView
         android:id="@+id/managesEnteredTV"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/entered_expenses"
         android:textSize="18sp"
         android:textStyle="bold|italic"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/managesSecondDivideLine" />
+        app:layout_constraintTop_toTopOf="@+id/manageRemoveExpensesBtn"
+        app:layout_constraintBottom_toBottomOf="@+id/manageRemoveExpensesBtn"/>
+
+
+    <ImageButton
+        android:id="@+id/manageRemoveExpensesBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8sp"
+        android:backgroundTint="@android:color/transparent"
+        android:textAlignment="viewEnd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/managesSecondDivideLine"
+        app:srcCompat="@drawable/ic_main_save" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/managesEnteredTV">
+        app:layout_constraintTop_toBottomOf="@+id/manageRemoveExpensesBtn">
 
         <LinearLayout
             android:id="@+id/managesEnteredLayout"
