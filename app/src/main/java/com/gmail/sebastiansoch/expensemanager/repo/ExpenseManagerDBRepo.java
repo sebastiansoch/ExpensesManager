@@ -208,8 +208,8 @@ public class ExpenseManagerDBRepo implements ExpenseManagerRepo {
     }
 
     @Override
-    public boolean removeChosenExpensesFromDB(List<Integer> purchaseToRemoveFromDB) {
-        return expenseManagerDAO.removeChosenExpensesFromDB(purchaseToRemoveFromDB);
+    public void removeChosenExpensesFromDB(List<Integer> purchaseToRemoveFromDB) {
+        expenseManagerDAO.removeChosenExpensesFromDB(purchaseToRemoveFromDB);
     }
 
 }

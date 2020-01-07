@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -29,6 +30,7 @@ import java.util.Map;
 
 public class ManageExpenses extends BaseActivity {
 
+    char decimalSeparator;
     private TextView manageBeginDateTextView;
     private ImageButton manageBeginDateBtn;
     private TextView manageEndDateTextView;
@@ -36,29 +38,25 @@ public class ManageExpenses extends BaseActivity {
     private Spinner categoryGroupsSpinner;
     private LinearLayout filteredExpensesLayout;
     private ImageButton showFilteredExpenses;
+    private ImageButton removeExpensesFromDbBtn;
+    private DatePickerDialog.OnDateSetListener onBeginDateSetListener;
+    private DatePickerDialog.OnDateSetListener onEndDateSetListener;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private List<String> categoryGroupsList = new ArrayList<>();
+    private Map<String, String> nameToCategory = new HashMap<>();
+    private List<Integer> purchaseToRemoveFromDB = new ArrayList<>();
     private View.OnClickListener showFilteredExpensesListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             fillFilteredExpensesList();
         }
     };
-    private ImageButton removeExpensesFromDbBtn;
     private View.OnClickListener removeExpensesFromDbListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             removeExpensesFromDB();
         }
     };
-
-    private DatePickerDialog.OnDateSetListener onBeginDateSetListener;
-    private DatePickerDialog.OnDateSetListener onEndDateSetListener;
-
-    char decimalSeparator;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    private List<String> categoryGroupsList = new ArrayList<>();
-    private Map<String, String> nameToCategory = new HashMap<>();
-    private List<Integer> purchaseToRemoveFromDB = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,26 +204,34 @@ public class ManageExpenses extends BaseActivity {
 
         for (final Purchase purchase : filteredExpenses) {
             LayoutInflater inflater = getLayoutInflater();
-            final View enteredPurchaseView = inflater.inflate(R.layout.view_entered_purchases, filteredExpensesLayout, false);
+            final View enteredPurchaseView = inflater.inflate(R.layout.view_manage_purchases, filteredExpensesLayout, false);
 
             String categoryName = getResources().getString(getResources().getIdentifier(purchase.getCategoryName(), "string", getPackageName()));
-            TextView purchaseTV = enteredPurchaseView.findViewById(R.id.purchaseEPV);
+            TextView purchaseTV = enteredPurchaseView.findViewById(R.id.managePurchaseEPV);
             purchaseTV.setText(categoryName);
             purchaseTV.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
-            TextView purchaseDateTV = enteredPurchaseView.findViewById(R.id.purchaseDateEPV);
+            TextView purchaseDateTV = enteredPurchaseView.findViewById(R.id.managePurchaseDateEPV);
             purchaseDateTV.setText(purchase.getPurchaseDate());
-            TextView priceTV = enteredPurchaseView.findViewById(R.id.priceEPV);
+            TextView priceTV = enteredPurchaseView.findViewById(R.id.managePriceEPV);
             priceTV.setText(formatPrice(purchase.getPrice()));
 
-            ImageButton removeBtn = enteredPurchaseView.findViewById(R.id.removePurchaseEPVBtn);
-            removeBtn.setVisibility(View.VISIBLE);
-            removeBtn.setOnClickListener(new View.OnClickListener() {
+            CheckBox markToRemoveChBox = enteredPurchaseView.findViewById(R.id.manageToRemoveChBox);
+            markToRemoveChBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    filteredExpensesLayout.removeView(enteredPurchaseView);
                     purchaseToRemoveFromDB.add(purchase.getPurchaseId());
                 }
             });
+
+//            ImageButton removeBtn = enteredPurchaseView.findViewById(R.id.removePurchaseEPVBtn);
+//            removeBtn.setVisibility(View.VISIBLE);
+//            removeBtn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    filteredExpensesLayout.removeView(enteredPurchaseView);
+//
+//                }
+//            });
 
             filteredExpensesLayout.addView(enteredPurchaseView);
         }
@@ -246,11 +252,8 @@ public class ManageExpenses extends BaseActivity {
 
     private void removeExpensesFromDB() {
         if (purchaseToRemoveFromDB != null && !purchaseToRemoveFromDB.isEmpty()) {
-            if (expenseManagerRepo.removeChosenExpensesFromDB(purchaseToRemoveFromDB)) {
-                Toast.makeText(this, "Chosen expenses removed from DB", Toast.LENGTH_SHORT);
-            } else {
-                Toast.makeText(this, "Something went wrong. Chosen expenses were not removed from DB", Toast.LENGTH_SHORT);
-            }
+            expenseManagerRepo.removeChosenExpensesFromDB(purchaseToRemoveFromDB);
+            showFilteredExpenses.performClick();
         }
 
     }

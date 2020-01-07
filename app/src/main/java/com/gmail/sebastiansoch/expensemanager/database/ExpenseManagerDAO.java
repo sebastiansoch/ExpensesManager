@@ -236,7 +236,7 @@ public class ExpenseManagerDAO {
         return filteredExpenses;
     }
 
-    public boolean removeChosenExpensesFromDB(List<Integer> purchasesDTO) {
+    public void removeChosenExpensesFromDB(List<Integer> purchasesDTO) {
 
         StringBuilderWrapper sql = new StringBuilderWrapper("DELETE");
         sql.append("FROM").append(SchemaPurchase.TABLE_NAME);
@@ -249,6 +249,5 @@ public class ExpenseManagerDAO {
         }
 
         database.execSQL(sql.toString());
-            return true;
     }
 }

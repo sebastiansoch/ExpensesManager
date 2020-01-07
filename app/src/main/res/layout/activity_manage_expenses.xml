@@ -133,7 +133,7 @@
         android:textAlignment="viewEnd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/managesSecondDivideLine"
-        app:srcCompat="@drawable/ic_main_save" />
+        app:srcCompat="@drawable/ic_main_garbage" />
 
     <ScrollView
         android:layout_width="match_parent"

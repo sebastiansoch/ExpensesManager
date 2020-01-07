@@ -28,5 +28,5 @@ public interface ExpenseManagerRepo {
 
     List<Purchase> getFilteredExpenses(String categoryGroup, String beginDate, String endDate);
 
-    boolean removeChosenExpensesFromDB(List<Integer> purchaseToRemoveFromDB);
+    void removeChosenExpensesFromDB(List<Integer> purchaseToRemoveFromDB);
 }
