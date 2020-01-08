@@ -22,7 +22,7 @@
         android:id="@+id/chooseCategoryTV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Choose purchase categories"
+        android:text="@string/choose_purchase_categories"
         android:textSize="18sp"
         android:textStyle="bold|italic"
         android:layout_marginStart="12dp"

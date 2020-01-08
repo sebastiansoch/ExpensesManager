@@ -99,6 +99,7 @@
         android:layout_height="wrap_content"
         android:gravity="end"
         android:inputType="numberDecimal"
+        android:autofillHints="@string/price"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/addPurchaseBtn"
         app:layout_constraintHorizontal_weight="2"

@@ -41,6 +41,7 @@ public class ManageExpenses extends BaseActivity {
     private ImageButton removeExpensesFromDbBtn;
     private DatePickerDialog.OnDateSetListener onBeginDateSetListener;
     private DatePickerDialog.OnDateSetListener onEndDateSetListener;
+
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private List<String> categoryGroupsList = new ArrayList<>();
     private Map<String, String> nameToCategory = new HashMap<>();
@@ -222,16 +223,6 @@ public class ManageExpenses extends BaseActivity {
                     purchaseToRemoveFromDB.add(purchase.getPurchaseId());
                 }
             });
-
-//            ImageButton removeBtn = enteredPurchaseView.findViewById(R.id.removePurchaseEPVBtn);
-//            removeBtn.setVisibility(View.VISIBLE);
-//            removeBtn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    filteredExpensesLayout.removeView(enteredPurchaseView);
-//
-//                }
-//            });
 
             filteredExpensesLayout.addView(enteredPurchaseView);
         }

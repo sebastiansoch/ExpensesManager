@@ -1,7 +1,6 @@
 package com.gmail.sebastiansoch.expensemanager;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
@@ -37,11 +36,11 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         currentMonthExpensesChart = findViewById(R.id.currentMonthExpensesChart);
-        prepareCurrentStatisticsChart();
+        prepareCurrentMonthExpensesChart();
         setNavigationButtons();
     }
 
-    private void prepareCurrentStatisticsChart() {
+    private void prepareCurrentMonthExpensesChart() {
         List<CategoryGroupExpenses> currentMonthExpensesForAllCategoriesGroup = expenseManagerRepo.getCurrentMonthExpensesForAllCategoriesGroup();
         List<BarEntry> entryList = new ArrayList<>();
         final List<String> categoryLabels = new ArrayList<>();

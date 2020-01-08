@@ -4,14 +4,120 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     tools:context=".ExpensesStatistics">
+
+    <TextView
+        android:id="@+id/statDateDescTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/expense_date_period"
+        android:textSize="18sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/statBeginDateTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold|italic"
+        android:textAlignment="textEnd"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/statBeginDateBtn"
+        app:layout_constraintTop_toTopOf="@id/statBeginDateBtn"
+        app:layout_constraintBottom_toBottomOf="@id/statBeginDateBtn" />
+
+
+    <ImageButton
+        android:id="@+id/statBeginDateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@android:color/transparent"
+        android:textAlignment="viewEnd"
+        app:layout_constraintStart_toEndOf="@+id/statBeginDateTV"
+        app:layout_constraintEnd_toStartOf="@id/statEndDateTV"
+        app:layout_constraintTop_toBottomOf="@id/statDateDescTV"
+        app:layout_constraintHorizontal_weight="1"
+        app:srcCompat="@drawable/ic_main_calendar" />
+
+    <TextView
+        android:id="@+id/statEndDateTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold|italic"
+        android:textAlignment="textEnd"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toEndOf="@id/statBeginDateBtn"
+        app:layout_constraintEnd_toStartOf="@id/statEndDateBtn"
+        app:layout_constraintTop_toTopOf="@id/statEndDateBtn"
+        app:layout_constraintBottom_toBottomOf="@id/statEndDateBtn" />
+
+
+    <ImageButton
+        android:id="@+id/statEndDateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/transparent"
+        android:textAlignment="viewEnd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/statEndDateTV"
+        app:layout_constraintTop_toBottomOf="@id/statDateDescTV"
+        app:srcCompat="@drawable/ic_main_calendar" />
+
+    <View
+        android:id="@+id/statsFirstDivideLine"
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:background="@color/colorLine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/statBeginDateBtn" />
+
+    <Spinner
+        android:id="@+id/statCategorySpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/statShowFilteredExpensesBtn"
+        app:layout_constraintBottom_toBottomOf="@id/statShowFilteredExpensesBtn" />
+
+    <ImageButton
+        android:id="@+id/statShowFilteredExpensesBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8sp"
+        android:backgroundTint="@android:color/transparent"
+        android:textAlignment="viewEnd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/statsFirstDivideLine"
+        app:srcCompat="@drawable/ic_main_accept" />
+
+    <View
+        android:id="@+id/statsSecondDivideLine"
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:background="@color/colorLine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/statShowFilteredExpensesBtn" />
+
+
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/statisticsChart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/statsSecondDivideLine"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    </com.github.mikephil.charting.charts.BarChart>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
