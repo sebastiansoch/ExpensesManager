@@ -1,6 +1,8 @@
 package com.gmail.sebastiansoch.expensemanager;
 
 import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,15 +13,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.mikephil.charting.charts.BarChart;
+import androidx.core.content.ContextCompat;
+
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.gmail.sebastiansoch.expensemanager.data.CategoryGroup;
 
 import java.text.ParseException;
@@ -41,7 +46,7 @@ public class ExpensesStatistics extends BaseActivity {
     private ImageButton endDateBtn;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    private BarChart chart;
+    private LineChart expensesStatisticChart;
     private List<String> categoryGroupsList = new ArrayList<>();
     private Map<String, String> nameToCategory = new HashMap<>();
     private DatePickerDialog.OnDateSetListener onBeginDateSetListener;
@@ -51,7 +56,7 @@ public class ExpensesStatistics extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expenses_statistics);
-        chart = findViewById(R.id.statisticsChart);
+        expensesStatisticChart = findViewById(R.id.statisticsChart);
 
         beginDateTextView = findViewById(R.id.statBeginDateTV);
         endDateTextView = findViewById(R.id.statEndDateTV);
@@ -71,33 +76,41 @@ public class ExpensesStatistics extends BaseActivity {
     }
 
     private void prepareStatistics() {
-//        List<BarEntry> entries = new ArrayList<>();
-//        entries.add(new BarEntry(0, new float[]{4f, 2f}));
-//        entries.add(new BarEntry(1, new float[]{8f, 2f}));
-//        entries.add(new BarEntry(2, new float[]{6f, 10f}));
-//        entries.add(new BarEntry(3, new float[]{12f, 1f}));
-//        entries.add(new BarEntry(4, new float[]{18f, 2f}));
-//        entries.add(new BarEntry(5, new float[]{9f, 6f}));
 
-        List<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(0, 4f, "JA"));
-        entries.add(new BarEntry(1, 8f, "FE"));
-        entries.add(new BarEntry(2, 6f, "MA"));
-        entries.add(new BarEntry(3, 12f, "AP"));
-        entries.add(new BarEntry(4, 18f, "MY"));
-        entries.add(new BarEntry(5, 9f, "JU"));
+        List<Entry> entries1 = new ArrayList<>();
+        entries1.add(new Entry(0, 4f));
+        entries1.add(new Entry(1, 8f));
+        entries1.add(new Entry(2, 6f));
+        entries1.add(new Entry(3, 12f));
+        entries1.add(new Entry(4, 18f));
+        entries1.add(new Entry(5, 9f));
 
-        BarDataSet dataSet = new BarDataSet(entries, "# of Calls");
-        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-        dataSet.setValueTextSize(20);
+        List<Entry> entries2 = new ArrayList<>();
+        entries2.add(new Entry(0, 2f));
+        entries2.add(new Entry(1, 5f));
+        entries2.add(new Entry(2, 12f));
+        entries2.add(new Entry(3, 18f));
+        entries2.add(new Entry(4, 1f));
+        entries2.add(new Entry(5, 7f));
 
-        //Add data to chart
-        BarData barData = new BarData(dataSet);
-        chart.setData(barData);
+
+        LineDataSet dataSet1 = new LineDataSet(entries1, "# opis do wykres numer 1");
+        dataSet1.setColor(Color.RED);
+        LineDataSet dataSet2 = new LineDataSet(entries2, "# opis do wykres numer 2");
+        dataSet2.setColor(Color.MAGENTA);
+
+        List<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(dataSet1);
+        dataSets.add(dataSet2);
+
+        //Add data to expensesStatisticChart
+        LineData lineData = new LineData(dataSets);
+        expensesStatisticChart.setData(lineData);
+
 
         //X-axis label
         final List<String> xLabels = new ArrayList<>(Arrays.asList("January", "February", "March", "April", "May", "June"));
-        XAxis xAxis = chart.getXAxis();
+        XAxis xAxis = expensesStatisticChart.getXAxis();
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getAxisLabel(float value, AxisBase axis) {
@@ -106,9 +119,12 @@ public class ExpensesStatistics extends BaseActivity {
         });
 
         Description description = new Description();
-        description.setText("# of times Alice called Bob");
-        chart.setDescription(description);
-
+        description.setText("Expenses statistic chart");
+        description.setTextAlign(Paint.Align.RIGHT);
+        description.setYOffset(16);
+        description.setTextSize(16);
+        description.setTextColor(ContextCompat.getColor(this, R.color.colorChartLabel));
+        expensesStatisticChart.setDescription(description);
 
     }
 

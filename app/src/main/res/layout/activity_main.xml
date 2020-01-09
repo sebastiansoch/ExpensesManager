@@ -35,6 +35,8 @@
         android:layout_height="wrap_content"
         android:text="@string/enter_purchases"
         android:layout_marginHorizontal="4dp"
+        android:gravity="center"
+        android:maxWidth="68dp"
         app:layout_constraintTop_toBottomOf="@id/expenseCategoriesBtn"
         app:layout_constraintEnd_toEndOf="@id/expenseCategoriesBtn"
         app:layout_constraintStart_toStartOf="@id/expenseCategoriesBtn" />
@@ -54,6 +56,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/expenses_statistics"
+        android:gravity="center"
+        android:maxWidth="68dp"
         app:layout_constraintTop_toBottomOf="@id/expensesStatisticsBtn"
         app:layout_constraintEnd_toEndOf="@id/expensesStatisticsBtn"
         app:layout_constraintStart_toStartOf="@id/expensesStatisticsBtn" />
@@ -73,6 +77,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/manage_expenses"
+        android:gravity="center"
+        android:maxWidth="68dp"
         app:layout_constraintTop_toBottomOf="@id/manageExpensesBtn"
         app:layout_constraintEnd_toEndOf="@id/manageExpensesBtn"
         app:layout_constraintStart_toStartOf="@id/manageExpensesBtn" />

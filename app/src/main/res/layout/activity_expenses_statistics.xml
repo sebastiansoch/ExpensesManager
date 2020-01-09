@@ -109,7 +109,7 @@
 
 
 
-    <com.github.mikephil.charting.charts.BarChart
+    <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/statisticsChart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -118,6 +118,6 @@
         app:layout_constraintTop_toBottomOf="@id/statsSecondDivideLine"
         app:layout_constraintBottom_toBottomOf="parent">
 
-    </com.github.mikephil.charting.charts.BarChart>
+    </com.github.mikephil.charting.charts.LineChart>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
