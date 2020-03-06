@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:onClick="saveCategoriesConfiguration"
-        android:backgroundTint="@android:color/transparent"
+        android:background="@drawable/background_small_image_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_main_save" />

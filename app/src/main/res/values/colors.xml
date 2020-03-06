@@ -4,11 +4,11 @@
     <color name="colorPrimaryDark">#C4000000</color>
     <color name="colorAccent">#061464</color>
 
-    <color name="colorLightRow">#F1F1F2</color>
-    <color name="colorDarkRow">#A1F1F1F2</color>
+    <color name="colorLightRow">#E4E8FF</color>
+    <color name="colorDarkRow">#CDD4FD</color>
 
-    <color name="colorScreen">#1B3C3C47</color>
-    <color name="colorLine">#CB000000</color>
+    <color name="colorScreen">#E9EBFB</color>
+    <color name="colorLine">#405DFF</color>
 
     <color name="colorChartLabel">#061464</color>
 </resources>

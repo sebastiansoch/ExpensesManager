@@ -50,10 +50,9 @@ public class ExpenseCategories extends BaseActivity {
                     tilesTableLayout.addView(tableRow);
                 }
                 ImageButton button = new ImageButton(this);
-                button.setPadding(32, 32, 32, 32);
                 button.setTag(categoryGroupTile.getTilesTag());
                 button.setImageResource(getResources().getIdentifier(categoryGroupTile.getTilesIconPath(), "drawable", getPackageName()));
-                button.setBackgroundColor(Color.TRANSPARENT);
+                button.setBackground(getDrawable(R.drawable.background_image_button));
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
